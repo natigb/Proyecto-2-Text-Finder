@@ -35,6 +35,15 @@ public class Main extends Application {
         
         
         
+        
+        
+    }
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        //launch(args);
         BSTree tree = new BSTree();
         tree.insert(5, null);
         tree.insert(2, null);
@@ -43,15 +52,14 @@ public class Main extends Application {
         tree.insert(8, null);
         tree.insert(6, null);
         tree.walkInOrder();
-        System.out.println(tree.contains(5));
-        System.out.println(tree.contains(342));
-    }
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        launch(args);
+        System.out.println("Max"+tree.findMax());
+        System.out.println("Min"+tree.findMin());
+        tree.delete(1);
+        tree.delete(8);
+        System.out.println("Max"+tree.findMax());
+        System.out.println("Min"+tree.findMin());
+        
+        //tree.walkInOrder();
     }
     
 }
