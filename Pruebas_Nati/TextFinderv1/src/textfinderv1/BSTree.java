@@ -16,7 +16,14 @@ public class BSTree {
     public BSTree(){
         this.root = null;
     }
-    
+    public void walkInOrder(Node x){
+        if (x!= null){
+            walkInOrder(x.left);
+            System.out.println(x.key);
+            walkInOrder(x.right);
+        
+        }
+    }
     public void insert (int key, Object value){
         Node newNode = new Node(key);
         newNode.value = value;
