@@ -1,0 +1,764 @@
+TO
+M
+ S
+C
+H
+IE
+R
+L
+IT
+Z
+/G
+E
+T
+T
+Y
+ I
+M
+A
+G
+E
+S
+16 BETTER SOFTWARE JANUARY 2005 www.stickyminds.com
+Manage People & Projects
+SUPPOSE FOR A MOMENT YOU?RE IN CHARGE OF
+development at BigNewIdea Software. You?ve
+adopted an Agile development approach that
+suggests releasing your software in smaller
+incremental releases is a good idea.
+BigNewIdea?s marketing folks and business managers exclaim excitedly, ?If we build the highest-
+value features first, the users will love our first release!? You develop for a few months, always
+shifting the highest-value features to the top of the stack. You eventually release a well-built, rela-
+tively bug-free release. First responses from people using the software seem positive. ?This looks
+really good!? they say. ?It?s got all these features we?ve wanted for a long time!? But strangely,
+sales seem to be slower than expected. Salespeople find that many customers who have pur-
+chased the software aren?t actually using it. ?What?s wrong?? marketing asks through question-
+naires and expensive focus groups. The reply: ?What you have is fine, but there?s not enough here 
+It?s All in
+How You
+Design your project in 
+working layers to avoid 
+half-baked incremental 
+releases. BY JEFF PATTON
+Slice 
+It
+FPO
+for me to get my job done. I still have to
+do much of my work manually. I have to
+transfer information from my paperwork
+to the software and back again. Some-
+times I can?t even figure out a paper
+workaround. I?ll wait for the next release
+to see if you get farther along.?
+You expected that all those high-value
+features would make a great product, but
+it turned out you needed some of those
+low-value features to hold everything to-
+gether?to make the product useful to
+those trying to accomplish work with the
+software. If you still want to release the
+software incrementally, how do you
+choose a first bundle of features that is
+both high value and immediately useful?
+In this article, we?ll walk through a sim-
+ple, collaborative, card-based planning
+model that does just that.
+PREP WORK
+Before you begin, you need to choose a
+good cross section of folks to participate
+in creating the model. While the model
+could be prepared by one person, I
+wouldn?t recommend it. Having a mix of
+people will help increase understanding
+of the software throughout the team.
+Choose people familiar with the users
+and functionality of your software, such
+as domain experts, testers, and user inter-
+face designers. Choose people who have
+some ideas on how the software will earn
+your company money?your stakehold-
+ers. Choose people who know something
+about how long this work will take to
+build?a developer or two. Four to eight
+people total is a good number. Use the
+creation of the model as an opportunity
+to elicit discussion about the features be-
+ing built.
+STEP 1: COLLECT FEATURES
+With the prep work done, it?s time to
+start assembling the model. The first step
+is to answer the question ?What does our
+software do?? You should start with a
+user-centric list of features. De-
+pending on your situation, this
+might be trickier than it sounds.
+My definition of a good feature
+is one that is expressed from a
+user?s perspective. For example, if I
+were building new software for a
+retail store, a feature might be ?sell
+items at point of sale? as opposed
+to ?the system supports EAN-13
+barcodes.? There?s a difference
+there that I hope is not so subtle.
+The first feature describes an activ-
+ity done by a person; the second
+describes an attribute of an object.
+Look for features that start with or
+include some action verb; that?s a
+good sign. When describing your soft-
+ware, it helps to indicate how it will be
+used rather than how it might look or the
+details of its implementation. Keeping
+your focus on the usefulness of the soft-
+ware at this stage helps to ensure that the
+bits of software released incrementally
+will be useful.
+If you?re not already describing fea-
+tures for your software in a user-centric
+way, you may need to spend a little time
+reframing your features.
+Write the features on 3×5 cards or on
+something else that you can easily move
+around in your model. I?ve found it?s easy
+to merge features originating in a spread-
+sheet with a word processor document
+that will print them on precut 3×5 cards
+or business cards. This way, the cards are
+easy to read and work well within a card-
+modeling exercise. Leave room under the
+feature statement for the details we?ll add
+in Steps 2 and 3.
+Suppose I?m building some software
+for small retailers. I know that their busi-
+ness processes go a bit like this (notice
+that each one starts with an action verb):
+? Create purchase order for vendor
+? Receive shipment from vendor
+? Create tags for received items
+? Sell items
+? Return and refund items
+? Analyze sales
+STEP 2: ADD DETAILS
+To help you model these features, let?s
+note three important details on the
+cards: who uses the feature, how often
+the feature is used, and how valuable the
+feature is.
+First, for each feature, detail the kind
+of user who uses it. When describing this
+feature, you likely envisioned someone
+using it?who was he? You can identify
+him with a job title, a role name, a per-
+sona, or in any other way most appropri-
+ate for your system. (See this issue?s
+StickyNotes for more on roles.)
+Looking back at my set of retail store
+features, I know that the same person
+usually doesn?t do all this stuff. I know
+that the work is divided between mer-
+chandise buyers, stock receivers, cus-
+tomer consultants, and sales analysts. I
+note each user under the feature state-
+Manage People & Projects
+create po
+for vendor
+(merchandise buyer)
+frequency: weekly
+value: medium
+Figure 1: A completed feature card.
+[When releasing] software incrementally,
+how do you choose a first
+bundle of features that is both high value
+and immediately useful?
+18 BETTER SOFTWARE JANUARY 2005 www.stickyminds.com
+Key
+Ingredients
+2?3 large sheets poster paper
+3?4 packs markers
+1 roll tape
+1?2 packs 3×5 index cards
+Plus, the fundamental element of all good
+meetings: food.
+ment he is involved with.
+Next, note how frequently you be-
+lieve each feature will be used. You can
+use simple notation like high, medium, or
+low. I use a little more precise continu-
+um, writing under the user on the feature
+card either hourly, daily, weekly, month-
+ly, or quarterly.
+Finally, for each feature, note its value
+to the purchasers of this system. If your
+company has a good understanding of
+where ROI comes from on this system,
+this may not be too hard?but for the rest
+of us, this is usually a subjective judg-
+ment. Using high, medium, and low will
+work fine for our use today. I?ll write the
+value under the frequency on each card.
+When all of these details have been
+added, one of the feature cards might
+look like the one in Figure 1.
+When trying this at home, make
+adding these details a collaborative activ-
+ity. Assuming you?ve got your features
+written or otherwise printed on cards,
+spread those cards out on the table. Take
+turns picking up cards and adding user,
+frequency, and value. If you?ve got a
+good mixed group, you?ll notice that
+some folks have strong opinions about
+some of these details. Some folks may
+know a bit about the user and frequency,
+but nothing about value. You?ll find with
+a good mixed collaborative group, you?ll
+be able to quickly fill in all these details.
+You?ll notice lots of good discussion
+while doing it.
+When writing your features on cards,
+the same information should appear in
+the same place all the time. This makes
+the cards easy to read when placed in the
+model. They might start to look like
+playing cards in a game. That?s good.
+Building the model should feel a bit like
+you?re playing a game.
+STEP 3: PLACE CARDS IN
+SEQUENTIAL ORDER
+To build this model, lay a few sheets of
+poster paper on a large worktable. This
+model is generally wide, so arrange
+sheets and tape them together to form a
+broad poster.
+Draw a horizontal line across the top
+of the page and label it usage sequence.
+Draw a line on the left side of the
+page from top to bottom and label it crit-
+icality. Label the top endpoint of this line
+always used, the bottom endpoint sel-
+dom used. The resulting diagram should
+look like the one in Figure 2.
+You now need to place features in the
+model according to usage sequence and
+criticality. By using the features we wrote
+out for our retail software earlier, we?ve
+already listed them in the order the fea-
+tures will be used. PO creation happens
+before shipments are received from the
+vendor. Tags are created before the items
+are put on the shelf and sold. Sales are
+Tips for Success
+Manage People & Projects
+When assembling the batch of features for your project, pay at-
+tention to the following details to help ensure success.
+When using use cases, focus first on those where the actors
+are a single user and the system. Avoid planning with use cases
+that describe the internal workings of the system. Avoid use cas-
+es that describe business processes at a very high level; make
+them what author Alistair Cockburn calls ?sea level system scope
+use cases.?
+If you?re using user stories, include a user of the feature in a
+concise story statement, such as the one author Mike Cohn cred-
+its practitioner Rachel Davies with inventing: As a [type of user] I
+want [some particular feature] so that [some benefit is received].
+For example: ?As a bank customer I want to view my current ac-
+count balance so that I know my recent deposit went through.?
+The completed model shows us features arranged in the order
+they?re needed by people and business processes, but this really
+only gives us an indication of dependence. As you slice off releas-
+es, scan each feature for dependencies that might not be in this
+release or a prior one. I?ve found that if I slice releases horizontal-
+ly starting from the top of the model down, I rarely run into de-
+pendencies I haven?t already resolved in a previous release.
+Sometimes folks suggest features that aren?t really about users
+and the functionality they need. Features like ?migrate to an Oracle
+database? or ?change the look and feel to match our new brand-
+ing.? These sorts of features don?t work well in this type of model.
+When talking about certain features, you might find it?s tough
+to defer some of them completely. When slicing off a set of fea-
+tures to release, discuss how usable that release will be. For each
+user of the system ask if she will be able to do her work with this
+subset of features. For each important feature left out, is there a
+paper process or software workaround that allows her to live
+without the feature?no matter how annoying that might be?
+Could the feature be split into a crude minimal version for earlier
+release and a more elaborate version for later release?
+See this issue?s StickyNotes for some reading that will help
+ensure a good outcome.
+Usage Sequence
+C
+ri
+ti
+ca
+lit
+y
+always
+used
+seldom
+used
+Figure 2: The model starts with an x and a y axis.
+www.stickyminds.com JANUARY 2005 BETTER SOFTWARE 19
+analyzed after some items are sold.
+That?s what I mean by usage sequence.
+In reality, it may not seem so cut and
+dried. If we really look at a retail store,
+we might find buyers on the phone plac-
+ing orders at the same time receiving
+clerks are in the back room receiving and
+tagging. If the store?s open, we hope cus-
+tomers will be on the retail floor happily
+buying our products and customer con-
+sultants will be ringing them up. It looks
+like all these features are being used si-
+multaneously and indeed they are. So
+when sequencing them in your model,
+arrange them in the order that seems log-
+ical when explaining to others the busi-
+ness process. If you explain the business
+process starting with the selling part,
+that?s OK, put that feature first. We want
+this model to help us tell stories about
+our software, so arrange them in an or-
+der that makes it easy to tell stories.
+Distribute the cards among partici-
+pants. Then have everyone, in as orderly
+a manner as possible, place the cards in
+your model by usage sequence, with fea-
+tures used early on the left and later on
+the right. Have them overlap features
+that might happen at about the same
+point in time. If someone gets confused
+about the position of a feature, suggest
+that he look at the feature and its imme-
+diate neighbors. It?s sometimes easier to
+answer the question ?does this happen
+before that? than to try to take every-
+thing into account at once.
+If we arranged our feature cards in se-
+quence, it might look a bit like the dia-
+gram in Figure 3.
+STEP 4: GROUP BY 
+FREQUENCY
+For each of these features, how critical to
+our business is it that someone actually
+uses it? Let?s look at our retail features:
+When working with the business people
+who know how their business is run,
+they inform us that orders often are
+placed with vendors informally over the
+phone without a purchase order being
+created in the system. So in those cases,
+we?ll receive the items into inventory
+without a PO. This is generally the ex-
+ception, but it happens and should be
+supported. So our feature ?create PO for
+vendor? is important to our system and
+is used frequently, but not always.
+As a group, adjust vertical positioning
+of your cards based on how critical they
+are to the business process. If the feature
+is always done, place it on the top. If the
+feature is often ?but not always?done,
+place it a bit below the top line. If it?s sel-
+dom done, place it toward the bottom. If
+you?ve got enough people working on
+the model simultaneously, this may start
+to look like a game of Twister. You?ll ob-
+serve people moving cards down only to
+see them adjusted back up by someone
+else. Use these conflicting card move-
+ments to elicit discussions on why some-
+one might believe a particular feature is
+more critical than another feature.
+If we adjust our features for criticality,
+our model might look a bit like the one
+in Figure 4.
+STEP 5: NOTE LOGICAL
+BREAKS IN WORKFLOW
+If your system is anything like those I?ve
+worked on, you?ll have knitted together a
+few distinct processes done by different
+people at different times. When you look
+across your model from left to right, you
+might start to see logical breaks in the
+workflow. Remember how for each fea-
+ture you noted a type of user or role that
+primarily used the feature? You?ll find
+that these breaks often occur when there?s
+a role change. Reading left to right you?ll
+see some features are used by one role,
+then you?ll see a change to another role
+with some features used by this next role.
+As a group, discuss where you see
+breaks or pauses in the business process.
+Then, at each break draw a vertical line,
+dividing the model into something that
+looks a bit like swim lanes. Label the re-
+sulting columns for each process as
+shown in Figure 5. If you?re finding it
+hard to divide the model in this way, dis-
+cuss why. Is there really only one type of
+user doing one process? Or, do we have
+different user?s features mixed up in the
+same timeline?
+Manage People & Projects
+create po
+for vendor
+(merchandise buyer)
+frequency: weekly
+value: medium
+Usage Sequence
+C
+ri
+ti
+ca
+lit
+y
+always
+used
+seldom
+used
+receive shipment
+from vendor
+(stock receiver)
+frequency: daily
+value: high
+create tags for
+received items
+(stock receiver)
+frequency: daily
+value: medium
+sell items
+(customer consultant)
+frequency: hourly
+value: high
+analyze sales
+(sales analyst)
+frequency: monthly
+value: highreturn and
+refund items
+(customer consultant)
+frequency: daily
+value: medium
+Figure 3: The features cards are first arranged by sequence.
+create po
+for vendor
+(merchandise buyer)
+frequency: weekly
+value: medium
+Usage Sequence
+C
+ri
+ti
+ca
+lit
+y
+always
+used
+seldom
+used
+receive shipment
+from vendor
+(stock receiver)
+frequency: daily
+value: high
+create tags for
+received items
+(stock receiver)
+frequency: daily
+value: medium
+sell items
+(customer consultant)
+frequency: hourly
+value: high
+analyze sales
+(sales analyst)
+frequency: monthly
+value: high
+return and
+refund items
+(customer consultant)
+frequency: daily
+value: medium
+Figure 4: The sequential feature cards are then staggered according to criticality.
+20 BETTER SOFTWARE JANUARY 2005 www.stickyminds.com
+In reality, it may not seem so cut and
+dried. . . . It looks like all these features
+are being used simultane-
+ously and indeed they are.
+page 21
+full-page ad
+SQE
+Manage People & Projects
+22 BETTER SOFTWARE JANUARY 2005 www.stickyminds.com
+This is all quite interesting so far, but
+what are you learning about how to
+build releases for your software? Let?s
+take a closer look.
+STEP 6: MARK THE FIRST
+SYSTEM SPAN
+Now we?re going to divide the model
+into what I call system spans. (The Pop-
+pendiecks introduced me to the term
+?span? in their book Lean Software De-
+velopment.) A system span is a set of fea-
+tures that group together logically and
+that cut through the business processes
+horizontally from start to finish.
+The first span should be the smallest
+set of features necessary to be minimally
+useful in a business context. In our mod-
+el, it turns out that the very top row (re-
+ceiving and selling items) is the first, most
+minimal system span. This will be true of
+your model, too. Draw a line under the
+top row of your model to indicate the
+features that make up this first system
+span, as shown in Figure 6.
+The first span represents the most
+concise set of features that tunnel
+through the system?s functionality from
+end to end?the bare bones minimum
+anyone could legitimately do and still
+use the system. This small span should
+always be your first release, but it need
+not be the first public release of your
+software. Getting this part completed
+and released, even if only to internal test
+environments, forces resolution of both
+the functional and technical framework
+of your application. Your testers will be
+able to see if the application hangs to-
+gether coherently. Your architects will
+be able to validate the tech-stack func-
+tions as expected and may begin work-
+ing on load tests to validate scalability.
+The team can begin to relax knowing
+that from here on in they?re adding
+more features to a system that can be re-
+leased and likely used.
+Notice how in the example we?ve not
+built any functionality to support the
+merchandise buyer or the sales analyst.
+Ultimately, we know that supporting
+those folks with some functionality is im-
+portant. But, because the work they?re
+doing doesn?t always happen, we can de-
+fer it at least for a little while.
+After drawing the line in your model
+are there roles and business processes
+that are omitted? Talk about them as a
+group.
+STEP 7: FILL IN BUILD 
+ESTIMATES
+OK, so building a first span is a good
+idea, but how long will it take? If you?ve
+got developers participating in this exer-
+cise, and you should, this is a good time
+for them to start giving development es-
+timates for each feature. Write the time
+estimates in days or weeks directly on
+the cards. Very rough estimates will do
+fine. Developers may find that seeing
+the ?big picture? helps them estimate a
+little better. (See this issue?s StickyNotes
+for more guidance on quick estimation
+techniques.)
+Once you have rough estimates, add
+up the estimates for the features above
+the line marking the first span. This is
+how long it should take to build.
+STEP 8: SLICE AND SERVE
+The plan may now be ?sliced? horizon-
+tally into subsequent system spans, or
+spanning releases. Well, sort of horizon-
+tally. Choose features below the marked
+first span that group together logically.
+Choose enough features such that the
+estimated elapsed development days fit
+within an appropriate release date. This
+may cause you to draw lines that wan-
+der up and down to catch and miss fea-
+tures while traversing the model from
+left to right. Lines drawn through the
+plan make it start to look like a haphaz-
+ard layer cake.
+At this point in the collaborative ac-
+tivity, the business people responsible
+for the release should step forward. Let
+them use their best judgment to decide
+what features best make up a release. If
+you?re an observer, ask questions so you
+understand why one feature rather than
+create po
+for vendor
+(merchandise buyer)
+frequency: weekly
+value: medium
+Usage Sequence
+C
+ri
+ti
+ca
+lit
+y
+always
+used
+seldom
+used
+receive shipment
+from vendor
+(stock receiver)
+frequency: daily
+value: high
+create tags for
+received items
+(stock receiver)
+frequency: daily
+value: medium
+sell items
+(customer consultant)
+frequency: hourly
+value: high
+analyze sales
+(sales analyst)
+frequency: monthly
+value: high
+return and
+refund items
+(customer consultant)
+frequency: daily
+value: medium
+BUYING RECEIVING SELLING ANALYZING
+Figure 5: The model is vertically divided into business processes.
+(Continued on page 40)
+create po
+for vendor
+(merchandise buyer)
+frequency: weekly
+value: medium
+Usage Sequence
+C
+ri
+ti
+ca
+lit
+y
+always
+used
+seldom
+used
+receive shipment
+from vendor
+(stock receiver)
+frequency: daily
+value: high
+create tags for
+received items
+(stock receiver)
+frequency: daily
+value: medium
+sell items
+(customer consultant)
+frequency: hourly
+value: high
+analyze sales
+(sales analyst)
+frequency: monthly
+value: high
+return and
+refund items
+(customer consultant)
+frequency: daily
+value: medium
+BUYING RECEIVING SELLING ANALYZING
+System Span
+Figure 6: The first system span represents the smallest set of features necessary to
+be minimally useful in a business context.
+A system span is a set of features that
+group together logically
+and that cut through the business
+processes horizontally from start to finish.
+page 23
+full-page ad
+SPI Dynamics
+40 BETTER SOFTWARE JANUARY 2005 www.stickyminds.com
+Manage People & Projects
+another finds its way into an earlier re-
+lease.
+Responsible business people continue
+to slice your ?cake? into appropriate re-
+leases. When choosing features to fill a
+release, you may want to consider the
+features with the highest value first. You
+may also want to consider building up
+support for a particular type of user or
+business process. In a release, you might
+try completing all the valuable features in
+one of your business process columns.
+This will result in some funny-shaped
+lines stretching from left to right.
+After slicing the model into releases,
+you should be able to see how many re-
+leases it will take to build this software
+and what might be contained in each
+release.
+Now, let?s get real. Most software
+worth writing has more than six features.
+Depending on the granularity of your
+features, you?ll likely have dozens. With
+a reasonable number of features your
+plan will likely look like the photo
+shown in Figure 7. Notice in this model
+that software spans several business
+processes. Notice how the releases cut
+from left to right in some funny jagged
+lines that catch the features the planner
+intended for each release.
+THE RESULTS
+Because you?ve arranged features in se-
+quential order, you now understand what
+features depend on one another. Because
+you?ve arranged them by criticality, the
+important features are now emphasized
+at the top of the plan. Because you?ve di-
+vided the features into business process-
+es, you have a better idea of the function-
+ality that supports each major business
+process in your software. You have deter-
+mined the minimal feature span that lets
+you get your system up and running, end
+to end, as soon as possible. All this infor-
+mation is provided in one convenient pic-
+ture. By employing a little common
+sense, we should be able to carve off the
+smallest possible releases that will still be
+useful to the people who ultimately re-
+ceive those releases.
+Incremental release may be one of the
+more valuable aspects of the various Ag-
+ile development methodologies. An early
+release can help capture market share,
+generate early return on investment, and
+reduce money risked on software devel-
+opment. A strong early release can in-
+crease those benefits immensely. The
+model we?ve built can give you a better
+picture of your software?s features and
+help your organization construct the
+most useful and coherent early release
+possible. {end}
+Jeff Patton leads teams of Agile develop-
+ers to build the best software possible.
+He proudly works at ThoughtWorks.
+Figure 7: A real-life model is much more complex and spans several business
+processes.
+(Continued from page 22)
+hi-res
+TK
+1/3
+square
+left
+Rally
+
