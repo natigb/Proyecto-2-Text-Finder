@@ -42,7 +42,9 @@ public class Main extends Application {
         tree.insert(3, null);
         tree.insert(8, null);
         tree.insert(6, null);
-        tree.walkInOrder(tree.root);
+        tree.walkInOrder();
+        System.out.println(tree.contains(5));
+        System.out.println(tree.contains(342));
     }
 
     /**

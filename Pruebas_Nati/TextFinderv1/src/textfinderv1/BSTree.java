@@ -11,16 +11,27 @@ package textfinderv1;
  */
 public class BSTree {
     
-    Node root;
+    private Node root;
     
     public BSTree(){
         this.root = null;
     }
-    public void walkInOrder(Node x){
+    
+    /**
+     * Recorre en orden el árbol empezando de la raíz
+     */
+    public void walkInOrder(){
+        walkInOrderAux(this.root);        
+    }
+    /**
+     * Función auxiliar de walkInOrder
+     * @param x Nodo a partir del que está recorriendo 
+     */
+    private void walkInOrderAux(Node x){
         if (x!= null){
-            walkInOrder(x.left);
+            walkInOrderAux(x.left);
             System.out.println(x.key);
-            walkInOrder(x.right);
+            walkInOrderAux(x.right);
         
         }
     }
@@ -50,11 +61,24 @@ public class BSTree {
             }
         }
     }
+    public boolean contains(int key){
+        return containsAux(root, key);
+    }
     
+    private boolean containsAux(Node current, int key){
+        if (current == null){
+            return false;
+        }
+        if (key == current.key){
+            return true;
+        }
+        return key < current.key? containsAux(current.left, key):
+                containsAux(current.right, key);
+    }
     
-    
-    
-    
+    public Node getRoot() {
+        return root;
+    }
     
     
     
@@ -72,5 +96,8 @@ public class BSTree {
             this.right = null;
             this.value = null;
         }
+
+        
+        
     }
 }
