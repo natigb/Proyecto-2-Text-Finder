@@ -16,6 +16,12 @@ public class TextFinderv1 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        BSTree tree = new BSTree();
+        tree.insert(4, null);
+        tree.insert(5, null);
+        tree.insert(7, null);
+        tree.insert(1, null);
+        tree.insert(0, null);
     }
     
 }
