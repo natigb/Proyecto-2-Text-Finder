@@ -5,6 +5,9 @@
  */
 package textfinderv1;
 
+import java.text.Collator;
+import java.util.Locale;
+
 /**
  *
  * @author Nati Gonzalez
@@ -40,7 +43,7 @@ public class BSTree {
      * @param key Llave del elemento
      * @param data Datos del nodo
      */
-    public void insert (int key, Object data){
+    public void insert (String key, Object data){
         Node newNode = new Node(key);
         newNode.data = data;
         
@@ -51,14 +54,14 @@ public class BSTree {
             Node current = root;
             while (current != null){
                 newNode.parent = current;
-                if (newNode.key >= current.key){
+                if (comparar(newNode.key,current.key)==1 || comparar(newNode.key,current.key)==0){
                     current = current.right;
                 }
                 else{
                     current = current.left;
                 }
             }
-            if (newNode.key < newNode.parent.key){
+            if (comparar(newNode.key, newNode.parent.key)==-1){
                 newNode.parent.left = newNode;
             }
             else{
@@ -71,7 +74,7 @@ public class BSTree {
      * @param key llave que se está buscando
      * @return true si encuentra un nodo con la misma llave, false de lo contrario
      */
-    public boolean contains(int key){
+    public boolean contains(String key){
         return containsAux(root, key);
     }
     /**
@@ -80,21 +83,21 @@ public class BSTree {
      * @param key llave que se está buscando
      * @return true si encuentra un nodo con la misma llave, false de lo contrario
      */
-    private boolean containsAux(Node current, int key){
+    private boolean containsAux(Node current, String key){
         if (current == null){
             return false;
         }
-        if (key == current.key){
+        if (comparar(key,current.key)==0){
             return true;
         }
-        return key < current.key? containsAux(current.left, key):
+        return (comparar(key,current.key)==-1)? containsAux(current.left, key):
                 containsAux(current.right, key);
     }
     /**
      * Elimina el elemento específicado por la llave del árbol
      * @param key llave del elemnto que se quiere eliminar
      */
-    public void delete (int key){
+    public void delete (String key){
         root = deleteAux(root, key);
     }
     /**
@@ -103,11 +106,11 @@ public class BSTree {
      * @param key llave del nodo que se quiere eliminar
      * @return 
      */
-    private Node deleteAux(Node current, int key){
+    private Node deleteAux(Node current, String key){
         if (current == null){
             return null;
         }
-        if (key == current.key){
+        if (comparar(key,current.key)==0){
             if (current.left == null && current.right == null){
                 return null;
             }
@@ -117,13 +120,13 @@ public class BSTree {
             if (current.left == null){
                 return current.right;
             }
-            int min = findMinAux(current.right);
+            String min = findMinAux(current.right);
             current.key = min;
             current.right = deleteAux(current.right, min);
             return current;
                     
         }
-        if (key < current.key){
+        if (comparar(key,current.key)==-1){
             current.left = deleteAux(current.left, key);
             return current;
         }
@@ -134,7 +137,7 @@ public class BSTree {
      * Encuentra la llave con el valor máximo en el árbol
      * @return la llave con el valor máximo
      */
-    public int findMax(){
+    public String findMax(){
         return findMaxAux(root);
     }
     /** 
@@ -142,14 +145,14 @@ public class BSTree {
      * @param root
      * @return el valor de la llave
      */
-    private int findMaxAux(Node root){
+    private String findMaxAux(Node root){
         return root.right == null? root.key: findMaxAux(root.right);
     }
     /**
      * Encuentra la llave con el valor mínimo en el árbol
      * @return la llave con el valor mínimo
      */
-    public int findMin(){
+    public String findMin(){
         return findMinAux(root);
     }
     /** 
@@ -157,17 +160,23 @@ public class BSTree {
      * @param root
      * @return el valor de la llave
      */
-    private int findMinAux(Node root){
+    private String findMinAux(Node root){
         return root.left == null? root.key: findMinAux(root.left);
     }
+    
+    private int comparar(String word1, String word2){
+        Collator espCollator = Collator.getInstance(Locale.getDefault());
+        espCollator.setStrength(Collator.SECONDARY);
+        return espCollator.compare(word1, word2);
+    }
     private class Node{
-        int key;
+        String key;
         Node parent;
         Node left;
         Node right;
         Object data;
          
-        public Node(int key){
+        public Node(String key){
             this.key = key;
             this.parent = null;
             this.left = null;

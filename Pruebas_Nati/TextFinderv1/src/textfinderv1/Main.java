@@ -6,6 +6,8 @@
 package textfinderv1;
 
 import java.io.IOException;
+import java.text.Collator;
+import java.util.Locale;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -32,13 +34,12 @@ public class Main extends Application {
         stage.show();
         
         
-        
-        
-        
-        
-        
     }
-
+    static int comparar(String word1, String word2){
+        Collator espCollator = Collator.getInstance(Locale.getDefault());
+        espCollator.setStrength(Collator.SECONDARY);
+        return espCollator.compare(word1, word2);
+    }
     /**
      * @param args the command line arguments
      */
@@ -49,24 +50,17 @@ public class Main extends Application {
         FileOrder ordenar = new FileOrder();
         int arr[] ={170,45,75,90,802,24,2,66};
         ordenar.sortBySize(arr);
-        ordenar.print(arr);
+       
         
         BSTree tree = new BSTree();
-        tree.insert(5, null);
-        tree.insert(2, null);
-        tree.insert(1, null);
-        tree.insert(3, null);
-        tree.insert(8, null);
-        tree.insert(6, null);
-        //tree.traverseInOrder();
-        //System.out.println("Max"+tree.findMax());
-        //System.out.println("Min"+tree.findMin());
-        //tree.delete(1);
-        //tree.delete(8);
-        //System.out.println("Max"+tree.findMax());
-        //System.out.println("Min"+tree.findMin());
-        
-        //tree.traverseInOrder();
+        tree.insert("Encantada", null);
+        tree.insert("perro", null);
+        tree.insert("paleta", null);
+        tree.insert("casa", null);
+        tree.insert("muñeca", null);
+        tree.insert("cafe", null);
+        tree.traverseInOrder();
+        System.out.println(comparar("aaion","aar"));
         
     }
     
