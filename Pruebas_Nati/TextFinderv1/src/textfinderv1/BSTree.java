@@ -38,12 +38,18 @@ public class BSTree {
         
         }
     }
+    public void insert(String key, Object data){
+        if (!contains(key)){
+            insertAux(key,data);
+        }
+        else{System.out.println("La llave ya existe");}
+    }
     /**
      * Método para agregar un nuevo elemento al árbol
      * @param key Llave del elemento
      * @param data Datos del nodo
      */
-    public void insert (String key, Object data){
+    public void insertAux (String key, Object data){
         Node newNode = new Node(key);
         newNode.data = data;
         

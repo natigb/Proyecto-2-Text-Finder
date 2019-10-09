@@ -59,8 +59,10 @@ public class Main extends Application {
         tree.insert("casa", null);
         tree.insert("muñeca", null);
         tree.insert("cafe", null);
+        tree.insert("cafe", null);
         tree.traverseInOrder();
-        System.out.println(comparar("aaion","aar"));
+        
+        System.out.println(tree.contains("encantda"));
         
     }
     
