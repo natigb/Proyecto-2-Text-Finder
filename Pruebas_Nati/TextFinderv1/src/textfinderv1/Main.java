@@ -44,6 +44,13 @@ public class Main extends Application {
      */
     public static void main(String[] args) {
         //launch(args);
+        //Documento doc = new Documento();
+        //doc.ah();
+        FileOrder ordenar = new FileOrder();
+        int arr[] ={170,45,75,90,802,24,2,66};
+        ordenar.sortBySize(arr);
+        ordenar.print(arr);
+        
         BSTree tree = new BSTree();
         tree.insert(5, null);
         tree.insert(2, null);
@@ -51,15 +58,16 @@ public class Main extends Application {
         tree.insert(3, null);
         tree.insert(8, null);
         tree.insert(6, null);
-        tree.walkInOrder();
-        System.out.println("Max"+tree.findMax());
-        System.out.println("Min"+tree.findMin());
-        tree.delete(1);
-        tree.delete(8);
-        System.out.println("Max"+tree.findMax());
-        System.out.println("Min"+tree.findMin());
+        //tree.traverseInOrder();
+        //System.out.println("Max"+tree.findMax());
+        //System.out.println("Min"+tree.findMin());
+        //tree.delete(1);
+        //tree.delete(8);
+        //System.out.println("Max"+tree.findMax());
+        //System.out.println("Min"+tree.findMin());
         
-        //tree.walkInOrder();
+        //tree.traverseInOrder();
+        
     }
     
 }

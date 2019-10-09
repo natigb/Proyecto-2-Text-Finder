@@ -20,18 +20,18 @@ public class BSTree {
     /**
      * Recorre en orden el árbol empezando de la raíz
      */
-    public void walkInOrder(){
-        walkInOrderAux(this.root);        
+    public void traverseInOrder(){
+        traverseInOrderAux(this.root);        
     }
     /**
      * Función auxiliar de walkInOrder
      * @param x Nodo a partir del que está recorriendo 
      */
-    private void walkInOrderAux(Node x){
+    private void traverseInOrderAux(Node x){
         if (x!= null){
-            walkInOrderAux(x.left);
+            traverseInOrderAux(x.left);
             System.out.println(x.key);
-            walkInOrderAux(x.right);
+           traverseInOrderAux(x.right);
         
         }
     }
