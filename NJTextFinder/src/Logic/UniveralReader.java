@@ -17,7 +17,7 @@ public class UniveralReader {
     
     public static String read() throws FileNotFoundException, IOException{
         String text = null;
-        try (BufferedReader reader = new BufferedReader(new FileReader("src/Library/ArchivdoTXT.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/Library/ArchivoTXT.txt"))) {
             String currentLine = reader.readLine();
             text = currentLine;
             while (currentLine != null){

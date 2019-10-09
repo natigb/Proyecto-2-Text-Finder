@@ -53,7 +53,7 @@ public class Main extends Application {
        
         
         BSTree tree = new BSTree();
-        tree.insert("Encantada", null);
+        tree.insert("Encantada");
         tree.insert("perro", null);
         tree.insert("paleta", null);
         tree.insert("casa", null);
