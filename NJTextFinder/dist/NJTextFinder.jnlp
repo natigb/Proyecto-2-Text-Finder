@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="NJTextFinder.jnlp">
+  <information>
+    <title>NJTextFinder</title>
+    <vendor>Jose</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="NJTextFinder.jar" size="42043" download="eager" />
+    <jar href="lib\pdfbox-app-2.0.17.jar" size="9250067" download="eager" />
+  </resources>
+  <jfx:javafx-desc  width="800" height="600" main-class="GUI.main"  name="NJTextFinder" />
+  <update check="always"/>
+</jnlp>
