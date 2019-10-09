@@ -4,7 +4,7 @@ package LinkedList;
  *
  * @author Jose and Natalia
  */
-public class Node<T> {
+class Node<T> {
     private T data;
     private Node<T> next;
 

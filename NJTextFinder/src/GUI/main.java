@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import Logic.UniveralReader;
 
 /**
  *
@@ -19,12 +18,13 @@ public class main extends Application {
         
         Scene scene = new Scene(root);
         
+        stage.setTitle("Text Finder");
         stage.setScene(scene);
         stage.show();
         
         System.out.println("Hello there");
         
-        System.out.println(Logic.UniveralReader.read());
+        //System.out.println(Logic.UniveralReader.readPdf());
     }
 
     /**
