@@ -17,7 +17,7 @@ import java.util.Locale;
 public class BSTree {
     private Node root;
     
-    private Node root;
+    
     
     public BSTree(){
         this.root = null;
