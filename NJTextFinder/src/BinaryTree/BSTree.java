@@ -1,5 +1,12 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package BinaryTree;
 
+import LinkedList.LinkedList;
+import Logic.Document;
 import java.text.Collator;
 import java.util.Locale;
 
@@ -10,48 +17,72 @@ import java.util.Locale;
 public class BSTree {
     private Node root;
     
+    private Node root;
+    
     public BSTree(){
         this.root = null;
     }
     
-    //         __________________
-    //________/Getters n' Setters
-    public Node getRoot() {
-        return root;
-    }
-    
     /**
-     * Recorre en orden el ·rbol empezando de la raÌz
+     * Recorre en orden el √°rbol empezando de la ra√≠z
      */
     public void traverseInOrder(){
         traverseInOrderAux(this.root);        
     }
     /**
-     * FunciÛn auxiliar de walkInOrder
-     * @param x Nodo a partir del que est· recorriendo 
+     * Funci√≥n auxiliar de walkInOrder
+     * @param x Nodo a partir del que est√° recorriendo 
      */
     private void traverseInOrderAux(Node x){
+        
         if (x!= null){
             traverseInOrderAux(x.left);
             System.out.println(x.key);
-           traverseInOrderAux(x.right);
+            traverseInOrderAux(x.right);
         
         }
     }
-    public void insert(String key, Object data){
+    
+     /**
+     * 
+     * @param key
+     */
+    public LinkedList<Document> search(String key){
+        return searchAux(this.root,key);        
+    }
+    /**
+     * 
+     * @param x Nodo a partir del que est√° recorriendo 
+     */
+    private LinkedList<Document> searchAux(Node x,String key){
+        if (x != null){
+            
+                searchAux(x.left,key);
+                if (comparar(x.key,key)==0){
+                return x.documents;
+            }
+                //System.out.println(x.key);
+                searchAux(x.right,key);
+            }
+        return null;
+            
+        }
+    public void insert(String key, Document doc){
         if (!contains(key)){
-            insertAux(key,data);
+            insertAux(key, doc);
         }
         else{System.out.println("La llave ya existe");}
     }
     /**
-     * MÈtodo para agregar un nuevo elemento al ·rbol
+     * M√©todo para agregar un nuevo elemento al √°rbol
      * @param key Llave del elemento
-     * @param data Datos del nodo
+     * @param doc 
+     * 
      */
-    public void insertAux (String key, Object data){
+    public void insertAux (String key, Document doc){
         Node newNode = new Node(key);
-        newNode.data = data;
+        newNode.add(doc);
+        
         
         if (root == null){
             root = newNode;
@@ -76,17 +107,17 @@ public class BSTree {
         }
     }
     /**
-     * FunciÛn que busca en el ·rbol binario de b˙squeda si contiene la llave especificada
-     * @param key llave que se est· buscando
+     * Funci√≥n que busca en el √°rbol binario de b√∫squeda si contiene la llave especificada
+     * @param key llave que se est√° buscando
      * @return true si encuentra un nodo con la misma llave, false de lo contrario
      */
     public boolean contains(String key){
         return containsAux(root, key);
     }
     /**
-     * FunciÛn auxiliar de contains
-     * @param current el nodo que est· revisando
-     * @param key llave que se est· buscando
+     * Funci√≥n auxiliar de contains
+     * @param current el nodo que est√° revisando
+     * @param key llave que se est√° buscando
      * @return true si encuentra un nodo con la misma llave, false de lo contrario
      */
     private boolean containsAux(Node current, String key){
@@ -100,15 +131,15 @@ public class BSTree {
                 containsAux(current.right, key);
     }
     /**
-     * Elimina el elemento especÌficado por la llave del ·rbol
+     * Elimina el elemento espec√≠ficado por la llave del √°rbol
      * @param key llave del elemnto que se quiere eliminar
      */
     public void delete (String key){
         root = deleteAux(root, key);
     }
     /**
-     * FunciÛn auxiliar de delete, es la que recorre el ·rbol buscando la llave que se quiere eliminar y la elimina
-     * @param current nodo que est· revisando
+     * Funci√≥n auxiliar de delete, es la que recorre el √°rbol buscando la llave que se quiere eliminar y la elimina
+     * @param current nodo que est√° revisando
      * @param key llave del nodo que se quiere eliminar
      * @return 
      */
@@ -140,14 +171,14 @@ public class BSTree {
         return current;
     }
     /**
-     * Encuentra la llave con el valor m·ximo en el ·rbol
-     * @return la llave con el valor m·ximo
+     * Encuentra la llave con el valor m√°ximo en el √°rbol
+     * @return la llave con el valor m√°ximo
      */
     public String findMax(){
         return findMaxAux(root);
     }
     /** 
-     * FunciÛn auxiliar de findMax, se le puede indicar por cual nodo empezar a buscar
+     * Funci√≥n auxiliar de findMax, se le puede indicar por cual nodo empezar a buscar
      * @param root
      * @return el valor de la llave
      */
@@ -155,14 +186,14 @@ public class BSTree {
         return root.right == null? root.key: findMaxAux(root.right);
     }
     /**
-     * Encuentra la llave con el valor mÌnimo en el ·rbol
-     * @return la llave con el valor mÌnimo
+     * Encuentra la llave con el valor m√≠nimo en el √°rbol
+     * @return la llave con el valor m√≠nimo
      */
     public String findMin(){
         return findMinAux(root);
     }
     /** 
-     * FunciÛn auxiliar de findMin, se le puede indicar por cual nodo empezar a buscar
+     * Funci√≥n auxiliar de findMin, se le puede indicar por cual nodo empezar a buscar
      * @param root
      * @return el valor de la llave
      */
@@ -174,6 +205,12 @@ public class BSTree {
         Collator espCollator = Collator.getInstance(Locale.getDefault());
         espCollator.setStrength(Collator.SECONDARY);
         return espCollator.compare(word1, word2);
+    }
+  
+    //         __________________
+    //________/Getters n' Setters
+    public Node getRoot() {
+        return root;
     }
     
 }

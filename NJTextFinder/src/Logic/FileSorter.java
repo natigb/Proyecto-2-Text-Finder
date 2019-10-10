@@ -1,6 +1,7 @@
 package Logic;
 
 import java.text.Collator;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.Arrays;
 
@@ -75,6 +76,7 @@ public class FileSorter {
         for (int exp=1; m/exp>0;exp*=10)
             countSort(arr, n, exp);
     }
+    
     private static int getMax(int arr[], int n){
         int max = arr[0];
         for (int i = 1; i < n; i++)
@@ -82,6 +84,7 @@ public class FileSorter {
                 max = arr[i];
         return max;
     }
+    
     private static void countSort(int arr[], int n, int exp){
         int output[] = new int[n];
         int i;
@@ -102,10 +105,8 @@ public class FileSorter {
         }
         
         for (i=0; i<n;i++)
-            arr[i] = output[i];    
+            arr[i] = output[i];
     }
-    
-    
     
     
     //         ____________

@@ -30,6 +30,9 @@
     <jar href="lib\poi-scratchpad-4.1.0.jar" size="1555170" download="eager" />
     <jar href="lib\xmlbeans-3.1.0.jar" size="2579738" download="eager" />
   </resources>
+  <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="NJTextFinder" >
+    <param name="requiredFXVersion" value="8.0+"/>
+  </applet-desc>
   <jfx:javafx-desc  width="800" height="600" main-class="GUI.main"  name="NJTextFinder" />
   <update check="always"/>
 </jnlp>
