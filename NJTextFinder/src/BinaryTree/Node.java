@@ -5,23 +5,30 @@
  */
 package BinaryTree;
 
+import LinkedList.LinkedList;
+import Logic.Document;
+
 /**
  *
  * @author Jose
  */
-class Node {
-      
+ class Node{
         String key;
         Node parent;
         Node left;
         Node right;
-        Object data;
+        LinkedList<Document> documents;
          
         public Node(String key){
             this.key = key;
             this.parent = null;
             this.left = null;
             this.right = null;
-            this.data = null;
+            this.documents = new LinkedList();
         }
-}
+
+        public void add(Document doc){
+            documents.insertLast(doc);
+        }
+        
+    }
