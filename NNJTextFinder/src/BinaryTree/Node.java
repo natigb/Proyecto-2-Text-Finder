@@ -7,6 +7,7 @@ package BinaryTree;
 
 import LinkedList.LinkedList;
 import Logic.Document;
+import Logic.DocumentIndex;
 
 /**
  *
@@ -17,7 +18,7 @@ import Logic.Document;
         Node parent;
         Node left;
         Node right;
-        LinkedList<Document> documents;
+        LinkedList<DocumentIndex> documents;
          
         public Node(String key){
             this.key = key;
@@ -27,7 +28,7 @@ import Logic.Document;
             this.documents = new LinkedList();
         }
 
-        public void add(Document doc){
+        public void add(DocumentIndex doc){
             documents.insertLast(doc);
         }
         

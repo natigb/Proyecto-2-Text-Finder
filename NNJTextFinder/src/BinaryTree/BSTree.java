@@ -2,6 +2,7 @@ package BinaryTree;
 
 import LinkedList.LinkedList;
 import Logic.Document;
+import Logic.DocumentIndex;
 import java.text.Collator;
 import java.util.Locale;
 
@@ -48,31 +49,48 @@ public class BSTree {
      * 
      * @param key
      */
-    public LinkedList<Document> search(String key){
-        return searchAux(this.root,key);        
+    public Node find(String key){
+        //if (contains(key)){
+            return findAux(this.root,key);   
+        //}
+        //return null;
     }
     /**
      * 
      * @param x Nodo a partir del que esta recorriendo 
      */
-    private LinkedList<Document> searchAux(Node x,String key){
-        if (x != null){
-            
-                searchAux(x.left,key);
-                if (comparar(x.key,key)==0){
-                return x.documents;
-            }
-                //System.out.println(x.key);
-                searchAux(x.right,key);
-            }
-        return null;
-            
+    private Node findAux(Node x,String key){
+        if (x==null){
+            return null;
         }
-    public void insert(String key, Document doc){
+        if (comparar(x.key,key)== 1){
+            return findAux(x.left,key);
+        }
+        else if (comparar(x.key,key)== -1){
+            return findAux(x.right,key);
+        }
+        else{
+            return x;
+        }
+        
+    }
+            
+    
+    public LinkedList<DocumentIndex> getListOfDocs(String key){
+        if (contains(key)){
+            return find(key).documents;
+        }
+        else{
+            return new LinkedList<DocumentIndex>();
+        }
+    }
+    public void insert(String key, DocumentIndex doc){
         if (!contains(key)){
             insertAux(key, doc);
         }
-        else{System.out.println("La llave ya existe");}
+        else{
+            find(key).add(doc);
+            System.out.println("La llave ya existe");}
     }
     /**
      * Método para agregar un nuevo elemento al arbol
@@ -80,7 +98,7 @@ public class BSTree {
      * @param doc 
      * 
      */
-    public void insertAux (String key, Document doc){
+    private void insertAux (String key, DocumentIndex doc){
         Node newNode = new Node(key);
         newNode.add(doc);
         

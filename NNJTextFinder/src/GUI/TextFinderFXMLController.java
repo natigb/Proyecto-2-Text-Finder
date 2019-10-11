@@ -6,6 +6,7 @@
 package GUI;
 
 import Logic.Document;
+import Logic.Library;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -19,7 +20,7 @@ import javafx.scene.control.Label;
  * @author Jose
  */
 public class TextFinderFXMLController implements Initializable {
-    
+    private Library library = new Library();
     @FXML
     private Label label;
     
@@ -27,8 +28,15 @@ public class TextFinderFXMLController implements Initializable {
     private void handleButtonAction(ActionEvent event) throws IOException {
         System.out.println("You clicked!");
         Document gola = new Document();
-        label.setText("Jose o Nati agregó un archivo...noice!");
         
+        library.add(gola);
+        label.setText("Jose o Nati agregó un archivo...noice!");
+        library.printTree();
+        
+        
+        library.listOfDocs("arbol").printList();
+    
+    
     }
     
     @Override

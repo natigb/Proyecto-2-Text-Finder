@@ -122,6 +122,8 @@ public class LinkedList<T> {
         current.setData(data);
 
     }
+    
+    
 
     /**
      * Metodo que se encarga de eliminar el nodo con un dato especifico en la primer posicion en que lo encuentre en lista enlazada.
@@ -164,7 +166,23 @@ public class LinkedList<T> {
             }
         }
     }
-    
+    /**
+     * Método para imprimir en consola una lista
+     * 
+     */
+    public void printList() { 
+        if (head==null){
+            System.out.println("null");
+        }
+        Node current = head; 
+        
+        System.out.print("LinkedList: "); 
+        while (current != null) { 
+            System.out.print(current.getData() + " "); 
+   
+            current = current.getNext(); 
+        } 
+    }
     //public void swap(int indx1,int indx2)
         
     

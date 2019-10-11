@@ -25,7 +25,7 @@ public class UniversalReader {
     private static PDDocument doc;
     
     public static String read(File file)throws FileNotFoundException, IOException{
-        return "hi";
+        return "Agregar estas palabras al arbol binario arbol";
     }
     
     //         ____________
