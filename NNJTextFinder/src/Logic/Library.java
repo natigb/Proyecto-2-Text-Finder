@@ -36,15 +36,20 @@ public class Library {
         this.tree = tree;
     }
     
+    public LinkedList listOfPositions(Document doc, String word){
+        return tree.getPositions(doc, word);
+    }
     public void add(Document doc){
         if (library == null){
             library = new LinkedList<Document>();
         }
         
-       DocumentIndex docIndex = new DocumentIndex(doc);
+       
        if (doc.getText() != null){ 
-       for (int i=0; i<docIndex.getDoc().getContent().length;i++){
-           tree.insert(docIndex.getDoc().getContent()[i], docIndex);
+           
+       for (int i=0; i<doc.getContent().length;i++){
+           DocumentIndex docIndex = new DocumentIndex(doc);
+           tree.insert(docIndex.getDoc().getContent()[i], docIndex,i);
         }
         library.insertFirst(doc);
        }

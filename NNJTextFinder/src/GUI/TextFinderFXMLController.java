@@ -44,6 +44,10 @@ public class TextFinderFXMLController implements Initializable {
         
         
         library.listOfDocs("arbol").printList();
+        System.out.println(" ");
+       // System.out.println(gola.getName());
+        library.listOfPositions(gola, "al").printList();
+        library.listOfPositions(gola, "agregar").printList();
     
     
     }

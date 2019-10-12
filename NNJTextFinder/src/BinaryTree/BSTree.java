@@ -84,12 +84,25 @@ public class BSTree {
             return new LinkedList<DocumentIndex>();
         }
     }
-    public void insert(String key, DocumentIndex doc){
+    /**
+     * Insertar al arbol un documento 
+     * @param key
+     * @param doc 
+     * @param position 
+     */
+    public void insert(String key, DocumentIndex doc, int position){
         if (!contains(key)){
             insertAux(key, doc);
+            doc.addPosition(position);
         }
         else{
-            find(key).add(doc);
+            if (!(find(key).docExists(doc.getDoc().getName()))){
+                find(key).add(doc);
+            }
+            else{
+                find(key).searchDocByName(doc.getDoc().getName()).addPosition(position);
+            }
+            
             System.out.println("La llave ya existe");}
     }
     /**
@@ -189,6 +202,14 @@ public class BSTree {
         current.right = deleteAux(current.right, key);
         return current;
     }
+    
+    
+    public LinkedList getPositions (Document doc, String word){
+        if (find(word).searchDocByName(doc.getName())!=null){
+            return find(word).searchDocByName(doc.getName()).getPosition();
+        }
+        return new LinkedList();
+    }
     /**
      * Encuentra la llave con el valor máximo en el árbol
      * @return la llave con el valor máximo
@@ -219,7 +240,12 @@ public class BSTree {
     private String findMinAux(Node root){
         return root.left == null? root.key: findMinAux(root.left);
     }
-    
+    /**
+     * Funci�n para comparar 2 strings
+     * @param word1
+     * @param word2
+     * @return 
+     */
     private int comparar(String word1, String word2){
         Collator espCollator = Collator.getInstance(Locale.getDefault());
         espCollator.setStrength(Collator.SECONDARY);

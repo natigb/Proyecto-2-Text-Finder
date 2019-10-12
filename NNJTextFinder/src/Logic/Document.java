@@ -70,7 +70,7 @@ public class Document {
         File selectedFile = selector.showOpenDialog(null);
         return selectedFile;
     }
-
+    
     public String getText() {
         return text;
     }
