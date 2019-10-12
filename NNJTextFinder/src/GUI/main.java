@@ -23,7 +23,7 @@ public class main extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("TextFinderFXML.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("NJTextFinderFXML.fxml"));
         
         Scene scene = new Scene(root);
         

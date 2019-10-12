@@ -7,12 +7,12 @@ package LinkedList;
  */
 public class LinkedList<T> {
     private Node<T> head;
-    private Node<T> tail;
+    //private Node<T> tail;
     private int size;
 
     public LinkedList(){
         this.head = null;
-        this.tail = null;
+        //this.tail = null;
         this.size = 0;
     }
     //         __________________
@@ -25,13 +25,13 @@ public class LinkedList<T> {
         this.head = head;
     }
 
-    public Node<T> getTail() {
-        return tail;
-    }
+    //public Node<T> getTail() {
+        //return tail;
+    //}
 
-    public void setTail(Node<T> tail) {
-        this.tail = tail;
-    }
+    //public void setTail(Node<T> tail) {
+        //this.tail = tail;
+    //}
 
     public int getSize() {
         return size;
@@ -50,12 +50,12 @@ public class LinkedList<T> {
      */
 
     public void insertFirst(T data){
-        Node newNode = new Node<T>(data);
+        Node newNode = new Node<>(data);
         newNode.setNext(this.head);
         this.head = newNode;
-        if (size == 0){
-            this.tail = newNode;
-        }
+        //if (size == 0){
+            //this.tail = newNode;
+        //}
         this.size++;
     }
 
@@ -67,7 +67,7 @@ public class LinkedList<T> {
     public void insertLast(T data){
         if (head==null){
             head = new Node<T>(data);
-            tail = new Node<T>(data);
+            //tail = new Node<T>(data);
         }
         else{
             Node current = head;
@@ -76,7 +76,7 @@ public class LinkedList<T> {
                 current= current.getNext();
             }
             current.setNext(newNode);
-            this.tail = newNode;
+            //this.tail = newNode;
         }
         this.size++;
 

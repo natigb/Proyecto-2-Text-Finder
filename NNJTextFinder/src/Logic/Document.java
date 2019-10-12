@@ -13,7 +13,7 @@ import javafx.stage.FileChooser;
 
 /**
  *
- * @author Nati Gonzalez
+ * @author Nati Gonzalez and Jose 
  */
 public class Document {
     private String text;
@@ -33,20 +33,36 @@ public class Document {
         this.name = name;
         this.date = date;
         this.size = size;
+        
     }
     
     private void generateFileCopy() throws IOException {
         File originFile = seekFile();
         File destitationFile = new File(originFile.getName());
-        copyFile(originFile,destitationFile);
+        
+        String extension = "";
+        String fileName = originFile.getName();
+        int i = fileName.lastIndexOf('.');
+        if (i >= 0) {
+            extension = fileName.substring(i+1);
+        }
+        if("txt".equals(extension) || "pdf".equals(extension) || "docx".equals(extension) ){ 
+            copyFile(originFile,destitationFile,extension);
+        }else{
+         System.out.println("Invalid: wrong document extension"); 
+        }
     }
     
-    private void copyFile(File source, File dest) throws IOException {
+    private void copyFile(File source, File dest, String extension) throws IOException {
         String userDir = System.getProperty("user.dir");
         System.setProperty("user.dir",((System.getProperty("user.dir"))+"\\src\\Library"));
         Files.copy(source.toPath(), dest.toPath(),REPLACE_EXISTING);
         System.setProperty("user.dir",userDir);
-        documentAux(UniversalReader.read(source),source.getName(),(int)(source.lastModified()),(int)(source.length()));
+        
+        documentAux(UniversalReader.read(source,extension),source.getName(),(int)(source.lastModified()),(int)(source.length()));
+        if ("pdf".equals(extension)){
+            UniversalReader.closePDF();
+        }
 }
     
     private File seekFile() {
@@ -95,6 +111,7 @@ public class Document {
     public void setSize(int size) {
         this.size = size;
     }
+
      
 }
     

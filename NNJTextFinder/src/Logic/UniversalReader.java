@@ -15,7 +15,6 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 
 
-
 /**
  *
  * @author Jose and Natalia
@@ -24,16 +23,27 @@ public class UniversalReader {
     
     private static PDDocument doc;
     
-    public static String read(File file)throws FileNotFoundException, IOException{
-        return "Agregar estas palabras al arbol binario arbol";
+    public static String read(File file,String extension)throws FileNotFoundException, IOException{
+        
+        switch(extension){
+            case "txt":
+                 return readTxt(file.getAbsolutePath());
+            case "pdf":
+                return readPdf(file.getAbsolutePath());
+            case "docx":
+                return readDocx(file.getAbsolutePath());
+        
+            default:
+                return null;   
+        }
     }
     
     //         ____________
     //________/Read TXT
     
-    private static String readTxt() throws FileNotFoundException, IOException{
+    private static String readTxt(String path) throws FileNotFoundException, IOException{
         String text = null;
-        try (BufferedReader reader = new BufferedReader(new FileReader("src/Library/ArchivoTXT.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
             String currentLine = reader.readLine();
             text = currentLine;
             while (currentLine != null){
@@ -50,8 +60,8 @@ public class UniversalReader {
     //         ____________
     //________/Read PDF
     
-    private static String readPdf() throws IOException{
-        File file = new File("src/Library/ArchivoPDF.pdf");
+    private static String readPdf(String path) throws IOException{
+        File file = new File(path);
         try {
             doc = PDDocument.load(file);
         } catch (IOException ex) {
@@ -61,16 +71,16 @@ public class UniversalReader {
         }
         return new PDFTextStripper().getText(doc); 
     }
-    public void closePDF() throws IOException{
+    public static void closePDF() throws IOException{
         doc.close();
     }
     
     //         ____________
     //________/Read DOCX
     
-    private static String readDocx() throws FileNotFoundException, IOException{
+    private static String readDocx(String path) throws FileNotFoundException, IOException{
         String text = null;
-        try(FileInputStream file = new FileInputStream("src/Library/ArchivoDOCX.docx");){
+        try(FileInputStream file = new FileInputStream(path);){
             XWPFDocument docx = new XWPFDocument(file);
             
             List<XWPFParagraph> paragraphList = docx.getParagraphs();

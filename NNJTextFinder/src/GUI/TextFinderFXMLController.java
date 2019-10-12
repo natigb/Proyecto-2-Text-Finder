@@ -14,15 +14,25 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+
 
 /**
  *
- * @author Jose
+ * @author Natialia and Jose
  */
 public class TextFinderFXMLController implements Initializable {
     private Library library = new Library();
+    //private Image icon = new Image("res/icon");
+    
+    
     @FXML
-    private Label label;
+    private Button addFile;
     
     @FXML
     private void handleButtonAction(ActionEvent event) throws IOException {
@@ -30,7 +40,6 @@ public class TextFinderFXMLController implements Initializable {
         Document gola = new Document();
         
         library.add(gola);
-        label.setText("Jose o Nati agregó un archivo...noice!");
         library.printTree();
         
         

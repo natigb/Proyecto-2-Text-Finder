@@ -2,28 +2,17 @@ package Logic;
 
 import BinaryTree.BSTree;
 import LinkedList.LinkedList;
+import LinkedList.Node;
 
 
 /**
  *
- * @author
+ * @author Natalia and Jose
  */
 public class Library {
    LinkedList<Document> library;
    BSTree tree = new BSTree();
    
-   public void add(Document doc){
-       DocumentIndex docIndex = new DocumentIndex(doc);
-       for (int i=0; i<docIndex.getDoc().getContent().length;i++){
-           tree.insert(docIndex.getDoc().getContent()[i], docIndex);
-       }
-       
-       //System.out.println("__________");
-       
-      // System.out.println(tree.search("txt"));
-      // System.out.println(tree.search("txt"));
-              
-   }
    public LinkedList<DocumentIndex> listOfDocs(String key){
        return tree.getListOfDocs(key);
    }
@@ -45,6 +34,54 @@ public class Library {
 
     public void setTree(BSTree tree) {
         this.tree = tree;
+    }
+    
+    public void add(Document doc){
+        if (library == null){
+            library = new LinkedList<Document>();
+        }
+        
+       DocumentIndex docIndex = new DocumentIndex(doc);
+       if (doc.getText() != null){ 
+       for (int i=0; i<docIndex.getDoc().getContent().length;i++){
+           tree.insert(docIndex.getDoc().getContent()[i], docIndex);
+        }
+        library.insertFirst(doc);
+       }
+       else{
+           System.out.print("Document is invalid or blank");
+       }
+       checkForEquals(doc.getName());
+       
+       //System.out.println("__________");
+       
+      // System.out.println(tree.search("txt"));
+      // System.out.println(tree.search("txt"));
+              
+   }
+
+    private void checkForEquals(String docName) {
+        if (library.getSize() != 1){
+        Node<Document> currentNode = this.library.getHead().getNext();
+        while(currentNode.getNext()!= null){
+            if (currentNode.getData().getName().equals(docName)){
+                library.deleteByData(currentNode.getData());
+                currentNode = null;
+                library.printList();
+                System.out.print("Archivo repetido eliminado de libreria virtual");
+                break;
+            }else{
+                currentNode = currentNode.getNext();
+            }
+        }
+        if (currentNode != null){
+            if (currentNode.getData().getName().equals(docName)){
+                library.deleteByData(currentNode.getData());
+                library.printList();
+                System.out.print("Archivo repetido eliminado de libreria virtual");
+                }
+            }    
+        }
     }
    
    
