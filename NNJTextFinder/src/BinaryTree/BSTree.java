@@ -205,10 +205,13 @@ public class BSTree {
     
     
     public LinkedList getPositions (Document doc, String word){
-        if (find(word).searchDocByName(doc.getName())!=null){
-            return find(word).searchDocByName(doc.getName()).getPosition();
+        if(contains(word)){
+            if (find(word).searchDocByName(doc.getName())!=null){
+                return find(word).searchDocByName(doc.getName()).getPosition();
+            }
         }
         return new LinkedList();
+        
     }
     /**
      * Encuentra la llave con el valor máximo en el árbol

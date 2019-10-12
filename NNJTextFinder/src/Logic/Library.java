@@ -10,7 +10,7 @@ import LinkedList.Node;
  * @author Natalia and Jose
  */
 public class Library {
-   LinkedList<Document> library;
+   LinkedList<Document> library = new LinkedList<Document>();
    BSTree tree = new BSTree();
    
    public LinkedList<DocumentIndex> listOfDocs(String key){
@@ -40,11 +40,10 @@ public class Library {
         return tree.getPositions(doc, word);
     }
     public void add(Document doc){
-        if (library == null){
-            library = new LinkedList<Document>();
-        }
+        //if (library == null){
+          //  library = new LinkedList<Document>();
+        //}
         
-       
        if (doc.getText() != null){ 
            
        for (int i=0; i<doc.getContent().length;i++){
