@@ -13,8 +13,12 @@ import Logic.Library;
 import static Logic.SortBy.Date;
 import static Logic.SortBy.Name;
 import static Logic.SortBy.Size;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import java.util.logging.Level;
@@ -76,14 +80,41 @@ public class TextFinderFXMLController implements Initializable {
     
     @FXML
     private void handleButtonAction(ActionEvent event) throws IOException {
-        System.out.println("You clicked!");
-        Document newDoc = new Document();
+        File newFile = Document.seekFile();
+        addToLibrary(newFile);
+    }
+        
+    private void addToLibrary(File newFile) throws IOException{
+        if (newFile.isFile()){
+            addDocument(newFile);
+        }
+        if (newFile.isDirectory()){
+            Files.walk(Paths.get(newFile.getAbsolutePath())).filter(Files::isRegularFile).forEach((p)->{
+                try {
+                    addDirectory(p);
+                } catch (IOException ex) {
+                    Logger.getLogger(TextFinderFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
+        
+        }
+    }
+      private void addDirectory(Path p) throws IOException {
+        String path = p.toString();
+        File newFile = new File(path);
+        addDocument(newFile);
+    }
+        
+    private void addDocument(File newFile) throws IOException{
+        Document newDoc = new Document(newFile);
         newDoc.setText(newDoc.getName());
         newDoc.setFont(new Font("Simular",20));
         newDoc.setOnMouseClicked(openDocLib);
-        library.add(newDoc);
+       
+        if (!library.add(newDoc)){
+            vboxLib.getChildren().add(newDoc);
+        }    
         library.printTree();
-        vboxLib.getChildren().add(newDoc);
         
     
     }
@@ -93,6 +124,11 @@ public class TextFinderFXMLController implements Initializable {
         results.clearList();
         String word = searchText.getText();
         docsFound = library.listOfDocs(word);
+        if (docsFound == null){
+            
+            Text notFound = new Text("No results found");
+            resultText.getChildren().add(notFound);
+        }
         showResults();
     }
     
@@ -186,5 +222,15 @@ public class TextFinderFXMLController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         //TODO  
         resultText.setSpacing(30);
+        String userDir = System.getProperty("user.dir");
+        File thisLibrary = new File(userDir + "\\src\\Library");
+        try {
+            addToLibrary(thisLibrary);
+        } catch (IOException ex) {
+            Logger.getLogger(TextFinderFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     } 
+
+    
 }

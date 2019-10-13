@@ -3,6 +3,10 @@ package Logic;
 import BinaryTree.BSTree;
 import LinkedList.LinkedList;
 import LinkedList.Node;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 
 /**
@@ -16,7 +20,9 @@ public class Library {
    public LinkedList<Document> listOfDocs(String key){
        LinkedList<DocumentIndex> docIndxList = tree.getListOfDocs(key);
        LinkedList<Document> docList = new LinkedList<>();
-       
+       if (docIndxList == null){
+        return null;   
+       }
        Node<DocumentIndex> currentNode = docIndxList.getHead();
        while (currentNode.getNext() != null){
            docList.insertFirst((currentNode.getData()).getDoc());
@@ -31,7 +37,7 @@ public class Library {
      * @param key
      * @return
      */
-    public LinkedList<DocumentIndex> listOfIndxDocs(String key){
+   public LinkedList<DocumentIndex> listOfIndxDocs(String key){
        return tree.getListOfDocs(key);
    }
    
@@ -58,7 +64,8 @@ public class Library {
     public LinkedList listOfPositions(Document doc, String word){
         return tree.getPositions(doc, word);
     }
-    public void add(Document doc){
+    
+    public boolean add(Document doc){
        if (doc.getText() != null){ 
            
        for (int i=0; i<doc.getContent().length;i++){
@@ -70,13 +77,13 @@ public class Library {
        else{
            System.out.print("Document is invalid or blank");
        }
-       checkForEquals(doc.getName());
+       return checkForEquals(doc.getName());
        
               
     }
     
     
-    private void checkForEquals(String docName) {
+    private boolean checkForEquals(String docName) {
         if (library.getSize() != 1){
         Node<Document> currentNode = this.library.getHead().getNext();
         while(currentNode.getNext()!= null){
@@ -85,7 +92,7 @@ public class Library {
                 currentNode = null;
                 library.printList();
                 System.out.print("Archivo repetido eliminado de libreria virtual");
-                break;
+                return true;
             }else{
                 currentNode = currentNode.getNext();
             }
@@ -95,10 +102,11 @@ public class Library {
                 library.deleteByData(currentNode.getData());
                 library.printList();
                 System.out.print("Archivo repetido eliminado de libreria virtual");
+                return true;
                 }
             }    
         }
+        return false;
     }
-   
-   
+    
 }

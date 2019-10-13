@@ -9,13 +9,16 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
-import javafx.stage.FileChooser;
+//import javafx.stage.FileChooser;
+
+
 
 /**
  *
  * @author Nati Gonzalez and Jose 
  */
 import javafx.scene.control.Label;
+import javax.swing.JFileChooser;
 public class Document extends Label{
     private String text;
     private String[] content;
@@ -24,7 +27,12 @@ public class Document extends Label{
     private int size;
     
     public Document() throws IOException{
-        generateFileCopy();
+        File originFile = seekFile();
+        generateFileCopy(originFile);
+    }
+    
+    public Document(File file) throws IOException{
+        generateFileCopy(file);
     }
     
     private void documentAux(String content, String name, int date, int size) {
@@ -37,9 +45,9 @@ public class Document extends Label{
         
     }
     
-    private void generateFileCopy() throws IOException {
-        File originFile = seekFile();
-        File destitationFile = new File(originFile.getName());
+    private void generateFileCopy(File originFile) throws IOException {
+        String userDir = System.getProperty("user.dir");
+        File destitationFile = new File(userDir + "\\src\\Library\\" + originFile.getName());
         
         String extension = "";
         String fileName = originFile.getName();
@@ -55,10 +63,7 @@ public class Document extends Label{
     }
     
     private void copyFile(File source, File dest, String extension) throws IOException {
-        String userDir = System.getProperty("user.dir");
-        System.setProperty("user.dir",((System.getProperty("user.dir"))+"\\src\\Library"));
         Files.copy(source.toPath(), dest.toPath(),REPLACE_EXISTING);
-        System.setProperty("user.dir",userDir);
         
         Long Longdate = (Long)source.lastModified();
         int date = Longdate.intValue();
@@ -68,9 +73,11 @@ public class Document extends Label{
         }
 }
     
-    private File seekFile() {
-        FileChooser selector = new FileChooser();
-        File selectedFile = selector.showOpenDialog(null);
+    public static File seekFile() {
+        JFileChooser selector = new JFileChooser();
+        selector.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        selector.showSaveDialog(null);
+        File selectedFile = selector.getSelectedFile();
         return selectedFile;
     }
     
