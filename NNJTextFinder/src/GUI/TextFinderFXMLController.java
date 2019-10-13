@@ -152,6 +152,7 @@ public class TextFinderFXMLController implements Initializable {
             label.setOnMouseClicked(openDocResult);
             resultText.getChildren().add(label);
         }
+    }
     
         
         public void sizeSort (ActionEvent e){
@@ -173,10 +174,7 @@ public class TextFinderFXMLController implements Initializable {
         }
         
     
-        
 
-    
-    }
      
     EventHandler<MouseEvent> openDocLib= new EventHandler<MouseEvent>(){
         @Override
