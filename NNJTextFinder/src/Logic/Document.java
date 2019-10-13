@@ -15,7 +15,8 @@ import javafx.stage.FileChooser;
  *
  * @author Nati Gonzalez and Jose 
  */
-public class Document {
+import javafx.scene.control.Label;
+public class Document extends Label{
     private String text;
     private String[] content;
     private String name;
@@ -73,11 +74,11 @@ public class Document {
         return selectedFile;
     }
     
-    public String getText() {
+    public String getTexto() {
         return text;
     }
 
-    public void setText(String text) {
+    public void setTexto(String text) {
         this.text = text;
     }
 

@@ -59,10 +59,6 @@ public class Library {
         return tree.getPositions(doc, word);
     }
     public void add(Document doc){
-        //if (library == null){
-          //  library = new LinkedList<Document>();
-        //}
-        
        if (doc.getText() != null){ 
            
        for (int i=0; i<doc.getContent().length;i++){
@@ -76,13 +72,10 @@ public class Library {
        }
        checkForEquals(doc.getName());
        
-       //System.out.println("__________");
-       
-      // System.out.println(tree.search("txt"));
-      // System.out.println(tree.search("txt"));
               
-   }
-
+    }
+    
+    
     private void checkForEquals(String docName) {
         if (library.getSize() != 1){
         Node<Document> currentNode = this.library.getHead().getNext();

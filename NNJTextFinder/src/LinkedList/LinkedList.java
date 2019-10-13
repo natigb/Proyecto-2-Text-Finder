@@ -63,7 +63,7 @@ public class LinkedList<T> {
     }
 
     /**
-     * Función qe crea un nodo a partir de los datos que se ingresen y lo pone al inicio de la lista
+     * Funciï¿½n qe crea un nodo a partir de los datos que se ingresen y lo pone al inicio de la lista
      * @param data Dato tipo Object que se desea que el nuevo nodo contenga.
      */
 
@@ -96,9 +96,9 @@ public class LinkedList<T> {
     }
 
     /**
-     * Función que permite buscar un nodo de la lista por el ídice en el que se encuentra
+     * Funciï¿½n que permite buscar un nodo de la lista por el ï¿½dice en el que se encuentra
      * @param index Indice de la lista que se quiere buscar
-     * @return El nodo que se encuetra en ese índice. Null si la lista está vacía.
+     * @return El nodo que se encuetra en ese ï¿½ndice. Null si la lista estï¿½ vacï¿½a.
      */
     public Node<T> serchByIndex(int index) {
         if (head != null) {
@@ -170,7 +170,7 @@ public class LinkedList<T> {
         }
     }
     /**
-     * Método para imprimir en consola una lista
+     * Mï¿½todo para imprimir en consola una lista
      * 
      */
     public void printList() { 
@@ -187,6 +187,14 @@ public class LinkedList<T> {
         } 
     }
     //public void swap(int indx1,int indx2)
+    /**
+     * Funciï¿½n para vaciar una lista
+     */
+    public void clearList(){
+        this.head = null;
+        this.size = 0;
         
      
+    }   
+    
 }
