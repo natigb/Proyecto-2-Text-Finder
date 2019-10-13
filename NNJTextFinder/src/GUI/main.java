@@ -39,12 +39,7 @@ public class main extends Application {
         
         File hola = new File("C:\\Users\\Jose\\Documents\\TEC\\Semestre II\\Datos I\\Proyecto 2\\Proyecto-2-Text-Finder\\NNJTextFinder\\src\\Library\\prueba.txt");
         System.out.println(UniversalReader.read(hola,"txt"));
-        
-        //int[] arr = new int[]{11,6,3,5,8,5,3,3,6,89,65,4};
-        //FileSorter.sortByDate(arr);
-        
-     
-       
+
     }
 
     /**

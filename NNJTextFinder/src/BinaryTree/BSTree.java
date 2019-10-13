@@ -81,7 +81,7 @@ public class BSTree {
             return find(key).documents;
         }
         else{
-            return new LinkedList<DocumentIndex>();
+            return null;
         }
     }
     /**

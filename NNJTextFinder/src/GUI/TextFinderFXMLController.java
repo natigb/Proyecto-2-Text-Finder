@@ -125,7 +125,7 @@ public class TextFinderFXMLController implements Initializable {
         String word = searchText.getText();
         docsFound = library.listOfDocs(word);
         if (docsFound == null){
-            
+            resultText.getChildren().clear();
             Text notFound = new Text("No results found");
             resultText.getChildren().add(notFound);
         }
@@ -133,6 +133,7 @@ public class TextFinderFXMLController implements Initializable {
     }
     
     private void showResults(){
+        if (docsFound != null){
         results = FileSorter.sortDocumentsBy(docsFound, sortCriterion);
         resultText.getChildren().clear();
         for (int i=0; i < results.getSize(); i++){
@@ -154,17 +155,20 @@ public class TextFinderFXMLController implements Initializable {
                 }
             }
             
-            context = " :"+currentDoc.getName()+": "+context;
+            context = ": "+currentDoc.getName()+"\n";
+            Text contextT = new Text(context);
+            contextT.setFont(new Font("Arial",18));
             Text word= new Text(searchText.getText());
             word.setFont(new Font("Arial",15));
-            word.setFill(Color.web("red", 0.8));
-            Text beforeContxt = new Text(": "+bfContext);
-            Text afterContxt = new Text(" "+atContext);
+            word.setFill(Color.web("blue", 0.8));
+            Text beforeContxt = new Text("..."+bfContext);
+            Text afterContxt = new Text(" "+atContext+"...");
             Text numTxt = new Text(Integer.toString(i));
+            numTxt.setFont(new Font("Arial",18));
             
             TextFlow tf = new TextFlow();
             
-            tf.getChildren().addAll(numTxt,beforeContxt, word, afterContxt);
+            tf.getChildren().addAll(numTxt,contextT,beforeContxt, word, afterContxt);
             /*Label label = new Label();
             label.setText(context);
             label.setWrapText(true);
@@ -173,6 +177,7 @@ public class TextFinderFXMLController implements Initializable {
             label.setOnMouseClicked(openDocResult);*/
             tf.setOnMouseClicked(openDocResult);
             resultText.getChildren().add(tf);
+            }
         }
     }
     
