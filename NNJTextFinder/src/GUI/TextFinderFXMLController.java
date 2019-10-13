@@ -133,24 +133,40 @@ public class TextFinderFXMLController implements Initializable {
             Document currentDoc = (Document)results.serchByIndex(i).getData();
             int firstPos = (int)library.listOfPositions(currentDoc, searchText.getText()).serchByIndex(0).getData();
             String context = currentDoc.getContent()[firstPos]+ " ";
+            String bfContext="";
+            String atContext="";
             
             for (int j=1; j<10; j++){
                 if (firstPos-j>=0){
                     context= currentDoc.getContent()[firstPos-j]+" "+context;
+                    bfContext= currentDoc.getContent()[firstPos-j]+" "+bfContext;
+                    
                 }
                 if (firstPos+j<currentDoc.getContent().length){
                     context= context +" "+currentDoc.getContent()[firstPos+j];
+                    atContext= currentDoc.getContent()[firstPos+j]+" "+atContext;
                 }
             }
-            context = i+ ":"+currentDoc.getName()+": "+context;
-           
-            Label label = new Label();
+            
+            context = " :"+currentDoc.getName()+": "+context;
+            Text word= new Text(searchText.getText());
+            word.setFont(new Font("Arial",15));
+            word.setFill(Color.web("red", 0.8));
+            Text beforeContxt = new Text(": "+bfContext);
+            Text afterContxt = new Text(" "+atContext);
+            Text numTxt = new Text(Integer.toString(i));
+            
+            TextFlow tf = new TextFlow();
+            
+            tf.getChildren().addAll(numTxt,beforeContxt, word, afterContxt);
+            /*Label label = new Label();
             label.setText(context);
             label.setWrapText(true);
             label.setMaxSize(300, 200);
             label.setAlignment(Pos.CENTER);
-            label.setOnMouseClicked(openDocResult);
-            resultText.getChildren().add(label);
+            label.setOnMouseClicked(openDocResult);*/
+            tf.setOnMouseClicked(openDocResult);
+            resultText.getChildren().add(tf);
         }
     }
     
@@ -188,8 +204,9 @@ public class TextFinderFXMLController implements Initializable {
         @Override
             public void handle(MouseEvent t) {
                 viewText.clear();
-                Label l = (Label)(t.getSource());
-                int index = Integer.parseInt(l.getText().split(":")[0]);
+                TextFlow l = (TextFlow)(t.getSource());
+                Text text = (Text)(l.getChildren().get(0));
+                int index = Integer.parseInt(text.getText());
                 Document doc = (Document)results.serchByIndex(index).getData();
                 viewText.setText(doc.getTexto());
             }
@@ -198,6 +215,6 @@ public class TextFinderFXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //TODO  
-        resultText.setPadding(new Insets(10, 10, 30, 10));
+        resultText.setSpacing(30);
     } 
 }
