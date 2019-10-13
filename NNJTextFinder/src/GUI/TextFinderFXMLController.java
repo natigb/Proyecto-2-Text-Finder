@@ -88,49 +88,19 @@ public class TextFinderFXMLController implements Initializable {
     
     }
 
-    //     ____________________________________
-    //__/Propuesta de Jose
     @FXML
     private void searchAction(ActionEvent event) throws IOException{
         results.clearList();
         String word = searchText.getText();
-        //LinkedList docsFound = library.listOfDocs(word);
         docsFound = library.listOfDocs(word);
-        docsFound.printList();
-        showFoundDocs();
-    }
-    
-    private void showFoundDocs(){
-        vbox.getChildren().clear();
-        if (docsFound != null){
-            docsFound = FileSorter.sortDocumentsBy(docsFound, sortCriterion);
-            for (int i=0; i < docsFound.getSize(); i++){
-                Document currentDoc = docsFound.serchByIndex(i).getData();
-                Label label = new Label();
-                label.setText(currentDoc.getName());
-                vbox.getChildren().add(label);
-                }
-            }
-        }
-
-    //     ____________________________________
-    //__/Propuesta de Nati
-    @FXML
-    private void searchAction(ActionEvent event) throws IOException{
-        results.clearList();
-        String word = searchText.getText();
-        LinkedList docsFound = library.listOfDocs(word);
-        for (int i=0; i < docsFound.getSize(); i++){
-            DocumentIndex currentDoc = (DocumentIndex)docsFound.serchByIndex(i).getData();
-            results.insertLast(currentDoc.getDoc());
-        }
         showResults();
     }
     
     private void showResults(){
+        results = FileSorter.sortDocumentsBy(docsFound, sortCriterion);
         resultText.getChildren().clear();
         for (int i=0; i < results.getSize(); i++){
-            Document currentDoc = (Document)results.serchByIndex(i).getData();
+            Document currentDoc = results.serchByIndex(i).getData();
             int firstPos = (int)library.listOfPositions(currentDoc, searchText.getText()).serchByIndex(0).getData();
             String context = currentDoc.getContent()[firstPos]+ " ";
             String bfContext="";
@@ -173,19 +143,19 @@ public class TextFinderFXMLController implements Initializable {
         
         public void sizeSort (ActionEvent e){
             sortCriterion = Size;
-            showFoundDocs();
+            showResults();
             sortChoice.setText("Size");
         }
         
         public void dateSort (ActionEvent e){
             sortCriterion = Date;
-            showFoundDocs();
+            showResults();
             sortChoice.setText("Date");
         }
         
         public void nameSort (ActionEvent e){
             sortCriterion = Name;
-            showFoundDocs();
+            showResults();
             sortChoice.setText("Name");
         }
         
