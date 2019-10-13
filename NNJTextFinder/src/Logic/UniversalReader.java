@@ -78,13 +78,13 @@ public class UniversalReader {
     //________/Read DOCX
     
     private static String readDocx(String path) throws FileNotFoundException, IOException{
-        String text = null;
+        String text = "";
         try(FileInputStream file = new FileInputStream(path);){
             XWPFDocument docx = new XWPFDocument(file);
             
             List<XWPFParagraph> paragraphList = docx.getParagraphs();
             for (XWPFParagraph paragraph: paragraphList){
-                text = text + (paragraph.getText());
+                text = text +"\n" + (paragraph.getText());
             }
         }catch(IOException ex){
           Logger.getLogger(UniversalReader.class.getName()).log(Level.SEVERE, null, ex);
