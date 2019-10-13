@@ -10,12 +10,31 @@ import LinkedList.Node;
  * @author Natalia and Jose
  */
 public class Library {
-   LinkedList<Document> library = new LinkedList<Document>();
+   LinkedList<Document> library = new LinkedList<>();
    BSTree tree = new BSTree();
    
-   public LinkedList<DocumentIndex> listOfDocs(String key){
+   public LinkedList<Document> listOfDocs(String key){
+       LinkedList<DocumentIndex> docIndxList = tree.getListOfDocs(key);
+       LinkedList<Document> docList = new LinkedList<>();
+       
+       Node<DocumentIndex> currentNode = docIndxList.getHead();
+       while (currentNode.getNext() != null){
+           docList.insertFirst((currentNode.getData()).getDoc());
+           currentNode = currentNode.getNext();
+       }
+       docList.insertFirst((currentNode.getData()).getDoc());
+       return docList;    
+   }
+   
+    /**
+     *
+     * @param key
+     * @return
+     */
+    public LinkedList<DocumentIndex> listOfIndxDocs(String key){
        return tree.getListOfDocs(key);
    }
+   
    public void printTree(){
        tree.traverseInOrder();
    }

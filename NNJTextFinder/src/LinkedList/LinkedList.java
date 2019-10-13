@@ -1,5 +1,8 @@
 package LinkedList;
 
+import Logic.Document;
+import java.lang.reflect.Array;
+
 /**
  * Clase que contiene lo necesario para la implementacion de una lista enlazada.
  * @author Jose and Natalia
@@ -185,5 +188,5 @@ public class LinkedList<T> {
     }
     //public void swap(int indx1,int indx2)
         
-    
+     
 }

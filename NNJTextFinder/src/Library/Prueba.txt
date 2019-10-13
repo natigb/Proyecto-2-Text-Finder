@@ -1,0 +1,2 @@
+hola que hace, null estoy viendo 
+xq rayos esto tira nulo al final  jejeps

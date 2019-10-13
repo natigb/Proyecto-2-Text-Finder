@@ -6,8 +6,10 @@
 package GUI;
 
 import Logic.Document;
+import Logic.FileSorter;
 import Logic.Library;
 import Logic.UniversalReader;
+import java.io.File;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -32,8 +34,11 @@ public class main extends Application {
         
         System.out.println("Hello World");
         
+        File hola = new File("C:\\Users\\Jose\\Documents\\TEC\\Semestre II\\Datos I\\Proyecto 2\\Proyecto-2-Text-Finder\\NNJTextFinder\\src\\Library\\prueba.txt");
+        System.out.println(UniversalReader.read(hola,"txt"));
         
-        System.out.println(((System.getProperty("user.dir"))+"\\Library"));
+        //int[] arr = new int[]{11,6,3,5,8,5,3,3,6,89,65,4};
+        //FileSorter.sortByDate(arr);
     }
 
     /**

@@ -59,7 +59,9 @@ public class Document {
         Files.copy(source.toPath(), dest.toPath(),REPLACE_EXISTING);
         System.setProperty("user.dir",userDir);
         
-        documentAux(UniversalReader.read(source,extension),source.getName(),(int)(source.lastModified()),(int)(source.length()));
+        Long Longdate = (Long)source.lastModified();
+        int date = Longdate.intValue();
+        documentAux(UniversalReader.read(source,extension),source.getName(),date,(int)(source.length()));
         if ("pdf".equals(extension)){
             UniversalReader.closePDF();
         }

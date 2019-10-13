@@ -42,13 +42,12 @@ public class UniversalReader {
     //________/Read TXT
     
     private static String readTxt(String path) throws FileNotFoundException, IOException{
-        String text = null;
+        String text = "";
         try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
             String currentLine = reader.readLine();
-            text = currentLine;
             while (currentLine != null){
-                currentLine = reader.readLine();
                 text = text+currentLine;
+                currentLine = reader.readLine();
             }
         }catch(IOException ex){
             Logger.getLogger(UniversalReader.class.getName()).log(Level.SEVERE, null, ex);
