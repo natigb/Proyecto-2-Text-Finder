@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextArea?>
@@ -76,7 +77,7 @@
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                <SplitPane dividerPositions="0.16202783300198806, 0.8588469184890656" focusTraversable="true" prefHeight="710.0" prefWidth="1136.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <SplitPane dividerPositions="0.17196819085487078, 0.7872763419483101" focusTraversable="true" prefHeight="710.0" prefWidth="1136.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                   <items>
                     <AnchorPane>
                       <children>
@@ -88,17 +89,30 @@
                             <Color blue="0.624" green="0.624" red="0.624" fx:id="x2" />
                           </textFill>
                         </Label>
+                              <ScrollPane layoutX="-30.0" layoutY="39.0" prefHeight="546.0" prefWidth="200.0">
+                                <content>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="544.0" prefWidth="200.0">
+                                       <children>
+                                          <VBox fx:id="vboxLib" layoutX="30.0" prefHeight="533.0" prefWidth="170.0" />
+                                       </children>
+                                    </AnchorPane>
+                                </content>
+                              </ScrollPane>
                       </children>
                     </AnchorPane>
-                  <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0">
+                  <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="587.0" prefWidth="680.0">
                            <children>
-                              <TextArea layoutX="7.0" prefHeight="1235.0" prefWidth="451.0" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <TextArea fx:id="viewText" layoutX="7.0" prefHeight="585.0" prefWidth="613.0" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children>
                   </AnchorPane>
-                    <AnchorPane prefHeight="708.0" prefWidth="395.0">
+                    <AnchorPane prefHeight="587.0" prefWidth="250.0">
                       <children>
                         <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="Results" textAlignment="CENTER" textFill="$x2" wrapText="false" />
-                              <VBox fx:id="vbox" layoutY="41.0" prefHeight="544.0" prefWidth="139.0" />
+                              <ScrollPane layoutY="41.0" prefHeight="534.0" prefWidth="211.0">
+                                 <content>
+                                    <VBox fx:id="resultText" prefHeight="516.0" prefWidth="211.0" />
+                                 </content>
+                              </ScrollPane>
                       </children>
                     </AnchorPane>
                   </items>

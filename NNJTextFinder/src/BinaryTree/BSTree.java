@@ -98,6 +98,7 @@ public class BSTree {
         else{
             if (!(find(key).docExists(doc.getDoc().getName()))){
                 find(key).add(doc);
+                doc.addPosition(position);
             }
             else{
                 find(key).searchDocByName(doc.getDoc().getName()).addPosition(position);

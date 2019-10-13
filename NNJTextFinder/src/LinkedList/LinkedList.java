@@ -184,6 +184,13 @@ public class LinkedList<T> {
         } 
     }
     //public void swap(int indx1,int indx2)
+    /**
+     * Función para vaciar una lista
+     */
+    public void clearList(){
+        this.head = null;
+        this.size = 0;
         
+    }   
     
 }
