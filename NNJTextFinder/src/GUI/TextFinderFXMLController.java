@@ -20,6 +20,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextArea;
@@ -125,18 +126,15 @@ public class TextFinderFXMLController implements Initializable {
             public void handle(MouseEvent t) {
                 viewText.clear();
                 Label l = (Label)(t.getSource());
-                
-                //String name = text.getText().split(":")[0];
                 int index = Integer.parseInt(l.getText().split(":")[0]);
                 Document doc = (Document)results.serchByIndex(index).getData();
-                //System.out.println(name.length());(library.getDoc(l.getText().split(":")[0]).getName()
                 viewText.setText(doc.getTexto());
-                //viewText.setText(library.getLibrary().serchByIndex(0).getData().getTexto());
             }
     };
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //TODO  
+        resultText.setPadding(new Insets(10, 10, 30, 10));
     } 
 }

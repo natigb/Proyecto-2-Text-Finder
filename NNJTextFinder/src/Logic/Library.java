@@ -55,29 +55,7 @@ public class Library {
        
               
     }
-    public Document getDoc(String name){
-        //for(int i = 0; i < library.getSize(); i++){
-        
-        if (library.getHead() != null) {
-            Node current = library.getHead();
-            for (int x = 0; x < library.getSize(); x++) {
-                Document doc = (Document)current.getData();
-                if(doc.getName()== name){
-                    return doc;
-                }
-                current = current.getNext();
-            }
-            return null;
-        }
-        return null;
-    }
-            //Document currentDoc = library.serchByIndex(i).getData();
-            //if (currentDoc.getName()== name){
-              //  return currentDoc;
-            //}
-        //}
-        //System.out.println(":");
-        //return null;
+    
     
     private void checkForEquals(String docName) {
         if (library.getSize() != 1){
