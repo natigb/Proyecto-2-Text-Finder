@@ -116,9 +116,10 @@ public class TextFinderFXMLController implements Initializable {
         }    
         library.printTree();
         
+        
     
     }
-
+    
     @FXML
     private void searchAction(ActionEvent event) throws IOException{
         results.clearList();
@@ -206,9 +207,15 @@ public class TextFinderFXMLController implements Initializable {
     EventHandler<MouseEvent> openDocLib= new EventHandler<MouseEvent>(){
         @Override
             public void handle(MouseEvent t) {
-                viewText.clear();
                 Document doc = (Document)(t.getSource());
-                viewText.setText(doc.getTexto());
+
+                if (t.isAltDown()){
+                    library.deleteDoc(doc);
+                }
+                else{
+                    viewText.clear();
+                    viewText.setText(doc.getTexto());
+                }
             }
     };
     EventHandler<MouseEvent> openDocResult= new EventHandler<MouseEvent>(){
@@ -226,6 +233,7 @@ public class TextFinderFXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //TODO  
+        
         resultText.setSpacing(30);
         String userDir = System.getProperty("user.dir");
         File thisLibrary = new File(userDir + "\\src\\Library");
@@ -235,7 +243,8 @@ public class TextFinderFXMLController implements Initializable {
             Logger.getLogger(TextFinderFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-    }
+        
+    } 
 
     
 }
