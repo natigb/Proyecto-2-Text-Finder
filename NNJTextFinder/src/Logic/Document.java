@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+import java.util.Arrays;
 //import javafx.stage.FileChooser;
 
 
@@ -38,7 +39,8 @@ public class Document extends Label{
     private void documentAux(String content, String name, int date, int size) {
         
         this.text = content;
-        this.content = content.split(" ");
+        this.content = divByWord(content);
+        //this.content = content.split(" ");
         this.name = name;
         this.date = date;
         this.size = size;
@@ -120,6 +122,32 @@ public class Document extends Label{
 
     public void setSize(int size) {
         this.size = size;
+    }
+
+    private String[] divByWord(String content) {
+        String[] words = content.split(" ");
+        int i = 0;
+        for (String word : words ){
+            word = deletePunctuationMarks(word,word.length());
+            words[i] = word;
+            i++;
+        }
+        System.out.println(Arrays.toString(words));
+        return words;
+    }
+
+    public static String deletePunctuationMarks(String word, int length) {
+        for (int i=0;i<length;i++){
+            char symbol = word.charAt(i);
+            if (!Character.isLetter(symbol)){
+                StringBuilder newWord = new StringBuilder (word);
+                newWord.deleteCharAt(i);
+                word = newWord.toString();
+                i--;
+                length--;
+            }
+        }
+        return word;
     }
 
      

@@ -235,7 +235,7 @@ public class TextFinderFXMLController implements Initializable {
             Logger.getLogger(TextFinderFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-    } 
+    }
 
     
 }

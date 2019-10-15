@@ -37,9 +37,10 @@ public class main extends Application {
         
         System.out.println("Hello World");
         
-        File hola = new File("C:\\Users\\Jose\\Documents\\TEC\\Semestre II\\Datos I\\Proyecto 2\\Proyecto-2-Text-Finder\\NNJTextFinder\\src\\Library\\prueba.txt");
-        System.out.println(UniversalReader.read(hola,"txt"));
+        //File hola = new File("C:\\Users\\Jose\\Documents\\TEC\\Semestre II\\Datos I\\Proyecto 2\\Proyecto-2-Text-Finder\\NNJTextFinder\\src\\Library\\prueba.txt");
+        //System.out.println(UniversalReader.read(hola,"txt"));
 
+        //System.out.println(Document.deletePunctuationMarks("hola", 5));
     }
 
     /**
