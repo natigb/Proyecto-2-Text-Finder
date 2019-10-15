@@ -109,4 +109,7 @@ public class Library {
         return false;
     }
     
+    public void deleteDoc(Document doc){
+        tree.deleteDoc(doc);
+    }
 }

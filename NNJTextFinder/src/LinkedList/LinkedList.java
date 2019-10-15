@@ -94,7 +94,25 @@ public class LinkedList<T> {
             this.size--;
         }
     }
-
+    /**
+     * Método para eliminar un elemento de una lista según el ídice que se le digite
+     * @param index 
+     */
+        public void deleteByIndex(int index){
+        if (index==0){
+            head = head.getNext();
+        }
+        else{
+            int counter = 0;
+            Node current = head;
+             while(counter<index-1){
+                 current = current.getNext();
+                 counter++;
+             }
+             current.setNext(current.getNext().getNext());
+        }
+        size--;
+    }
     /**
      * Funciï¿½n que permite buscar un nodo de la lista por el ï¿½dice en el que se encuentra
      * @param index Indice de la lista que se quiere buscar
