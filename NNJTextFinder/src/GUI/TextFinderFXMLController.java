@@ -4,7 +4,11 @@
  * and open the template in the editor.
  */
 package GUI;
-
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.input.ContextMenuEvent;
+import javafx.scene.input.MouseButton;
 import LinkedList.LinkedList;
 import Logic.Document;
 import Logic.DocumentIndex;
@@ -68,7 +72,7 @@ public class TextFinderFXMLController implements Initializable {
     @FXML
     private TextField searchText;
     @FXML
-    private TextArea viewText;
+    private TextFlow viewText;
     @FXML
     private VBox resultText;
     @FXML
@@ -112,6 +116,7 @@ public class TextFinderFXMLController implements Initializable {
         newDoc.setOnMouseClicked(openDocLib);
        
         if (!library.add(newDoc)){
+            
             vboxLib.getChildren().add(newDoc);
         }    
         library.printTree();
@@ -170,12 +175,6 @@ public class TextFinderFXMLController implements Initializable {
             TextFlow tf = new TextFlow();
             
             tf.getChildren().addAll(numTxt,contextT,beforeContxt, word, afterContxt);
-            /*Label label = new Label();
-            label.setText(context);
-            label.setWrapText(true);
-            label.setMaxSize(300, 200);
-            label.setAlignment(Pos.CENTER);
-            label.setOnMouseClicked(openDocResult);*/
             tf.setOnMouseClicked(openDocResult);
             resultText.getChildren().add(tf);
             }
@@ -201,32 +200,63 @@ public class TextFinderFXMLController implements Initializable {
             sortChoice.setText("Name");
         }
         
+  
     
-
-     
     EventHandler<MouseEvent> openDocLib= new EventHandler<MouseEvent>(){
         @Override
             public void handle(MouseEvent t) {
                 Document doc = (Document)(t.getSource());
-
-                if (t.isAltDown()){
-                    library.deleteDoc(doc);
+               
+                
+                if (t.getButton()== MouseButton.SECONDARY){
+                    ContextMenu context = new ContextMenu();
+                    MenuItem elim = new MenuItem("Eliminar");
+                    elim.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent e) {
+                        library.getLibrary().printList();
+                        System.out.println("Eliminó un documento");
+                        doc.setText(null);
+                        library.deleteDoc(doc);
+                        System.out.println(" ");
+                        library.getLibrary().printList();
+                        String userDir = System.getProperty("user.dir");
+                        File file = new File(userDir + "\\src\\Library\\" + doc.getName());
+                        file.delete();
+                        }
+                     });
+                    context.getItems().add(elim);
+                    doc.setContextMenu(context);
+                    
+                    
                 }
                 else{
-                    viewText.clear();
-                    viewText.setText(doc.getTexto());
+                    viewText.getChildren().clear();
+                    Text text = new Text(doc.getTexto());
+                    viewText.getChildren().add(text);
                 }
             }
     };
     EventHandler<MouseEvent> openDocResult= new EventHandler<MouseEvent>(){
         @Override
             public void handle(MouseEvent t) {
-                viewText.clear();
+                viewText.getChildren().clear();
                 TextFlow l = (TextFlow)(t.getSource());
                 Text text = (Text)(l.getChildren().get(0));
                 int index = Integer.parseInt(text.getText());
                 Document doc = (Document)results.serchByIndex(index).getData();
-                viewText.setText(doc.getTexto());
+                
+                for (int i=0; i<doc.getContent().length; i++){
+                    Text space = new Text(" ");
+                    String word = searchText.getText();
+                    Text words = new Text(doc.getContent()[i]);
+                    words.setFont(new Font("Arial",15));
+                    if(word.equals(doc.getContent()[i])){
+                        words.setFill(Color.web("blue", 0.8));
+                    }
+                    viewText.getChildren().addAll(space, words);
+                }
+                
             }
     };
     

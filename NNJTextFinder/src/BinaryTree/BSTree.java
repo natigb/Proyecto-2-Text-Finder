@@ -171,18 +171,18 @@ public class BSTree {
         for (int i=0; i<doc.getContent().length;i++){
             LinkedList<DocumentIndex> docInList = find(doc.getContent()[i]).documents;
 
-            int Todelete =0;
+            
             for(int j=0;j<docInList.getSize();j++){
-                if (docInList.serchByIndex(j).getData().getDoc().getName()== doc.getName()){
-                    Todelete=j;
+                if (docInList.serchByIndex(j).getData().getDoc().getName().equals(doc.getName())){
+                    docInList.deleteByIndex(j);
+                    break;
                 }
-            docInList.deleteByIndex(Todelete);
-
-            if (docInList.getHead()==null){
-              delete(doc.getContent()[i]);
-            }       
-                
+                if (0 == docInList.getSize()){
+                  delete(doc.getContent()[i]);
+                  break;
+                } 
             }
+             
         }
     }
     /**
@@ -191,7 +191,9 @@ public class BSTree {
      * @param key llave del elemnto que se quiere eliminar
      */
     public void delete(String key) {
-        root = deleteAux(root, key);
+        if (contains(key)){
+            root = deleteAux(root, key);
+        }
     }
 
     /**

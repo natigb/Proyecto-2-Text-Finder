@@ -110,6 +110,7 @@ public class Library {
     }
     
     public void deleteDoc(Document doc){
+        library.deleteByData(doc);
         tree.deleteDoc(doc);
     }
 }
