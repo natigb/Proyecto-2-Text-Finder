@@ -6,6 +6,7 @@
 package GUI;
 
 import LinkedList.LinkedList;
+import LinkedList.Node;
 import Logic.Document;
 import Logic.DocumentIndex;
 import Logic.FileSorter;
@@ -115,22 +116,52 @@ public class TextFinderFXMLController implements Initializable {
             vboxLib.getChildren().add(newDoc);
         }    
         library.printTree();
-        
-        
-    
     }
     
     @FXML
     private void searchAction(ActionEvent event) throws IOException{
         results.clearList();
+        docsFound = null;
         String word = searchText.getText();
-        docsFound = library.listOfDocs(word);
-        if (docsFound == null){
-            resultText.getChildren().clear();
-            Text notFound = new Text("No results found");
-            resultText.getChildren().add(notFound);
+        
+        if (!word.contains(" ")){
+            docsFound = library.listOfDocs(word);
+            if (docsFound == null){
+                notFoundEx();
+            }
+            
+        }else{
+            String[] sentence = word.split(" "); 
+            //docsFound = library.listOfDocs(sentence[0]);
+            LinkedList<DocumentIndex> tempDocs = library.listOfIndxDocs(sentence[0]);
+            if (tempDocs!=null){
+            Node<DocumentIndex> currentDocIndx = tempDocs.getHead();
+            while (currentDocIndx.getNext() != null){
+                Document currentDoc = currentDocIndx.getData().getDoc();
+                //if (currentDoc.getTexto().contains(word)){
+                if (currentDoc.containsSentence(sentence,currentDocIndx.getData().getPosition())){
+                    docsFound.insertFirst(currentDoc);
+                    System.out.println((currentDoc.getTexto().contains(word))+word+"si esta!");
+                }
+                currentDocIndx = currentDocIndx.getNext();
+            }
+            Document currentDoc = currentDocIndx.getData().getDoc();
+            if (currentDoc.containsSentence(sentence,currentDocIndx.getData().getPosition())){
+                    docsFound.insertFirst(currentDoc);
+                    System.out.println((currentDoc.getTexto().contains(word))+word+"si esta!");
+                }
+            }else{
+                docsFound = null;
+                notFoundEx();
+            }
         }
         showResults();
+    }
+        
+    private void notFoundEx(){
+        resultText.getChildren().clear();
+        Text notFound = new Text("No results found");
+        resultText.getChildren().add(notFound);
     }
     
     private void showResults(){

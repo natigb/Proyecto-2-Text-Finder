@@ -5,6 +5,8 @@
  */
 package Logic;
 
+import LinkedList.LinkedList;
+import LinkedList.Node;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -148,6 +150,30 @@ public class Document extends Label{
             }
         }
         return word;
+    }
+
+    
+    public boolean containsSentence(String[] words, LinkedList position) {
+        Node current = position.getHead();
+        boolean equal = false;
+        while (current.getNext() != null){
+            for (int i =0;i<words.length;i++){
+                if(!(words[i].equalsIgnoreCase(content[(int)current.getData()+i]))){
+                    equal = false;
+                    break;
+                }
+                equal = true;
+            }
+            current = current.getNext();
+        }
+        for (int i =0;i<words.length;i++){
+                if(!(words[i].equalsIgnoreCase(content[(int)current.getData()+i]))){
+                    equal = false;
+                    break;
+                }
+                equal = true;
+            }
+        return equal;
     }
 
      
