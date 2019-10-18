@@ -289,7 +289,7 @@ public class BSTree {
      * @param word2
      * @return
      */
-    private int comparar(String word1, String word2) {
+    public static int comparar(String word1, String word2) {
         Collator espCollator = Collator.getInstance(Locale.getDefault());
         espCollator.setStrength(Collator.PRIMARY);
         return espCollator.compare(word1, word2);

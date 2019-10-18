@@ -5,6 +5,7 @@
  */
 package Logic;
 
+import BinaryTree.BSTree;
 import LinkedList.LinkedList;
 import LinkedList.Node;
 import java.io.File;
@@ -28,6 +29,7 @@ public class Document extends Label{
     private String name;
     private int date;
     private int size;
+    private Integer sentenceFirstWord;
     
     public Document() throws IOException{
         File originFile = seekFile();
@@ -157,27 +159,30 @@ public class Document extends Label{
         Node current = position.getHead();
         boolean equal = false;
         while (current.getNext() != null){
-            for (int i =0;i<words.length;i++){
-                if(!(words[i].equalsIgnoreCase(content[(int)current.getData()+i]))){
+            for (int i=0;i<words.length;i++){
+                if(BSTree.comparar(words[i],content[(int)current.getData()+i])<0 || BSTree.comparar(words[i],content[(int)current.getData()+i])>0){
                     equal = false;
                     break;
                 }
                 equal = true;
+                sentenceFirstWord = (int)position.getHead().getData();
             }
             current = current.getNext();
         }
         for (int i =0;i<words.length;i++){
-                if(!(words[i].equalsIgnoreCase(content[(int)current.getData()+i]))){
+                if(BSTree.comparar(words[i],content[(int)current.getData()+i])<0|| BSTree.comparar(words[i],content[(int)current.getData()+i])>0){
                     equal = false;
                     break;
                 }
                 equal = true;
+                sentenceFirstWord = (int)position.getHead().getData();
             }
         return equal;
     }
 
+    
     public Integer getSentenceIndx() {
-        return 1;
+        return sentenceFirstWord;
     }
 
      

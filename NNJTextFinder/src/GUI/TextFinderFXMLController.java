@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package GUI;
+import BinaryTree.BSTree;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
 import javafx.scene.control.ContextMenu;
@@ -84,8 +85,6 @@ public class TextFinderFXMLController implements Initializable {
     private VBox resultText;
     @FXML
     private VBox vboxLib;
-    
-    
     @FXML
     private MenuButton sortChoice;
     
@@ -133,9 +132,11 @@ public class TextFinderFXMLController implements Initializable {
     private void searchAction(ActionEvent event) throws IOException{
         results.clearList();
         docsFound = new LinkedList<Document>();
+        sentencePositions = new LinkedList<Integer>();
         String word = searchText.getText();
         
         if (!word.contains(" ")){
+            System.out.println("Solo una palabra");
             docsFound = library.listOfDocs(word);
             sentenceSearched = false;
             if (docsFound.getHead() == null){
@@ -144,30 +145,32 @@ public class TextFinderFXMLController implements Initializable {
             
         }else{
             sentenceSearched = true;
-            String[] sentence = word.split(" "); 
-            //docsFound = library.listOfDocs(sentence[0]);
+            String[] sentence = word.split(" ");
+            System.out.println("Es oracion");
             LinkedList<DocumentIndex> tempDocs = library.listOfIndxDocs(sentence[0]);
             if (tempDocs!=null){
-            Node<DocumentIndex> currentDocIndx = tempDocs.getHead();
-            while (currentDocIndx.getNext() != null){
+                System.out.println("Esta la primera palabra");
+                Node<DocumentIndex> currentDocIndx = tempDocs.getHead();
+                while (currentDocIndx.getNext() != null){
+                    Document currentDoc = currentDocIndx.getData().getDoc();
+                    if (currentDoc.containsSentence(sentence,currentDocIndx.getData().getPosition())){
+                        docsFound.insertFirst(currentDoc);
+                        sentencePositions.insertFirst(currentDoc.getSentenceIndx());
+                        System.out.println((currentDoc.getTexto().contains(word))+word+"si esta!");
+                    }
+                    currentDocIndx = currentDocIndx.getNext();
+                }
                 Document currentDoc = currentDocIndx.getData().getDoc();
-                //if (currentDoc.getTexto().contains(word)){
                 if (currentDoc.containsSentence(sentence,currentDocIndx.getData().getPosition())){
                     docsFound.insertFirst(currentDoc);
                     sentencePositions.insertFirst(currentDoc.getSentenceIndx());
                     System.out.println((currentDoc.getTexto().contains(word))+word+"si esta!");
-                }
-                currentDocIndx = currentDocIndx.getNext();
-            }
-            Document currentDoc = currentDocIndx.getData().getDoc();
-            if (currentDoc.containsSentence(sentence,currentDocIndx.getData().getPosition())){
-                    docsFound.insertFirst(currentDoc);
-                    sentencePositions.insertFirst(currentDoc.getSentenceIndx());
-                    System.out.println((currentDoc.getTexto().contains(word))+word+"si esta!");
                 }else{
-                notFoundEx();
-            }
+                    System.out.println("No hay oraciones coindicentes");
+                    notFoundEx();
+                }
             }else{
+                System.out.println("No está ni la primera palabra");
                 notFoundEx();
             }
         }
@@ -182,13 +185,20 @@ public class TextFinderFXMLController implements Initializable {
     }
     
     private void showResults(){
+        int firstPos;
         if (docsFound.getHead() != null){
         results = FileSorter.sortDocumentsBy(docsFound, sortCriterion);
         resultText.getChildren().clear();
         for (int i=0; i < results.getSize(); i++){
             Document currentDoc = results.serchByIndex(i).getData();
             //System.out.println(searchText.getText().serchByIndex(0).getData()+"esta es searched text");
-            int firstPos = (int)library.listOfPositions(currentDoc, searchText.getText()).serchByIndex(0).getData();
+            if (sentenceSearched){
+                firstPos = sentencePositions.serchByIndex(i).getData();
+            }
+            else{
+                firstPos = (int)library.listOfPositions(currentDoc, searchText.getText()).serchByIndex(0).getData();
+            }
+            
             String context = currentDoc.getContent()[firstPos]+ " ";
             String bfContext="";
             String atContext="";
@@ -273,8 +283,7 @@ public class TextFinderFXMLController implements Initializable {
                      });
                     context.getItems().add(elim);
                     doc.setContextMenu(context);
-                    
-                    
+
                 }
                 else{
                     viewText.getChildren().clear();
@@ -287,7 +296,7 @@ public class TextFinderFXMLController implements Initializable {
         @Override
             public void handle(MouseEvent t) {
                 
-                
+                String[] sentence = null;
                 viewText.getChildren().clear();
                 TextFlow l = (TextFlow)(t.getSource());
                 Text text = (Text)(l.getChildren().get(0));
@@ -300,11 +309,40 @@ public class TextFinderFXMLController implements Initializable {
                 for (int i=0; i<doc.getContent().length; i++){
                     Text space = new Text(" ");
                     String word = searchText.getText();
+                    if (word.contains("")){
+                        sentence = word.split(" ");
+                    }
                     Text words = new Text(doc.getTexto().split(" ")[i]);
                     words.setFont(new Font("Arial",15));
-                    if(word.equals(doc.getContent()[i])){
-                        words.setFill(Color.web("blue", 0.8));
-                        
+                    if (!sentenceSearched){
+                        if(BSTree.comparar(word,doc.getContent()[i])==0){
+                        //if(word.equalsIgnoreCase(doc.getContent()[i])){
+                            words.setFill(Color.web("blue", 0.8));
+                        }
+                    }else{
+                        boolean equal = false;
+                        System.out.println("estoy aqui");
+                        if(BSTree.comparar(sentence[0], doc.getContent()[i])==0){
+                            for (int j=1;j<sentence.length;j++){
+                                System.out.println("estoy en ciclo");
+                                if(BSTree.comparar(sentence[j],doc.getContent()[i+j])!=0){
+                                    equal = false;
+                                    break;
+                                }
+                                equal = true;
+                            }
+                            if (equal){
+                                System.out.println("me dio igual");
+                                for(int k=0; k<sentence.length-1;k++){
+                                    words = new Text(doc.getContent()[i+k]); 
+                                    words.setFill(Color.web("blue", 0.8));
+                                    viewText.getChildren().addAll(space, words);
+                                }
+                                words = new Text(doc.getContent()[i+sentence.length]); 
+                                words.setFill(Color.web("blue", 0.8));
+                                i+=10;
+                            }    
+                        }
                     }
                     viewText.getChildren().addAll(space, words);
                 }
@@ -323,10 +361,6 @@ public class TextFinderFXMLController implements Initializable {
             addToLibrary(thisLibrary);
         } catch (IOException ex) {
             Logger.getLogger(TextFinderFXMLController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
+        }   
     } 
-
-    
 }
