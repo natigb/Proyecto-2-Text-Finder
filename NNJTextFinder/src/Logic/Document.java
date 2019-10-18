@@ -176,6 +176,10 @@ public class Document extends Label{
         return equal;
     }
 
+    public Integer getSentenceIndx() {
+        return 1;
+    }
+
      
 }
     

@@ -61,6 +61,8 @@ public class TextFinderFXMLController implements Initializable {
     
     private Logic.SortBy sortCriterion = Name;
     private LinkedList<Document> docsFound;
+    private LinkedList<Integer> sentencePositions;
+    private Boolean sentenceSearched;
     
     @FXML
     private Button addFile;
@@ -121,16 +123,18 @@ public class TextFinderFXMLController implements Initializable {
     @FXML
     private void searchAction(ActionEvent event) throws IOException{
         results.clearList();
-        docsFound = null;
+        docsFound = new LinkedList<Document>();
         String word = searchText.getText();
         
         if (!word.contains(" ")){
             docsFound = library.listOfDocs(word);
-            if (docsFound == null){
+            sentenceSearched = false;
+            if (docsFound.getHead() == null){
                 notFoundEx();
             }
             
         }else{
+            sentenceSearched = true;
             String[] sentence = word.split(" "); 
             //docsFound = library.listOfDocs(sentence[0]);
             LinkedList<DocumentIndex> tempDocs = library.listOfIndxDocs(sentence[0]);
@@ -141,6 +145,7 @@ public class TextFinderFXMLController implements Initializable {
                 //if (currentDoc.getTexto().contains(word)){
                 if (currentDoc.containsSentence(sentence,currentDocIndx.getData().getPosition())){
                     docsFound.insertFirst(currentDoc);
+                    sentencePositions.insertFirst(currentDoc.getSentenceIndx());
                     System.out.println((currentDoc.getTexto().contains(word))+word+"si esta!");
                 }
                 currentDocIndx = currentDocIndx.getNext();
@@ -148,10 +153,12 @@ public class TextFinderFXMLController implements Initializable {
             Document currentDoc = currentDocIndx.getData().getDoc();
             if (currentDoc.containsSentence(sentence,currentDocIndx.getData().getPosition())){
                     docsFound.insertFirst(currentDoc);
+                    sentencePositions.insertFirst(currentDoc.getSentenceIndx());
                     System.out.println((currentDoc.getTexto().contains(word))+word+"si esta!");
-                }
+                }else{
+                notFoundEx();
+            }
             }else{
-                docsFound = null;
                 notFoundEx();
             }
         }
@@ -159,17 +166,19 @@ public class TextFinderFXMLController implements Initializable {
     }
         
     private void notFoundEx(){
+        docsFound = new LinkedList<Document>();
         resultText.getChildren().clear();
         Text notFound = new Text("No results found");
         resultText.getChildren().add(notFound);
     }
     
     private void showResults(){
-        if (docsFound != null){
+        if (docsFound.getHead() != null){
         results = FileSorter.sortDocumentsBy(docsFound, sortCriterion);
         resultText.getChildren().clear();
         for (int i=0; i < results.getSize(); i++){
             Document currentDoc = results.serchByIndex(i).getData();
+            //System.out.println(searchText.getText().serchByIndex(0).getData()+"esta es searched text");
             int firstPos = (int)library.listOfPositions(currentDoc, searchText.getText()).serchByIndex(0).getData();
             String context = currentDoc.getContent()[firstPos]+ " ";
             String bfContext="";
