@@ -25,7 +25,7 @@ public class BSTree {
     }
 
     /**
-     * Recorre en orden el arbol empezando de la rai­z
+     * Recorre en orden el arbol empezando de la raíz
      */
     public void traverseInOrder() {
         traverseInOrderAux(this.root);
@@ -47,19 +47,20 @@ public class BSTree {
     }
 
     /**
-     *
-     * @param key
+     * Encuentra un nodo en el árbol a partir de su llave 
+     * @param key La llave del nodo que se quiere buscar
+     * @return El nodo que tiene la llave que se busca
      */
     public Node find(String key) {
-        //if (contains(key)){
+        
         return findAux(this.root, key);
-        //}
-        //return null;
+        
     }
 
     /**
-     *
+     * Método auxiliar de find
      * @param x Nodo a partir del que esta recorriendo
+     * @param key Llave del nodo que se quiere encontrar
      */
     private Node findAux(Node x, String key) {
         if (x == null) {
@@ -74,7 +75,11 @@ public class BSTree {
         }
 
     }
-
+    /**
+     * Retorna la lista una lista de documentos que contienen la palabra ingresada
+     * @param key Llave a partir de la que se quieren buscar documentos
+     * @return Lista de documentos que contienen esa llave
+     */
     public LinkedList<DocumentIndex> getListOfDocs(String key) {
         if (contains(key)) {
             return find(key).documents;
@@ -84,11 +89,12 @@ public class BSTree {
     }
 
     /**
-     * Insertar al arbol un documento
+     * Inserta un documento al árbol, la llave es una palabra y guarda el documento y la posición de esa palabra
+     * en el documento en el nodo
      *
-     * @param key
-     * @param doc
-     * @param position
+     * @param key palabra
+     * @param doc documento guardado
+     * @param position posición de la palabra en el documento
      */
     public void insert(String key, DocumentIndex doc, int position) {
         if (!contains(key)) {
@@ -107,10 +113,10 @@ public class BSTree {
     }
 
     /**
-     * MÃ©todo para agregar un nuevo elemento al arbol
+     * Método auxiliar para agregar un nuevo elemento al arbol 
      *
-     * @param key Llave del elemento
-     * @param doc
+     * @param key Llave del elemento a agregar
+     * @param doc Documento con las posiciones en las que se encuentran las palabras
      *
      */
     private void insertAux(String key, DocumentIndex doc) {
@@ -231,7 +237,12 @@ public class BSTree {
         current.right = deleteAux(current.right, key);
         return current;
     }
-
+    /**
+     * Retorna una lista con las posiciones de una palabra específica en un documento específico
+     * @param doc Documento en el que se quieren buscar las palabras
+     * @param word Palabra que se quiere buscar en el documento
+     * @return Lista enlazada con las posiciones de la palabra en el documento
+     */
     public LinkedList getPositions(Document doc, String word) {
         if (contains(word)) {
             if (find(word).searchDocByName(doc.getName()) != null) {
@@ -243,9 +254,9 @@ public class BSTree {
     }
 
     /**
-     * Encuentra la llave con el valor mÃ¡ximo en el Ã¡rbol
+     * Encuentra la llave con el valor máximo en el árbol
      *
-     * @return la llave con el valor mÃ¡ximo
+     * @return la llave con el valor máximo
      */
     public String findMax() {
         return findMaxAux(root);

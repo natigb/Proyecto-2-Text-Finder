@@ -14,8 +14,8 @@ import java.nio.file.Paths;
  * @author Natalia and Jose
  */
 public class Library {
-   LinkedList<Document> library = new LinkedList<>();
-   BSTree tree = new BSTree();
+   private LinkedList<Document> library = new LinkedList<>();
+   private BSTree tree = new BSTree();
    
    public LinkedList<Document> listOfDocs(String key){
        LinkedList<DocumentIndex> docIndxList = tree.getListOfDocs(key);

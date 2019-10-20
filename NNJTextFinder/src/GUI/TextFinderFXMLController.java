@@ -54,6 +54,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.text.FontWeight;
 
 /**
@@ -81,7 +82,8 @@ public class TextFinderFXMLController implements Initializable {
     private VBox resultText;
     @FXML
     private VBox vboxLib;
-    
+    @FXML
+    private ScrollPane scrollpane;
     
     @FXML
     private MenuButton sortChoice;
@@ -90,6 +92,7 @@ public class TextFinderFXMLController implements Initializable {
     private void handleButtonAction(ActionEvent event) throws IOException {
         File newFile = Document.seekFile();
         addToLibrary(newFile);
+        
     }
         
     private void addToLibrary(File newFile) throws IOException{
@@ -211,7 +214,7 @@ public class TextFinderFXMLController implements Initializable {
         @Override
             public void handle(MouseEvent t) {
                 Document doc = (Document)(t.getSource());
-               
+                
                 
                 if (t.getButton()== MouseButton.SECONDARY){
                     ContextMenu context = new ContextMenu();
@@ -228,7 +231,8 @@ public class TextFinderFXMLController implements Initializable {
                         String userDir = System.getProperty("user.dir");
                         File file = new File(userDir + "\\src\\Library\\" + doc.getName());
                         file.delete();
-                        vboxLib.alignmentProperty();
+                        arrangeVBox();
+                        
                         }
                      });
                     context.getItems().add(elim);
@@ -246,17 +250,16 @@ public class TextFinderFXMLController implements Initializable {
     EventHandler<MouseEvent> openDocResult= new EventHandler<MouseEvent>(){
         @Override
             public void handle(MouseEvent t) {
-                
+                //scrollpane.setVvalue(90);
                 
                 viewText.getChildren().clear();
                 TextFlow l = (TextFlow)(t.getSource());
                 Text text = (Text)(l.getChildren().get(0));
                 int index = Integer.parseInt(text.getText());
                 Document doc = (Document)results.serchByIndex(index).getData();
-               // Text text2= new Text(doc.getTexto());
-               // viewText.getChildren().add(text2);
-                //Highlighter hightlight = viewText
-                //Si viewText fuera un TextFlow
+                int firstPos = (int)library.listOfPositions(doc, searchText.getText()).serchByIndex(0).getData();
+                Double scrollPos = Double.valueOf(firstPos)/Double.valueOf(doc.getTexto().length());
+                System.out.println(scrollPos);
                 for (int i=0; i<doc.getContent().length; i++){
                     Text space = new Text(" ");
                     String word = searchText.getText();
@@ -268,13 +271,25 @@ public class TextFinderFXMLController implements Initializable {
                     }
                     viewText.getChildren().addAll(space, words);
                 }
+                System.out.println(scrollpane.getVmax());
+                System.out.println(scrollpane.getMaxHeight());
+                viewText.heightProperty().addListener(observable -> scrollpane.setVvalue(scrollPos));
+                
+                
                 
             }
     };
+    public void arrangeVBox(){
+        vboxLib.getChildren().clear();
+        for (int i=0; i<library.getLibrary().getSize();i++){
+            vboxLib.getChildren().add((library.getLibrary().serchByIndex(i).getData()));
+        }
+    
+    }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //TODO  
+        //TODO 
         
         resultText.setSpacing(30);
         String userDir = System.getProperty("user.dir");
@@ -286,7 +301,9 @@ public class TextFinderFXMLController implements Initializable {
         }
         
         
-    } 
+    }
+    
+    
 
     
 }

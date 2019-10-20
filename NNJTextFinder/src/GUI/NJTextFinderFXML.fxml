@@ -106,7 +106,7 @@
                     </AnchorPane>
                   <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="694.0" prefWidth="735.0">
                            <children>
-                              <ScrollPane prefHeight="533.0" prefWidth="774.0">
+                              <ScrollPane fx:id="scrollpane" pannable="true" prefHeight="533.0" prefWidth="774.0">
                                 <content>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="772.0">
                                        <children>
