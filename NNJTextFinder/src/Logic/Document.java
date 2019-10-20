@@ -158,25 +158,42 @@ public class Document extends Label{
     public boolean containsSentence(String[] words, LinkedList position) {
         Node current = position.getHead();
         boolean equal = false;
+        int con = 0;
         while (current.getNext() != null){
             for (int i=0;i<words.length;i++){
-                if(BSTree.comparar(words[i],content[(int)current.getData()+i])<0 || BSTree.comparar(words[i],content[(int)current.getData()+i])>0){
+                System.out.println("comparando "+ words[i]+" con "+content[(int)current.getData()+i]+" esto es "+ BSTree.comparar(words[i],content[(int)current.getData()+i]));
+                if(BSTree.comparar(words[i],content[(int)current.getData()+i])!=0){
                     equal = false;
+                    con = 0;
                     break;
                 }
                 equal = true;
                 sentenceFirstWord = (int)position.getHead().getData();
+                con++;
+                if (con == words.length){
+                    System.out.println("found it");
+                    break;
+                }
             }
+            if(!equal){
             current = current.getNext();
-        }
-        for (int i =0;i<words.length;i++){
-                if(BSTree.comparar(words[i],content[(int)current.getData()+i])<0|| BSTree.comparar(words[i],content[(int)current.getData()+i])>0){
-                    equal = false;
-                    break;
-                }
-                equal = true;
-                sentenceFirstWord = (int)position.getHead().getData();
+            }else{
+                break;
             }
+        }
+        if(!equal){
+            for (int i =0;i<words.length;i++){
+                System.out.println("comparando "+ words[i]+" con "+ content[(int)current.getData()+i]+" esto es "+ BSTree.comparar(words[i],content[(int)current.getData()+i]));
+                    if(BSTree.comparar(words[i],content[(int)current.getData()+i])!=0){
+                        equal = false;
+                        break;
+                    }
+                    equal = true;
+                    sentenceFirstWord = (int)position.getHead().getData();
+                    //break;
+                }
+            }
+        System.out.println(equal);
         return equal;
     }
 

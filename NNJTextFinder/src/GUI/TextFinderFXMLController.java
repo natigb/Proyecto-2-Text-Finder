@@ -131,7 +131,7 @@ public class TextFinderFXMLController implements Initializable {
     @FXML
     private void searchAction(ActionEvent event) throws IOException{
         results.clearList();
-        docsFound = new LinkedList<Document>();
+        docsFound = new LinkedList<>();
         sentencePositions = new LinkedList<Integer>();
         String word = searchText.getText();
         
@@ -155,6 +155,7 @@ public class TextFinderFXMLController implements Initializable {
                     Document currentDoc = currentDocIndx.getData().getDoc();
                     if (currentDoc.containsSentence(sentence,currentDocIndx.getData().getPosition())){
                         docsFound.insertFirst(currentDoc);
+                        System.out.println("doc insertado");
                         sentencePositions.insertFirst(currentDoc.getSentenceIndx());
                         System.out.println((currentDoc.getTexto().contains(word))+word+"si esta!");
                     }
@@ -162,6 +163,7 @@ public class TextFinderFXMLController implements Initializable {
                 }
                 Document currentDoc = currentDocIndx.getData().getDoc();
                 if (currentDoc.containsSentence(sentence,currentDocIndx.getData().getPosition())){
+                    System.out.println("doc insertado");
                     docsFound.insertFirst(currentDoc);
                     sentencePositions.insertFirst(currentDoc.getSentenceIndx());
                     System.out.println((currentDoc.getTexto().contains(word))+word+"si esta!");
@@ -174,11 +176,12 @@ public class TextFinderFXMLController implements Initializable {
                 notFoundEx();
             }
         }
+        
         showResults();
     }
         
     private void notFoundEx(){
-        docsFound = new LinkedList<Document>();
+        //docsFound = new LinkedList<Document>();
         resultText.getChildren().clear();
         Text notFound = new Text("No results found");
         resultText.getChildren().add(notFound);
@@ -236,7 +239,6 @@ public class TextFinderFXMLController implements Initializable {
         }
     }
     
-        
         public void sizeSort (ActionEvent e){
             sortCriterion = Size;
             showResults();
@@ -307,24 +309,21 @@ public class TextFinderFXMLController implements Initializable {
                 //Highlighter hightlight = viewText
                 //Si viewText fuera un TextFlow
                 for (int i=0; i<doc.getContent().length; i++){
+                    boolean equal = false;
                     Text space = new Text(" ");
                     String word = searchText.getText();
                     if (word.contains("")){
                         sentence = word.split(" ");
                     }
                     Text words = new Text(doc.getTexto().split(" ")[i]);
-                    words.setFont(new Font("Arial",15));
+                    //words.setFont(new Font("Arial",12));
                     if (!sentenceSearched){
                         if(BSTree.comparar(word,doc.getContent()[i])==0){
-                        //if(word.equalsIgnoreCase(doc.getContent()[i])){
                             words.setFill(Color.web("blue", 0.8));
                         }
                     }else{
-                        boolean equal = false;
-                        System.out.println("estoy aqui");
                         if(BSTree.comparar(sentence[0], doc.getContent()[i])==0){
                             for (int j=1;j<sentence.length;j++){
-                                System.out.println("estoy en ciclo");
                                 if(BSTree.comparar(sentence[j],doc.getContent()[i+j])!=0){
                                     equal = false;
                                     break;
@@ -332,19 +331,23 @@ public class TextFinderFXMLController implements Initializable {
                                 equal = true;
                             }
                             if (equal){
-                                System.out.println("me dio igual");
-                                for(int k=0; k<sentence.length-1;k++){
-                                    words = new Text(doc.getContent()[i+k]); 
+
+                                for(int k=0; k<sentence.length;k++){
+                                    words = new Text(doc.getContent()[i+k]);
+                                    space = new Text(" ");
                                     words.setFill(Color.web("blue", 0.8));
-                                    viewText.getChildren().addAll(space, words);
+                                    //words.setFont(new Font("Arial",12));    
+                                    viewText.getChildren().addAll(words,space);
                                 }
-                                words = new Text(doc.getContent()[i+sentence.length]); 
-                                words.setFill(Color.web("blue", 0.8));
-                                i+=10;
+                                i+=sentence.length-1;
                             }    
                         }
                     }
-                    viewText.getChildren().addAll(space, words);
+                    if(!equal){
+                        viewText.getChildren().addAll(words,space);
+                    }else{
+                     viewText.getChildren().remove(viewText.getChildren().size());
+                    }
                 }
                 
             }
