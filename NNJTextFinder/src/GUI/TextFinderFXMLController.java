@@ -345,8 +345,6 @@ public class TextFinderFXMLController implements Initializable {
                     }
                     if(!equal){
                         viewText.getChildren().addAll(words,space);
-                    }else{
-                     viewText.getChildren().remove(viewText.getChildren().size());
                     }
                 }
                 
