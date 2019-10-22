@@ -306,8 +306,11 @@ public class TextFinderFXMLController implements Initializable {
                 //scrollpane.setVvalue(90);
                 
                 String[] sentence = null;
+<<<<<<< HEAD
                 int firstPos = 0;
                 boolean firstFound = false;
+=======
+>>>>>>> master
                 viewText.getChildren().clear();
                 TextFlow l = (TextFlow)(t.getSource());
                 Text text = (Text)(l.getChildren().get(0));
