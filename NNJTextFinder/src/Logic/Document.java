@@ -5,6 +5,9 @@
  */
 package Logic;
 
+import BinaryTree.BSTree;
+import LinkedList.LinkedList;
+import LinkedList.Node;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -26,6 +29,7 @@ public class Document extends Label{
     private String name;
     private int date;
     private int size;
+    private Integer sentenceFirstWord;
     
     public Document() throws IOException{
         File originFile = seekFile();
@@ -148,6 +152,54 @@ public class Document extends Label{
             }
         }
         return word;
+    }
+
+    
+    public boolean containsSentence(String[] words, LinkedList position) {
+        Node current = position.getHead();
+        boolean equal = false;
+        int con = 0;
+        while (current.getNext() != null){
+            for (int i=0;i<words.length;i++){
+                System.out.println("comparando "+ words[i]+" con "+content[(int)current.getData()+i]+" esto es "+ BSTree.comparar(words[i],content[(int)current.getData()+i]));
+                if(BSTree.comparar(words[i],content[(int)current.getData()+i])!=0){
+                    equal = false;
+                    con = 0;
+                    break;
+                }
+                equal = true;
+                sentenceFirstWord = (int)position.getHead().getData();
+                con++;
+                if (con == words.length){
+                    System.out.println("found it");
+                    break;
+                }
+            }
+            if(!equal){
+            current = current.getNext();
+            }else{
+                break;
+            }
+        }
+        if(!equal){
+            for (int i =0;i<words.length;i++){
+                System.out.println("comparando "+ words[i]+" con "+ content[(int)current.getData()+i]+" esto es "+ BSTree.comparar(words[i],content[(int)current.getData()+i]));
+                    if(BSTree.comparar(words[i],content[(int)current.getData()+i])!=0){
+                        equal = false;
+                        break;
+                    }
+                    equal = true;
+                    sentenceFirstWord = (int)position.getHead().getData();
+                    //break;
+                }
+            }
+        System.out.println(equal);
+        return equal;
+    }
+
+    
+    public Integer getSentenceIndx() {
+        return sentenceFirstWord;
     }
 
      

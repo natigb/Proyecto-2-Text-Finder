@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package GUI;
+import BinaryTree.BSTree;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
 import javafx.scene.control.ContextMenu;
@@ -13,6 +14,7 @@ import java.text.Normalizer;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseButton;
 import LinkedList.LinkedList;
+import LinkedList.Node;
 import Logic.Document;
 import Logic.DocumentIndex;
 import Logic.FileSorter;
@@ -70,6 +72,8 @@ public class TextFinderFXMLController implements Initializable {
     
     private Logic.SortBy sortCriterion = Name;
     private LinkedList<Document> docsFound;
+    private LinkedList<Integer> sentencePositions;
+    private Boolean sentenceSearched;
     
     @FXML
     private Button addFile;
@@ -85,7 +89,6 @@ public class TextFinderFXMLController implements Initializable {
     private VBox vboxLib;
     @FXML
     private ScrollPane scrollpane;
-    
     @FXML
     private MenuButton sortChoice;
     
@@ -128,31 +131,82 @@ public class TextFinderFXMLController implements Initializable {
             vboxLib.getChildren().add(newDoc);
         }    
         library.printTree();
-        
-        
-    
     }
     
     @FXML
     private void searchAction(ActionEvent event) throws IOException{
         results.clearList();
+        docsFound = new LinkedList<>();
+        sentencePositions = new LinkedList<Integer>();
         String word = searchText.getText();
-        docsFound = library.listOfDocs(word);
-        if (docsFound == null){
-            resultText.getChildren().clear();
-            Text notFound = new Text("No results found");
-            resultText.getChildren().add(notFound);
+        
+        if (!word.contains(" ")){
+            System.out.println("Solo una palabra");
+            docsFound = library.listOfDocs(word);
+            sentenceSearched = false;
+            if (docsFound.getHead() == null){
+                notFoundEx();
+            }
+            
+        }else{
+            sentenceSearched = true;
+            String[] sentence = word.split(" ");
+            System.out.println("Es oracion");
+            LinkedList<DocumentIndex> tempDocs = library.listOfIndxDocs(sentence[0]);
+            if (tempDocs!=null){
+                System.out.println("Esta la primera palabra");
+                Node<DocumentIndex> currentDocIndx = tempDocs.getHead();
+                while (currentDocIndx.getNext() != null){
+                    Document currentDoc = currentDocIndx.getData().getDoc();
+                    if (currentDoc.containsSentence(sentence,currentDocIndx.getData().getPosition())){
+                        docsFound.insertFirst(currentDoc);
+                        System.out.println("doc insertado");
+                        sentencePositions.insertFirst(currentDoc.getSentenceIndx());
+                        System.out.println((currentDoc.getTexto().contains(word))+word+"si esta!");
+                    }
+                    currentDocIndx = currentDocIndx.getNext();
+                }
+                Document currentDoc = currentDocIndx.getData().getDoc();
+                if (currentDoc.containsSentence(sentence,currentDocIndx.getData().getPosition())){
+                    System.out.println("doc insertado");
+                    docsFound.insertFirst(currentDoc);
+                    sentencePositions.insertFirst(currentDoc.getSentenceIndx());
+                    System.out.println((currentDoc.getTexto().contains(word))+word+"si esta!");
+                }else{
+                    System.out.println("No hay oraciones coindicentes");
+                    notFoundEx();
+                }
+            }else{
+                System.out.println("No estï¿½ ni la primera palabra");
+                notFoundEx();
+            }
         }
+        
         showResults();
+    }
+        
+    private void notFoundEx(){
+        //docsFound = new LinkedList<Document>();
+        resultText.getChildren().clear();
+        Text notFound = new Text("No results found");
+        resultText.getChildren().add(notFound);
     }
     
     private void showResults(){
-        if (docsFound != null){
+        int firstPos;
+        if (docsFound.getHead() != null){
         results = FileSorter.sortDocumentsBy(docsFound, sortCriterion);
         resultText.getChildren().clear();
         for (int i=0; i < results.getSize(); i++){
             Document currentDoc = results.serchByIndex(i).getData();
-            int firstPos = (int)library.listOfPositions(currentDoc, searchText.getText()).serchByIndex(0).getData();
+            //System.out.println(searchText.getText().serchByIndex(0).getData()+"esta es searched text");
+            if (sentenceSearched){
+                firstPos = sentencePositions.serchByIndex(i).getData();
+            }
+            else{
+                firstPos = (int)library.listOfPositions(currentDoc, searchText.getText()).serchByIndex(0).getData();
+            }
+            
             String context = currentDoc.getContent()[firstPos]+ " ";
             String bfContext="";
             String atContext="";
@@ -190,7 +244,6 @@ public class TextFinderFXMLController implements Initializable {
         }
     }
     
-        
         public void sizeSort (ActionEvent e){
             sortCriterion = Size;
             showResults();
@@ -224,7 +277,7 @@ public class TextFinderFXMLController implements Initializable {
                         @Override
                         public void handle(ActionEvent e) {
                         library.getLibrary().printList();
-                        System.out.println("Eliminó un documento");
+                        System.out.println("Eliminï¿½ un documento");
                         doc.setText(null);
                         library.deleteDoc(doc);
                         System.out.println(" ");
@@ -238,8 +291,7 @@ public class TextFinderFXMLController implements Initializable {
                      });
                     context.getItems().add(elim);
                     doc.setContextMenu(context);
-                    
-                    
+
                 }
                 else{
                     viewText.getChildren().clear();
@@ -253,6 +305,7 @@ public class TextFinderFXMLController implements Initializable {
             public void handle(MouseEvent t) {
                 //scrollpane.setVvalue(90);
                 
+                String[] sentence = null;
                 viewText.getChildren().clear();
                 TextFlow l = (TextFlow)(t.getSource());
                 Text text = (Text)(l.getChildren().get(0));
@@ -261,16 +314,43 @@ public class TextFinderFXMLController implements Initializable {
                 int firstPos = (int)library.listOfPositions(doc, searchText.getText()).serchByIndex(0).getData();
                 
                 for (int i=0; i<doc.getContent().length; i++){
+                    boolean equal = false;
                     Text space = new Text(" ");
                     String word = searchText.getText();
-                    Text words = new Text(doc.getTexto().split(" ")[i]);
-                    words.setFont(new Font("Arial",15));
-                    if(word.toLowerCase().equals(doc.getContent()[i].toLowerCase())){
-                  //  if(Normalizer.normalize(word, Normalizer.Form.NFD).replaceAll("[\\p{InCombiningDiacriticalMarks}]", " ").equals(Normalizer.normalize(doc.getContent()[i], Normalizer.Form.NFD).replaceAll("[\\p{InCombiningDiacriticalMarks}]", " "))){
-                        words.setFill(Color.web("blue", 0.8));
-                        
+                    if (word.contains("")){
+                        sentence = word.split(" ");
                     }
-                    viewText.getChildren().addAll(space, words);
+                    Text words = new Text(doc.getTexto().split(" ")[i]);
+                    //words.setFont(new Font("Arial",12));
+                    if (!sentenceSearched){
+                        if(BSTree.comparar(word,doc.getContent()[i])==0){
+                            words.setFill(Color.web("blue", 0.8));
+                        }
+                    }else{
+                        if(BSTree.comparar(sentence[0], doc.getContent()[i])==0){
+                            for (int j=1;j<sentence.length;j++){
+                                if(BSTree.comparar(sentence[j],doc.getContent()[i+j])!=0){
+                                    equal = false;
+                                    break;
+                                }
+                                equal = true;
+                            }
+                            if (equal){
+
+                                for(int k=0; k<sentence.length;k++){
+                                    words = new Text(doc.getContent()[i+k]);
+                                    space = new Text(" ");
+                                    words.setFill(Color.web("blue", 0.8));
+                                    //words.setFont(new Font("Arial",12));    
+                                    viewText.getChildren().addAll(words,space);
+                                }
+                                i+=sentence.length-1;
+                            }    
+                        }
+                    }
+                    if(!equal){
+                        viewText.getChildren().addAll(words,space);
+                    }
                 }
                 String[] renglones=doc.getTexto().split("\n");
                 int pos= 0;
@@ -310,12 +390,6 @@ public class TextFinderFXMLController implements Initializable {
             addToLibrary(thisLibrary);
         } catch (IOException ex) {
             Logger.getLogger(TextFinderFXMLController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-    }
-    
-    
-
-    
+        }   
+    } 
 }
