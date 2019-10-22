@@ -9,6 +9,7 @@ import javax.swing.text.Highlighter;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import java.text.Normalizer;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseButton;
 import LinkedList.LinkedList;
@@ -258,22 +259,33 @@ public class TextFinderFXMLController implements Initializable {
                 int index = Integer.parseInt(text.getText());
                 Document doc = (Document)results.serchByIndex(index).getData();
                 int firstPos = (int)library.listOfPositions(doc, searchText.getText()).serchByIndex(0).getData();
-                Double scrollPos = Double.valueOf(firstPos)/Double.valueOf(doc.getTexto().length());
-                System.out.println(scrollPos);
+                
                 for (int i=0; i<doc.getContent().length; i++){
                     Text space = new Text(" ");
                     String word = searchText.getText();
                     Text words = new Text(doc.getTexto().split(" ")[i]);
                     words.setFont(new Font("Arial",15));
-                    if(word.equals(doc.getContent()[i])){
+                    if(word.toLowerCase().equals(doc.getContent()[i].toLowerCase())){
+                  //  if(Normalizer.normalize(word, Normalizer.Form.NFD).replaceAll("[\\p{InCombiningDiacriticalMarks}]", " ").equals(Normalizer.normalize(doc.getContent()[i], Normalizer.Form.NFD).replaceAll("[\\p{InCombiningDiacriticalMarks}]", " "))){
                         words.setFill(Color.web("blue", 0.8));
                         
                     }
                     viewText.getChildren().addAll(space, words);
                 }
-                System.out.println(scrollpane.getVmax());
-                System.out.println(scrollpane.getMaxHeight());
+                String[] renglones=doc.getTexto().split("\n");
+                int pos= 0;
+                for(int j=0;j<renglones.length;j++){
+                    pos+=renglones[j].split(" ").length;
+                    if (pos>=firstPos){
+                        pos=j+1;
+                        break;
+                    }
+                }
+                //scrollpane.setVvalue(0);
+                Double scrollPos = Double.valueOf(pos)/Double.valueOf(renglones.length);
+               
                 viewText.heightProperty().addListener(observable -> scrollpane.setVvalue(scrollPos));
+                scrollpane.setVvalue(scrollPos);
                 
                 
                 
