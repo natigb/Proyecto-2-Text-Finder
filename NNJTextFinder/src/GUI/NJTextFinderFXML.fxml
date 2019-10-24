@@ -7,6 +7,7 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.SplitPane?>
@@ -81,6 +82,8 @@
                   </ImageView>
                   <TextField fx:id="searchText" layoutX="372.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="380.0" promptText="Search for words or phrases" />
                   <Button fx:id="searchButton" layoutX="762.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#searchAction" text="Search" />
+                  <RadioButton fx:id="byWord" layoutX="827.0" layoutY="5.0" mnemonicParsing="false" onAction="#byWord" text="Search each word" />
+                  <RadioButton fx:id="bySentence" layoutX="827.0" layoutY="27.0" mnemonicParsing="false" onAction="#bySentence" text="Search as sentece" />
                </children>
             </AnchorPane>
             <AnchorPane>

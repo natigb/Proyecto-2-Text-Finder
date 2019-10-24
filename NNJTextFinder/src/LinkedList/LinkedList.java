@@ -214,5 +214,39 @@ public class LinkedList<T> {
         
      
     }   
+
+    public void mergeLinkedList(LinkedList<T> toMerge) {
+            if (this.head == null){
+                this.head = toMerge.head;
+            }else{
+            Node<T> current = this.head;
+            while (current.getNext() != null){
+                current = current.getNext();
+            }
+            System.out.println(this.size);
+            current.setNext(toMerge.head);
+            }
+            this.size += toMerge.size;
+            System.out.println(toMerge.size);
+            System.out.println(this.size);
+        }
+
+    public void deleteReapeatedData() {
+        if (this.head != null){
+            Node<T> current = this.head;
+            for(int i=0;i<this.size;i++){
+                T currentData = current.getData();
+                for(int j=i+1;j<this.size;j++){
+                    //System.out.println("comparando" +currentData+"con"+this.serchByIndex(j).getData());
+                    if(currentData == this.serchByIndex(j).getData())
+                        this.deleteByIndex(j);
+                    System.out.println("repetition deleted");
+                    
+                }
+                current= this.serchByIndex(i);
+            }
+            //System.out.println(this.size);
+        }
+    }
     
 }

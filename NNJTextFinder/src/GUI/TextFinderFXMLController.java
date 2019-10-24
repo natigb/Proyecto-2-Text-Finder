@@ -29,6 +29,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -53,6 +54,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuButton;
+import javafx.scene.control.RadioButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -97,6 +99,10 @@ public class TextFinderFXMLController implements Initializable {
     private ScrollPane scrollpane;
     @FXML
     private MenuButton sortChoice;
+    @FXML
+    private RadioButton byWord;
+    @FXML
+    private RadioButton bySentence;
     
     @FXML
     private void handleButtonAction(ActionEvent event) throws IOException {
@@ -142,21 +148,43 @@ public class TextFinderFXMLController implements Initializable {
     @FXML
     private void searchAction(ActionEvent event) throws IOException{
         results.clearList();
+        resultText.getChildren().clear();
         docsFound = new LinkedList<>();
         sentencePositions = new LinkedList<Integer>();
-        String word = searchText.getText();
+        String searched = searchText.getText();
         
-        if (!word.contains(" ")){
-            System.out.println("Solo una palabra");
-            docsFound = library.listOfDocs(word);
-            sentenceSearched = false;
+        System.out.println(searched+ "--> Esto fue lo que se busco");
+        if (!sentenceSearched){
+            System.out.println("por palabras");
+            String[] sentence = searched.split(" ");
+            System.out.println(Arrays.toString(sentence));
+            for(String word : sentence){
+                //word =Document.deletePunctuationMarks(word, word.length());
+                LinkedList<Document> newDocsFound = library.listOfDocs(word);
+                System.out.println(word+ "--> Esto fue lo que se mando a buscar");
+                //showResults(newDocsFound);
+                if(newDocsFound != null){
+                    //showResults(newDocsFound);
+                    docsFound.mergeLinkedList(newDocsFound);
+                    docsFound.deleteReapeatedData();
+                }
+            }
             if (docsFound == null){
                 docsFound = new LinkedList<>();
                 notFoundEx();
+            }else{
+                showResults(docsFound);
             }
             
         }else{
-            sentenceSearched = true;
+            searchBySentence(searched);
+            showResults(docsFound);
+        }
+        
+        //showResults();
+    }
+    
+    private void searchBySentence(String word){
             String[] sentence = word.split(" ");
             System.out.println("Es oracion");
             LinkedList<DocumentIndex> tempDocs = library.listOfIndxDocs(sentence[0]);
@@ -187,9 +215,7 @@ public class TextFinderFXMLController implements Initializable {
                 System.out.println("No est� ni la primera palabra");
                 notFoundEx();
             }
-        }
         
-        showResults();
     }
         
     private void notFoundEx(){
@@ -199,21 +225,36 @@ public class TextFinderFXMLController implements Initializable {
         resultText.getChildren().add(notFound);
     }
     
-    private void showResults(){
+    private void showResults(LinkedList<Document> docsFound){
         int firstPos;
+        String searched = searchText.getText();
+        String[] sentence = searched.split(" ");
         if (docsFound.getHead() != null){
         results = FileSorter.sortDocumentsBy(docsFound, sortCriterion);
-        resultText.getChildren().clear();
+        //resultText.getChildren().clear();
         for (int i=0; i < results.getSize(); i++){
             Document currentDoc = results.serchByIndex(i).getData();
             //System.out.println(searchText.getText().serchByIndex(0).getData()+"esta es searched text");
             if (sentenceSearched){
                 firstPos = sentencePositions.serchByIndex(i).getData();
+                createResultReference(currentDoc,firstPos,i,sentence.length);
             }
             else{
-                firstPos = (int)library.listOfPositions(currentDoc, searchText.getText()).serchByIndex(0).getData();
+                for(String word : sentence){
+                    LinkedList listOfPos = library.listOfPositions(currentDoc,word);
+                    
+                    if (listOfPos.getHead() != null){
+                        firstPos = (int)listOfPos.serchByIndex(0).getData();
+                        createResultReference(currentDoc,firstPos,i,sentence.length);
+                        }
+                    }
+                }
+        
             }
-            
+        }
+    }
+    
+        public void createResultReference(Document currentDoc,int firstPos, int i,int size){
             String context = currentDoc.getContent()[firstPos]+ " ";
             String bfContext="";
             String atContext="";
@@ -222,18 +263,25 @@ public class TextFinderFXMLController implements Initializable {
                     context= currentDoc.getContent()[firstPos-j]+" "+context;
                     bfContext= currentDoc.getContent()[firstPos-j]+" "+bfContext;
                     
-                }}
+                }
+            }
             for (int j=10; j>0; j--){
                 if (firstPos+j<currentDoc.getContent().length){
-                    context= context +" "+currentDoc.getContent()[firstPos+j];
-                    atContext= currentDoc.getContent()[firstPos+j]+" "+atContext;
+                    context= context +" "+currentDoc.getContent()[firstPos+j+size-1];
+                    atContext= currentDoc.getContent()[firstPos+j+size-1]+" "+atContext;
                 }
             }
             
             context = ": "+currentDoc.getName()+"\n";
             Text contextT = new Text(context);
             contextT.setFont(new Font("Arial",18));
-            Text word= new Text(searchText.getText());
+            String searchedFor = currentDoc.getContent()[firstPos]; 
+            if (sentenceSearched){
+            for (int z=1 ; z < size;z++){
+                searchedFor += " "+currentDoc.getContent()[firstPos+z];
+            }
+            }
+            Text word= new Text(searchedFor);
             word.setFont(new Font("Arial",15));
             word.setFill(Color.web("blue", 0.8));
             Text beforeContxt = new Text("..."+bfContext);
@@ -246,29 +294,37 @@ public class TextFinderFXMLController implements Initializable {
             tf.getChildren().addAll(numTxt,contextT,beforeContxt, word, afterContxt);
             tf.setOnMouseClicked(openDocResult);
             resultText.getChildren().add(tf);
-            }
-        
+            
         }
-    }
     
         public void sizeSort (ActionEvent e){
             sortCriterion = Size;
-            showResults();
+            showResults(docsFound);
             sortChoice.setText("Size");
         }
         
         public void dateSort (ActionEvent e){
             sortCriterion = Date;
-            showResults();
+            showResults(docsFound);
             sortChoice.setText("Date");
         }
         
         public void nameSort (ActionEvent e){
             sortCriterion = Name;
-            showResults();
+            showResults(docsFound);
             sortChoice.setText("Name");
         }
+       
+        public void bySentence(ActionEvent e){
+            byWord.setSelected(false);
+            sentenceSearched = true;
+            
+        }
         
+        public void byWord(ActionEvent e){
+            bySentence.setSelected(false);
+            sentenceSearched = false;
+        }
   
     
     EventHandler<MouseEvent> openDocLib= new EventHandler<MouseEvent>(){
@@ -344,7 +400,7 @@ public class TextFinderFXMLController implements Initializable {
                      });
                     
                     
-                    context.getItems().addAll(elim,open,update);
+                    context.getItems().addAll(open,update,elim);
                     doc.setContextMenu(context);
 
                 }
@@ -362,7 +418,7 @@ public class TextFinderFXMLController implements Initializable {
                 
                 int firstPos = 0;
                 boolean firstFound = false;
-                String[] sentence = null;
+                String[] sentence = searchText.getText().split(" ");;
                 viewText.getChildren().clear();
                 TextFlow l = (TextFlow)(t.getSource());
                 Text text = (Text)(l.getChildren().get(0));
@@ -370,24 +426,26 @@ public class TextFinderFXMLController implements Initializable {
                 Document doc = (Document)results.serchByIndex(index).getData();
                 System.out.println("hola");
                 if (!sentenceSearched){
-                    firstPos = (int)library.listOfPositions(doc, searchText.getText()).serchByIndex(0).getData();
+                    //sentence = searchText.getText().split(" ");
+                    firstPos = (int)library.listOfPositions(doc, sentence[0]).serchByIndex(0).getData();
                 }
                 for (int i=0; i<doc.getContent().length; i++){
                     boolean equal = false;
                     Text space = new Text(" ");
                     String word = searchText.getText();
-                    if (word.contains("")){
-                        sentence = word.split(" ");
-                    }
+                    //sentence = word.split(" ");
                     Text words = new Text(doc.getTexto().split(" ")[i]);
                     //words.setFont(new Font("Arial",12));
                     if (!sentenceSearched){
-                        if(BSTree.comparar(word,doc.getContent()[i])==0){
-                            words.setFill(Color.web("blue", 0.8));
+                        for (int j=0;j<sentence.length;j++){
+                                if(BSTree.comparar(sentence[j],doc.getContent()[i])==0){
+                                    words.setFill(Color.web("blue", 0.8));
+                                    break;
+                                }
                         }
                     }else{
                         if(BSTree.comparar(sentence[0], doc.getContent()[i])==0){
-                            for (int j=1;j<sentence.length;j++){
+                            for (int j=0;j<sentence.length;j++){
                                 if(BSTree.comparar(sentence[j],doc.getContent()[i+j])!=0){
                                     equal = false;
                                     break;
@@ -451,6 +509,7 @@ public class TextFinderFXMLController implements Initializable {
         //TODO 
         
         resultText.setSpacing(30);
+        
         String userDir = System.getProperty("user.dir");
         File thisLibrary = new File(userDir + "\\src\\Library");
         try {
