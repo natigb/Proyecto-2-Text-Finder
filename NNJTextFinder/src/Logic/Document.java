@@ -30,6 +30,7 @@ public class Document extends Label{
     private int date;
     private int size;
     private Integer sentenceFirstWord;
+    private File orgFile;
     
     public Document() throws IOException{
         File originFile = seekFile();
@@ -52,6 +53,7 @@ public class Document extends Label{
     }
     
     private void generateFileCopy(File originFile) throws IOException {
+        orgFile = originFile;
         String userDir = System.getProperty("user.dir");
         File destitationFile = new File(userDir + "\\src\\Library\\" + originFile.getName());
         
@@ -93,6 +95,14 @@ public class Document extends Label{
 
     public void setTexto(String text) {
         this.text = text;
+    }
+
+    public File getOrgFile() {
+        return orgFile;
+    }
+
+    public void setOrgFile(File orgFile) {
+        this.orgFile = orgFile;
     }
 
         

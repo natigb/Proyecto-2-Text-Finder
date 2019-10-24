@@ -22,6 +22,7 @@ import Logic.Library;
 import static Logic.SortBy.Date;
 import static Logic.SortBy.Name;
 import static Logic.SortBy.Size;
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -277,7 +278,8 @@ public class TextFinderFXMLController implements Initializable {
                 
                 if (t.getButton()== MouseButton.SECONDARY){
                     ContextMenu context = new ContextMenu();
-                    MenuItem elim = new MenuItem("Eliminar");
+                    MenuItem elim = new MenuItem("Delete");
+                    MenuItem open = new MenuItem("Open file");
                     elim.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent e) {
@@ -294,7 +296,21 @@ public class TextFinderFXMLController implements Initializable {
                         
                         }
                      });
-                    context.getItems().add(elim);
+                    
+                    open.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent e) {
+                            
+                            try {
+                                Desktop.getDesktop().open(doc.getOrgFile());
+                            } catch (IOException ex) {
+                                Logger.getLogger(TextFinderFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                     });
+                    
+                    
+                    context.getItems().addAll(elim,open);
                     doc.setContextMenu(context);
 
                 }
@@ -408,8 +424,8 @@ public class TextFinderFXMLController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(TextFinderFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        Image img = new Image("GUI/CSS and aesthetics/templateD.jpg");
-        BackgroundImage bc = new BackgroundImage(img,BackgroundRepeat.REPEAT,BackgroundRepeat.REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT);
-        viewText.setBackground(new Background(bc));
+        //Image img = new Image("GUI/CSS and aesthetics/templateD.jpg");
+        //BackgroundImage bc = new BackgroundImage(img,BackgroundRepeat.REPEAT,BackgroundRepeat.REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT);
+        //viewText.setBackground(new Background(bc));
     } 
 }
