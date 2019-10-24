@@ -85,7 +85,7 @@
             </AnchorPane>
             <AnchorPane>
                <children>
-                <SplitPane dividerPositions="0.1503957783641161, 0.830255057167986" focusTraversable="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <SplitPane dividerPositions="0.15035169988276673, 0.7236225087924971" focusTraversable="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                   <items>
                     <AnchorPane SplitPane.resizableWithParent="false">
                       <children>
@@ -107,14 +107,10 @@
                     </AnchorPane>
                   <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="694.0" prefWidth="735.0">
                            <children>
-                              <ScrollPane fx:id="scrollpane" pannable="true" prefHeight="533.0" prefWidth="774.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                <content>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="772.0">
-                                       <children>
-                                          <TextFlow fx:id="viewText" prefHeight="533.0" prefWidth="774.0" textAlignment="JUSTIFY" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                       </children>
-                                    </AnchorPane>
-                                </content>
+                              <ScrollPane fx:id="scrollpane" pannable="true" prefHeight="523.0" prefWidth="646.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <content>
+                                    <TextFlow fx:id="viewText" prefHeight="557.0" prefWidth="813.0" textAlignment="JUSTIFY" />
+                                 </content>
                               </ScrollPane>
                            </children>
                   </AnchorPane>

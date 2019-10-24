@@ -58,6 +58,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.text.FontWeight;
 
 /**
@@ -144,7 +149,7 @@ public class TextFinderFXMLController implements Initializable {
             System.out.println("Solo una palabra");
             docsFound = library.listOfDocs(word);
             sentenceSearched = false;
-            if (docsFound.getHead() == null){
+            if (docsFound == null){
                 notFoundEx();
             }
             
@@ -397,6 +402,9 @@ public class TextFinderFXMLController implements Initializable {
             addToLibrary(thisLibrary);
         } catch (IOException ex) {
             Logger.getLogger(TextFinderFXMLController.class.getName()).log(Level.SEVERE, null, ex);
-        }   
+        }
+        Image img = new Image("GUI/CSS and aesthetics/templateD.jpg");
+        BackgroundImage bc = new BackgroundImage(img,BackgroundRepeat.REPEAT,BackgroundRepeat.REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT);
+        viewText.setBackground(new Background(bc));
     } 
 }
