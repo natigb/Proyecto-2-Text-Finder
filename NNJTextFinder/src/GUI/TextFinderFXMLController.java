@@ -151,6 +151,7 @@ public class TextFinderFXMLController implements Initializable {
             docsFound = library.listOfDocs(word);
             sentenceSearched = false;
             if (docsFound == null){
+                docsFound = new LinkedList<>();
                 notFoundEx();
             }
             
@@ -278,8 +279,9 @@ public class TextFinderFXMLController implements Initializable {
                 
                 if (t.getButton()== MouseButton.SECONDARY){
                     ContextMenu context = new ContextMenu();
-                    MenuItem elim = new MenuItem("Delete");
+                    MenuItem elim = new MenuItem("Delete file");
                     MenuItem open = new MenuItem("Open file");
+                    MenuItem update = new MenuItem("Update file");
                     elim.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent e) {
@@ -309,8 +311,40 @@ public class TextFinderFXMLController implements Initializable {
                         }
                      });
                     
+                    update.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent e) {
+                        File toUpdate;    
+                        if (doc.getOrgFile().getAbsolutePath().equals(doc.getDesFile().getAbsolutePath())){
+                            toUpdate = Document.seekFile();
+                            String userDir = System.getProperty("user.dir");
+                            File file = new File(userDir + "\\src\\Library\\" + doc.getName());
+                            file.delete();
+                        }else{
+                        toUpdate = doc.getOrgFile();
+                        }
+                        
+                        library.getLibrary().printList();
+                        System.out.println("Elimin� un documento");
+                        doc.setText(null);
+                        library.deleteDoc(doc);
+                        System.out.println(" ");
+                        library.getLibrary().printList();
+                        //String userDir = System.getProperty("user.dir");
+                        //File file = new File(userDir + "\\src\\Library\\" + doc.getName());
+                        //file.delete();
+                        arrangeVBox();
+                        try {
+                                addDocument(toUpdate);
+                            } catch (IOException ex) {
+                                Logger.getLogger(TextFinderFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        arrangeVBox();
+                        }
+                     });
                     
-                    context.getItems().addAll(elim,open);
+                    
+                    context.getItems().addAll(elim,open,update);
                     doc.setContextMenu(context);
 
                 }
