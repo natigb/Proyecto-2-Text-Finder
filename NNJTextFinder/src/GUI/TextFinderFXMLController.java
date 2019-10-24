@@ -366,13 +366,18 @@ public class TextFinderFXMLController implements Initializable {
                 }
                 String[] renglones=doc.getTexto().split("\n");
                 int pos= 0;
+                System.out.println(firstPos);
                 for(int j=0;j<renglones.length;j++){
-                    pos+=renglones[j].split(" ").length;
+                    
                     if (pos>=firstPos){
-                        pos=j+1;
+                        pos=j;
                         break;
                     }
+                    pos+=renglones[j].split(" ").length-1;
+                    System.out.println(renglones[j]);
                 }
+                System.out.println(pos);
+                System.out.println(renglones.length);
                 //scrollpane.setVvalue(0);
                 Double scrollPos = Double.valueOf(pos)/Double.valueOf(renglones.length);
                
