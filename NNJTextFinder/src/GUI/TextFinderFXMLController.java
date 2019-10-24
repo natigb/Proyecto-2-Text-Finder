@@ -414,7 +414,6 @@ public class TextFinderFXMLController implements Initializable {
     EventHandler<MouseEvent> openDocResult= new EventHandler<MouseEvent>(){
         @Override
             public void handle(MouseEvent t) {
-                //scrollpane.setVvalue(90);
                 
                 int firstPos = 0;
                 boolean firstFound = false;
@@ -424,7 +423,19 @@ public class TextFinderFXMLController implements Initializable {
                 Text text = (Text)(l.getChildren().get(0));
                 int index = Integer.parseInt(text.getText());
                 Document doc = (Document)results.serchByIndex(index).getData();
+                String word = searchText.getText();
+                LinkedList<Integer> allPositions= new LinkedList();
                 System.out.println("hola");
+                if(word.contains(",")){
+                    String[] eachWord= word.split(",");
+                    
+                    for(int k=0;k<eachWord.length;k++){
+                        LinkedList<Integer> positions=library.listOfPositions(doc, eachWord[k]);
+                        for(int p=0; p<positions.getSize();p++){
+                            allPositions.insertLast(positions.serchByIndex(p).getData());
+                        }
+                    }
+                }
                 if (!sentenceSearched){
                     //sentence = searchText.getText().split(" ");
                     firstPos = (int)library.listOfPositions(doc, sentence[0]).serchByIndex(0).getData();
@@ -432,16 +443,17 @@ public class TextFinderFXMLController implements Initializable {
                 for (int i=0; i<doc.getContent().length; i++){
                     boolean equal = false;
                     Text space = new Text(" ");
-                    String word = searchText.getText();
-                    //sentence = word.split(" ");
+                    
+                    if (word.contains("")){
+                        sentence = word.split(" ");
+                    }
                     Text words = new Text(doc.getTexto().split(" ")[i]);
                     //words.setFont(new Font("Arial",12));
                     if (!sentenceSearched){
-                        for (int j=0;j<sentence.length;j++){
-                                if(BSTree.comparar(sentence[j],doc.getContent()[i])==0){
-                                    words.setFill(Color.web("blue", 0.8));
-                                    break;
-                                }
+                        
+                        
+                        if(BSTree.comparar(word,doc.getContent()[i])==0){
+                            words.setFill(Color.web("blue", 0.8));
                         }
                     }else{
                         if(BSTree.comparar(sentence[0], doc.getContent()[i])==0){
@@ -484,9 +496,7 @@ public class TextFinderFXMLController implements Initializable {
                     pos+=renglones[j].split(" ").length-1;
                     System.out.println(renglones[j]);
                 }
-                System.out.println(pos);
-                System.out.println(renglones.length);
-                //scrollpane.setVvalue(0);
+               
                 Double scrollPos = Double.valueOf(pos)/Double.valueOf(renglones.length);
                
                 viewText.heightProperty().addListener(observable -> scrollpane.setVvalue(scrollPos));
@@ -496,6 +506,7 @@ public class TextFinderFXMLController implements Initializable {
                 
             }
     };
+    
     public void arrangeVBox(){
         vboxLib.getChildren().clear();
         for (int i=0; i<library.getLibrary().getSize();i++){
