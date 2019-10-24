@@ -20,7 +20,7 @@ public class Library {
    public LinkedList<Document> listOfDocs(String key){
        LinkedList<DocumentIndex> docIndxList = tree.getListOfDocs(key);
        LinkedList<Document> docList = new LinkedList<>();
-       if (docIndxList == null){
+       if (docIndxList == null || docIndxList.getHead() == null){
         return null;   
        }
        Node<DocumentIndex> currentNode = docIndxList.getHead();

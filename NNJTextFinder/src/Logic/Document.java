@@ -11,6 +11,7 @@ import LinkedList.Node;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.util.Arrays;
 //import javafx.stage.FileChooser;
@@ -30,6 +31,8 @@ public class Document extends Label{
     private int date;
     private int size;
     private Integer sentenceFirstWord;
+    private File orgFile;
+    private File desFile;
     
     public Document() throws IOException{
         File originFile = seekFile();
@@ -52,8 +55,10 @@ public class Document extends Label{
     }
     
     private void generateFileCopy(File originFile) throws IOException {
+        orgFile = originFile;
         String userDir = System.getProperty("user.dir");
-        File destitationFile = new File(userDir + "\\src\\Library\\" + originFile.getName());
+        File destinationFile = new File(userDir + "\\src\\Library\\" + originFile.getName());
+        desFile = destinationFile;
         
         String extension = "";
         String fileName = originFile.getName();
@@ -62,7 +67,7 @@ public class Document extends Label{
             extension = fileName.substring(i+1);
         }
         if("txt".equals(extension) || "pdf".equals(extension) || "docx".equals(extension) ){ 
-            copyFile(originFile,destitationFile,extension);
+            copyFile(originFile,destinationFile,extension);
         }else{
          System.out.println("Invalid: wrong document extension"); 
         }
@@ -70,7 +75,6 @@ public class Document extends Label{
     
     private void copyFile(File source, File dest, String extension) throws IOException {
         Files.copy(source.toPath(), dest.toPath(),REPLACE_EXISTING);
-        
         Long Longdate = (Long)source.lastModified();
         int date = Longdate.intValue();
         documentAux(UniversalReader.read(source,extension),source.getName(),date,(int)(source.length()));
@@ -95,6 +99,21 @@ public class Document extends Label{
         this.text = text;
     }
 
+    public File getOrgFile() {
+        return orgFile;
+    }
+
+    public void setOrgFile(File orgFile) {
+        this.orgFile = orgFile;
+    }
+
+    public File getDesFile() {
+        return desFile;
+    }
+
+    public void setDesFile(File orgFile) {
+        this.desFile = orgFile;
+    }
         
     public String[] getContent() {
         return content;

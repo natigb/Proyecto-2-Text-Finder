@@ -9,6 +9,7 @@ import Logic.Document;
 import Logic.FileSorter;
 import Logic.Library;
 import Logic.UniversalReader;
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -36,6 +37,8 @@ public class main extends Application {
         stage.show();
         
         System.out.println("Hello World");
+        
+        //Desktop.getDesktop().open(new File("C:\\Users\\Jose\\Documents\\TEC\\Semestre II\\Datos I\\Proyecto 2\\Proyecto-2-Text-Finder\\NNJTextFinder\\src\\Library\\El Estado.docx"));
         
         //File hola = new File("C:\\Users\\Jose\\Documents\\TEC\\Semestre II\\Datos I\\Proyecto 2\\Proyecto-2-Text-Finder\\NNJTextFinder\\src\\Library\\prueba.txt");
         //System.out.println(UniversalReader.read(hola,"txt"));
