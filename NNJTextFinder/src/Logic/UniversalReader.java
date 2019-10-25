@@ -19,78 +19,24 @@ import org.apache.poi.xwpf.usermodel.XWPFParagraph;
  *
  * @author Jose and Natalia
  */
-public class UniversalReader {
+public class UniversalReader implements UniversalFile {
     
     private static PDDocument doc;
     
-    public static String read(File file,String extension)throws FileNotFoundException, IOException{
-        
-        switch(extension){
-            case "txt":
-                 return readTxt(file.getAbsolutePath());
-            case "pdf":
-                return readPdf(file.getAbsolutePath());
-            case "docx":
-                return readDocx(file.getAbsolutePath());
-        
-            default:
-                return null;   
-        }
+    @Override
+    public String read(TXT file)throws FileNotFoundException, IOException{ 
+        return file.readTxt(file.getSource().getAbsolutePath());
     }
-    
-    //         ____________
-    //________/Read TXT
-    
-    private static String readTxt(String path) throws FileNotFoundException, IOException{
-        String text = "";
-        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
-            String currentLine = reader.readLine();
-            while (currentLine != null){
-                text = text+currentLine;
-                currentLine = reader.readLine();
-            }
-        }catch(IOException ex){
-            Logger.getLogger(UniversalReader.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.print(ex);
-        }
-        return text;
+
+    @Override
+    public String read(DOCX file) throws FileNotFoundException, IOException {
+        return ((DOCX)file).readDocx(file.getSource().getAbsolutePath());
     }
-    
-    //         ____________
-    //________/Read PDF
-    
-    private static String readPdf(String path) throws IOException{
-        File file = new File(path);
-        try {
-            doc = PDDocument.load(file);
-        } catch (IOException ex) {
-            Logger.getLogger(UniversalReader.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.print(ex);
-            doc = null;
-        }
-        return new PDFTextStripper().getText(doc); 
+
+    @Override
+    public String read(PDF file) throws FileNotFoundException, IOException {
+        return ((PDF)file).readPdf(file.getSource().getAbsolutePath());
     }
-    public static void closePDF() throws IOException{
-        doc.close();
-    }
-    
-    //         ____________
-    //________/Read DOCX
-    
-    private static String readDocx(String path) throws FileNotFoundException, IOException{
-        String text = "";
-        try(FileInputStream file = new FileInputStream(path);){
-            XWPFDocument docx = new XWPFDocument(file);
-            
-            List<XWPFParagraph> paragraphList = docx.getParagraphs();
-            for (XWPFParagraph paragraph: paragraphList){
-                text = text +"\n" + (paragraph.getText());
-            }
-        }catch(IOException ex){
-          Logger.getLogger(UniversalReader.class.getName()).log(Level.SEVERE, null, ex);
-          System.out.print(ex);  
-        }        
-        return text;
-    }
-    
 }
+    
+  

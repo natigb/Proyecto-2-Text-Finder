@@ -75,12 +75,28 @@ public class Document extends Label{
     
     private void copyFile(File source, File dest, String extension) throws IOException {
         Files.copy(source.toPath(), dest.toPath(),REPLACE_EXISTING);
+        //Object sourceMod = null;
+        String docText = null;
+        UniversalReader UR = new UniversalReader();
+        if ("txt".equals(extension)){
+            TXT sourceMod = new TXT (source);
+            docText = UR.read(sourceMod);
+        }else{
+            if("pdf".equals(extension)){
+                PDF sourceMod = new PDF (source);
+                docText = UR.read(sourceMod);
+                sourceMod.closePDF();
+            }else{
+                if("docx".equals(extension)){
+                  DOCX sourceMod = new DOCX (source);
+                  docText = UR.read(sourceMod);
+                }
+            }
+        }
         Long Longdate = (Long)source.lastModified();
         int date = Longdate.intValue();
-        documentAux(UniversalReader.read(source,extension),source.getName(),date,(int)(source.length()));
-        if ("pdf".equals(extension)){
-            UniversalReader.closePDF();
-        }
+        documentAux(docText,source.getName(),date,(int)(source.length()));
+        
 }
     
     public static File seekFile() {
