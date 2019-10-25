@@ -199,7 +199,7 @@ public class TextFinderFXMLController implements Initializable {
                         docsFound.insertFirst(currentDoc);
                         System.out.println("doc insertado");
                         sentencePositions.insertFirst(currentDoc.getSentenceIndx());
-                        System.out.println((currentDoc.getTexto().contains(word))+word+"si esta!");
+                        //System.out.println((currentDoc.getTexto().contains(word))+word+"si esta!");
                     }
                     currentDocIndx = currentDocIndx.getNext();
                 }
@@ -207,8 +207,8 @@ public class TextFinderFXMLController implements Initializable {
                 if (currentDoc.containsSentence(sentence,currentDocIndx.getData().getPosition())){
                     System.out.println("doc insertado");
                     docsFound.insertFirst(currentDoc);
-                    sentencePositions.insertLast(currentDoc.getSentenceIndx());
-                    System.out.println((currentDoc.getTexto().contains(word))+word+"si esta!");
+                    //sentencePositions.insertFirst(currentDoc.getSentenceIndx());
+                    //System.out.println((currentDoc.getTexto().contains(word))+word+"si esta!");
                 }//else{
                     //System.out.println("No hay oraciones coindicentes");
                     //notFoundEx();
@@ -232,18 +232,16 @@ public class TextFinderFXMLController implements Initializable {
         String searched = searchText.getText();
         String[] sentence = searched.split(" ");
         if (docsFound.getHead() != null){
+        //results = docsFound;
         results = FileSorter.sortDocumentsBy(docsFound, sortCriterion);
         //resultText.getChildren().clear();
         for (int i=0; i < results.getSize(); i++){
             Document currentDoc = results.serchByIndex(i).getData();
             //System.out.println(searchText.getText().serchByIndex(0).getData()+"esta es searched text");
             if (sentenceSearched){
-                LinkedList listOfPos = library.listOfPositions(currentDoc,sentence[0]);
-                    
-                    if (listOfPos.getHead() != null){
-                        firstPos = (int)listOfPos.serchByIndex(0).getData();
-                        createResultReference(currentDoc,firstPos,i,sentence.length);
-                    }
+                //currentDoc.containsSentence(sentence,sentencePositions);
+                firstPos = currentDoc.getSentenceIndx();
+                createResultReference(currentDoc,firstPos,i,sentence.length);
             }
             else{
                 for(String word : sentence){

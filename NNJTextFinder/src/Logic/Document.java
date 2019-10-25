@@ -202,8 +202,9 @@ public class Document extends Label{
                     con = 0;
                     break;
                 }
+                
                 equal = true;
-                sentenceFirstWord = (int)position.getHead().getData();
+                sentenceFirstWord = (int)current.getData();
                 con++;
                 if (con == words.length){
                     System.out.println("found it");
@@ -225,7 +226,7 @@ public class Document extends Label{
                         break;
                     }
                     equal = true;
-                    sentenceFirstWord = (int)position.getHead().getData();
+                    sentenceFirstWord = (int)current.getData();
                     //break;
                 }else{
                     equal = false;
