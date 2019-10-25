@@ -161,7 +161,7 @@ public class FileSorter {
      * @param documents
      * @return Un array de la data de los nodos de la lista enlazada. 
      */
-    private static Document[] toArray(LinkedList<Document> documents){
+    public static Document[] toArray(LinkedList<Document> documents){
         
         Document[] newArray = new Document[documents.getSize()]; 
         Node currentNode = documents.getHead();

@@ -202,6 +202,7 @@ public class Document extends Label{
         }
         if(!equal){
             for (int i =0;i<words.length;i++){
+                if (content.length >(int)current.getData()+i){
                 System.out.println("comparando "+ words[i]+" con "+ content[(int)current.getData()+i]+" esto es "+ BSTree.comparar(words[i],content[(int)current.getData()+i]));
                     if(BSTree.comparar(words[i],content[(int)current.getData()+i])!=0){
                         equal = false;
@@ -210,7 +211,11 @@ public class Document extends Label{
                     equal = true;
                     sentenceFirstWord = (int)position.getHead().getData();
                     //break;
+                }else{
+                    equal = false;
+                        break;
                 }
+            }
             }
         System.out.println(equal);
         return equal;
