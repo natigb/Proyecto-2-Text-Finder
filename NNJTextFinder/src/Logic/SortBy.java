@@ -6,7 +6,7 @@
 package Logic;
 
 /**
- *
+ *Enum con tres crterios bajo los que se comodan los documentos;
  * @author Jose
  */
 public enum SortBy {

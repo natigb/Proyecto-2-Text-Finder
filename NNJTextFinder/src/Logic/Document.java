@@ -55,7 +55,7 @@ public class Document extends Label{
     }
     /**
      * Función principal para copiar un archivo a la carpeta de biblioteca
-     * @param originFile
+     * @param originFile archivo que de sea copiar
      * @throws IOException 
      */
     private void generateFileCopy(File originFile) throws IOException {
@@ -78,9 +78,9 @@ public class Document extends Label{
     }
     /**
      * Auxiliar para copiar un archivo
-     * @param source
-     * @param dest
-     * @param extension
+     * @param source Archivo que se desea copiar
+     * @param dest El archivo al que se copiara
+     * @param extension foirmato del archivo que se desea copiar
      * @throws IOException 
      */
     private void copyFile(File source, File dest, String extension) throws IOException {
@@ -110,7 +110,7 @@ public class Document extends Label{
 }
     /**
      * Abre la ventana para seleccionar un archivo
-     * @return 
+     * @return un nuevo archvo del archivo que buscaste
      */
     public static File seekFile() {
         JFileChooser selector = new JFileChooser();
@@ -122,7 +122,7 @@ public class Document extends Label{
     
     /**
      * Crea un array con el contenido del archivo para separarlo por palabra
-     * @param content
+     * @param content el contenido o archivo que se see.
      * @return 
      */
     private String[] divByWord(String content) {
@@ -138,9 +138,9 @@ public class Document extends Label{
     }
     /**
      * Elimina símbolos innecesarios para guardar solo las palabras
-     * @param word
-     * @param length
-     * @return 
+     * @param word palabra a la que se eliminiran los signos de puntuacion
+     * @param length largo de la palabra a analzir
+     * @return un string con la palabra ya procesada.
      */
     public static String deletePunctuationMarks(String word, int length) {
         for (int i=0;i<length;i++){
@@ -158,8 +158,8 @@ public class Document extends Label{
 
     /**
      * Función para determinar si el documento contiene una frase completa
-     * @param words
-     * @param position
+     * @param words oracion a buscar
+     * @param position lista de posibles con la oracion
      * @return true si la contiene, false si no
      */
     public boolean containsSentence(String[] words, LinkedList position) {

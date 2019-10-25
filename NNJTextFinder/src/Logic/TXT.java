@@ -14,13 +14,20 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ *Clase para identificar un documento de tipo .txt
  * @author Jose
  */
 public class TXT {
     
     private File source;
     
+    /**
+     * Se encarga de leer un archivo .txt
+     * @param path la direccion del archivo que se leera
+     * @return un string con todo el texto del documento
+     * @throws FileNotFoundException
+     * @throws IOException 
+     */
     public static String readTxt(String path) throws FileNotFoundException, IOException{
         String text = "";
         try (BufferedReader reader = new BufferedReader(new FileReader(path))) {

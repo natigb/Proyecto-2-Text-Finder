@@ -10,7 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
- *
+ *Interface para implementar el adaptador UniversalReader
  * @author Jose
  */
 interface UniversalFile {

@@ -16,13 +16,20 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 
 /**
- *
+ *Clase para identificar un documento de tipo .docx
  * @author Jose
  */
 public class DOCX {
     
     private File source;
     
+    /**
+     * Se encarga de leer un archivo .docx mendiante el uso de la libreria POI de Apache
+     * @param path la direccion del archivo que se leerá
+     * @return un string con todo el texto del documento
+     * @throws FileNotFoundException
+     * @throws IOException 
+     */
     public static String readDocx(String path) throws FileNotFoundException, IOException{
         String text = "";
         try(FileInputStream file = new FileInputStream(path);){

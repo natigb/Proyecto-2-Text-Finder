@@ -13,7 +13,7 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 
 /**
- *
+ *Clase para identificar un documento de tipo .pdf
  * @author Jose
  */
 public class PDF{
@@ -21,6 +21,12 @@ public class PDF{
     private File source;
     private static PDDocument doc;
     
+    /**
+     * Se encarga de leer un archivo .docx mendiante el uso de la libreria PDFBox
+     * @param path la direccion del archivo que se leera
+     * @return un string con todo el texto del documento
+     * @throws IOException 
+     */
     public static String readPdf(String path) throws IOException{
         File file = new File(path);
         try {

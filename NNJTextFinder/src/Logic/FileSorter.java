@@ -48,7 +48,7 @@ public class FileSorter {
     //         ____________
     //________/QUICKSORT
     /**
-     * Funcion pricipal que recibe una array de palabras y las organiza con quicksort
+     * Funcion pricipal que recibe una array de palabras y las organiza con quicksort en criterio alfabetico
      * @param arr Lista de palabras a ordenar.
      */
     private static void sortByName(Document arr[]){
@@ -88,6 +88,11 @@ public class FileSorter {
     
     //         ____________
     //________/RADIX SORT
+    
+    /**
+     * Funcion pricipal que recibe una array de numeros y las organiza con radixSort en criterio de tamaño
+     * @param arr Lista de numeros a ordenar.
+     */
     
     private static void sortBySize(Document arr[]){
         radixSort(arr, arr.length);
@@ -134,6 +139,12 @@ public class FileSorter {
     
     //         ____________
     //________/BUBBLESORT
+    
+    /**
+     * Funcion pricipal que recibe una array de numeros y las organiza con bubbleSort a criterio de fecha
+     * @param arr Lista de numeros a ordenar.
+     *
+     */
     
     private static void sortByDate(Document arr[]){
         bubbleSort(arr, arr.length);
