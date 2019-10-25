@@ -69,8 +69,9 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.text.FontWeight;
 
 /**
- *
- * @author Natialia and Jose
+ * Clase controladora de la interfaz. Permite al usuario añadir, eliminar, visualizar y actualizar documentos además de buscar
+ * palabras o frases en ellos y de visualizar los resultados de búsqueda.
+ * @author Natalia and Jose
  */
 public class TextFinderFXMLController implements Initializable {
     private Library library = new Library();
@@ -103,14 +104,22 @@ public class TextFinderFXMLController implements Initializable {
     private RadioButton byWord;
     @FXML
     private RadioButton bySentence;
-    
+    /**
+     * Evento para añadir documento a la libreria
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     private void handleButtonAction(ActionEvent event) throws IOException {
         File newFile = Document.seekFile();
         addToLibrary(newFile);
         
     }
-        
+    /**
+     * Añade el documento a la biblioteca
+     * @param newFile
+     * @throws IOException 
+     */    
     private void addToLibrary(File newFile) throws IOException{
         if (newFile.isFile()){
             addDocument(newFile);
@@ -126,12 +135,22 @@ public class TextFinderFXMLController implements Initializable {
         
         }
     }
-      private void addDirectory(Path p) throws IOException {
+    
+    /**
+     * Añade la carpeta de documentos 
+     * @param p
+     * @throws IOException 
+     */
+    private void addDirectory(Path p) throws IOException {
         String path = p.toString();
         File newFile = new File(path);
         addDocument(newFile);
     }
-        
+    /**
+     * Crea el documento y lo añade a la interfaz
+     * @param newFile
+     * @throws IOException 
+     */   
     private void addDocument(File newFile) throws IOException{
         Document newDoc = new Document(newFile);
         newDoc.setText(newDoc.getName());
@@ -144,7 +163,11 @@ public class TextFinderFXMLController implements Initializable {
         }    
         library.printTree();
     }
-    
+    /**
+     * Evento para mostrar los resultados de la b´´usqueda de palabras o frases
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     private void searchAction(ActionEvent event) throws IOException{
         results.clearList();
@@ -183,7 +206,10 @@ public class TextFinderFXMLController implements Initializable {
         
         //showResults();
     }
-    
+    /**
+     * Función que busca resultados si es una oración
+     * @param word 
+     */
     private void searchBySentence(String word){
             String[] sentence = word.split(" ");
             System.out.println("Es oracion");
@@ -217,14 +243,20 @@ public class TextFinderFXMLController implements Initializable {
             }
         
     }
-        
+    /**
+     * En caso de que no se encuentren resultados en el árbol
+     */  
     private void notFoundEx(){
         //docsFound = new LinkedList<Document>();
         resultText.getChildren().clear();
         Text notFound = new Text("No results found");
         resultText.getChildren().add(notFound);
     }
-    
+    /**
+     * Muestra en la interfaz, en la parte de resultados, el nombre del documento y el contexto de la primera aparición de la 
+     * palabra o aparición
+     * @param docsFound 
+     */
     private void showResults(LinkedList<Document> docsFound){
         int firstPos;
         String searched = searchText.getText();
@@ -253,7 +285,13 @@ public class TextFinderFXMLController implements Initializable {
             }
         }
     }
-    
+        /**
+         * Crea el contexto de las palabras en los resultados y cambia el color de la palabra buscada en el mismo
+         * @param currentDoc
+         * @param firstPos
+         * @param i
+         * @param size 
+         */
         public void createResultReference(Document currentDoc,int firstPos, int i,int size){
             String context = currentDoc.getContent()[firstPos]+ " ";
             String bfContext="";
@@ -296,37 +334,55 @@ public class TextFinderFXMLController implements Initializable {
             resultText.getChildren().add(tf);
             
         }
-    
+        /**
+         * Evento para ordenar los resultados según según el tamaño del documento
+         * @param e 
+         */
         public void sizeSort (ActionEvent e){
             sortCriterion = Size;
             showResults(docsFound);
             sortChoice.setText("Size");
         }
-        
+        /**
+         * Evento para ordenar los resultados según según la fecha del documento
+         * @param e 
+         */
         public void dateSort (ActionEvent e){
             sortCriterion = Date;
             showResults(docsFound);
             sortChoice.setText("Date");
         }
-        
+        /**
+         * Evento para ordenar los resultados según según el nombre del documento
+         * @param e 
+         */
         public void nameSort (ActionEvent e){
             sortCriterion = Name;
             showResults(docsFound);
             sortChoice.setText("Name");
         }
-       
+       /**
+        * Selecciona que se quiere buscar por oración
+        * @param e 
+        */
         public void bySentence(ActionEvent e){
             byWord.setSelected(false);
             sentenceSearched = true;
             
         }
-        
+        /**
+        * Selecciona que se quiere buscar por palabra
+        * @param e 
+        */
         public void byWord(ActionEvent e){
             bySentence.setSelected(false);
             sentenceSearched = false;
         }
   
-    
+    /**
+     * Evento para abrir un documento desde la librería y mostrar el contenido en la interfaz o para eliminar el documento al 
+     * presionar click derecho
+     */
     EventHandler<MouseEvent> openDocLib= new EventHandler<MouseEvent>(){
         @Override
             public void handle(MouseEvent t) {
@@ -411,6 +467,10 @@ public class TextFinderFXMLController implements Initializable {
                 }
             }
     };
+    /**
+     * Evento para abrir el documento desde los resultados que se encarga de mostrar el contenido del documento 
+     * con la palabra o frase buscada resaltada en color
+     */
     EventHandler<MouseEvent> openDocResult= new EventHandler<MouseEvent>(){
         @Override
             public void handle(MouseEvent t) {
@@ -499,14 +559,23 @@ public class TextFinderFXMLController implements Initializable {
                
                 Double scrollPos = Double.valueOf(pos)/Double.valueOf(renglones.length);
                
-                viewText.heightProperty().addListener(observable -> scrollpane.setVvalue(scrollPos));
-                scrollpane.setVvalue(scrollPos);
-                
+                //viewText.heightProperty().addListener(observable -> scrollpane.setVvalue(scrollPos));
+                if(pos <10){
+                    scrollpane.setVvalue(0);
+                    System.out.println("Esta en el renglon: ");
+                    System.out.println(pos);
+                }
+                else{
+                    viewText.heightProperty().addListener(observable -> scrollpane.setVvalue(scrollPos));
+                    scrollpane.setVvalue(scrollPos);
+                }
                 
                 
             }
     };
-    
+    /**
+     * Reacomoda los documentos en la librería por si se elimina algun documento
+     */
     public void arrangeVBox(){
         vboxLib.getChildren().clear();
         for (int i=0; i<library.getLibrary().getSize();i++){

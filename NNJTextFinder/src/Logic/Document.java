@@ -19,8 +19,8 @@ import java.util.Arrays;
 
 
 /**
- *
- * @author Nati Gonzalez and Jose 
+ * Clase que guarda la información que se debe utilizar de un documento
+ * @author Natalia Gonzalez and Jose 
  */
 import javafx.scene.control.Label;
 import javax.swing.JFileChooser;
@@ -53,7 +53,11 @@ public class Document extends Label{
         this.size = size;
         
     }
-    
+    /**
+     * Función principal para copiar un archivo a la carpeta de biblioteca
+     * @param originFile
+     * @throws IOException 
+     */
     private void generateFileCopy(File originFile) throws IOException {
         orgFile = originFile;
         String userDir = System.getProperty("user.dir");
@@ -72,7 +76,13 @@ public class Document extends Label{
          System.out.println("Invalid: wrong document extension"); 
         }
     }
-    
+    /**
+     * Auxiliar para copiar un archivo
+     * @param source
+     * @param dest
+     * @param extension
+     * @throws IOException 
+     */
     private void copyFile(File source, File dest, String extension) throws IOException {
         Files.copy(source.toPath(), dest.toPath(),REPLACE_EXISTING);
         Long Longdate = (Long)source.lastModified();
@@ -82,7 +92,10 @@ public class Document extends Label{
             UniversalReader.closePDF();
         }
 }
-    
+    /**
+     * Abre la ventana para seleccionar un archivo
+     * @return 
+     */
     public static File seekFile() {
         JFileChooser selector = new JFileChooser();
         selector.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
@@ -91,6 +104,96 @@ public class Document extends Label{
         return selectedFile;
     }
     
+    /**
+     * Crea un array con el contenido del archivo para separarlo por palabra
+     * @param content
+     * @return 
+     */
+    private String[] divByWord(String content) {
+        String[] words = content.split(" ");
+        int i = 0;
+        for (String word : words ){
+            word = deletePunctuationMarks(word,word.length());
+            words[i] = word;
+            i++;
+        }
+        System.out.println(Arrays.toString(words));
+        return words;
+    }
+    /**
+     * Elimina símbolos innecesarios para guardar solo las palabras
+     * @param word
+     * @param length
+     * @return 
+     */
+    public static String deletePunctuationMarks(String word, int length) {
+        for (int i=0;i<length;i++){
+            char symbol = word.charAt(i);
+            if (!Character.isLetter(symbol)){
+                StringBuilder newWord = new StringBuilder (word);
+                newWord.deleteCharAt(i);
+                word = newWord.toString();
+                i--;
+                length--;
+            }
+        }
+        return word;
+    }
+
+    /**
+     * Función para determinar si el documento contiene una frase completa
+     * @param words
+     * @param position
+     * @return true si la contiene, false si no
+     */
+    public boolean containsSentence(String[] words, LinkedList position) {
+        Node current = position.getHead();
+        boolean equal = false;
+        int con = 0;
+        while (current.getNext() != null){
+            for (int i=0;i<words.length;i++){
+                System.out.println("comparando "+ words[i]+" con "+content[(int)current.getData()+i]+" esto es "+ BSTree.comparar(words[i],content[(int)current.getData()+i]));
+                if(BSTree.comparar(words[i],content[(int)current.getData()+i])!=0){
+                    equal = false;
+                    con = 0;
+                    break;
+                }
+                equal = true;
+                sentenceFirstWord = (int)position.getHead().getData();
+                con++;
+                if (con == words.length){
+                    System.out.println("found it");
+                    break;
+                }
+            }
+            if(!equal){
+            current = current.getNext();
+            }else{
+                break;
+            }
+        }
+        if(!equal){
+            for (int i =0;i<words.length;i++){
+                System.out.println("comparando "+ words[i]+" con "+ content[(int)current.getData()+i]+" esto es "+ BSTree.comparar(words[i],content[(int)current.getData()+i]));
+                    if(BSTree.comparar(words[i],content[(int)current.getData()+i])!=0){
+                        equal = false;
+                        break;
+                    }
+                    equal = true;
+                    sentenceFirstWord = (int)position.getHead().getData();
+                    //break;
+                }
+            }
+        System.out.println(equal);
+        return equal;
+    }
+
+    //              _________________________
+    //_____________/ Getters y Setters
+    
+    public Integer getSentenceIndx() {
+        return sentenceFirstWord;
+    }
     public String getTexto() {
         return text;
     }
@@ -146,81 +249,6 @@ public class Document extends Label{
     public void setSize(int size) {
         this.size = size;
     }
-
-    private String[] divByWord(String content) {
-        String[] words = content.split(" ");
-        int i = 0;
-        for (String word : words ){
-            word = deletePunctuationMarks(word,word.length());
-            words[i] = word;
-            i++;
-        }
-        System.out.println(Arrays.toString(words));
-        return words;
-    }
-
-    public static String deletePunctuationMarks(String word, int length) {
-        for (int i=0;i<length;i++){
-            char symbol = word.charAt(i);
-            if (!Character.isLetter(symbol)){
-                StringBuilder newWord = new StringBuilder (word);
-                newWord.deleteCharAt(i);
-                word = newWord.toString();
-                i--;
-                length--;
-            }
-        }
-        return word;
-    }
-
-    
-    public boolean containsSentence(String[] words, LinkedList position) {
-        Node current = position.getHead();
-        boolean equal = false;
-        int con = 0;
-        while (current.getNext() != null){
-            for (int i=0;i<words.length;i++){
-                System.out.println("comparando "+ words[i]+" con "+content[(int)current.getData()+i]+" esto es "+ BSTree.comparar(words[i],content[(int)current.getData()+i]));
-                if(BSTree.comparar(words[i],content[(int)current.getData()+i])!=0){
-                    equal = false;
-                    con = 0;
-                    break;
-                }
-                equal = true;
-                sentenceFirstWord = (int)position.getHead().getData();
-                con++;
-                if (con == words.length){
-                    System.out.println("found it");
-                    break;
-                }
-            }
-            if(!equal){
-            current = current.getNext();
-            }else{
-                break;
-            }
-        }
-        if(!equal){
-            for (int i =0;i<words.length;i++){
-                System.out.println("comparando "+ words[i]+" con "+ content[(int)current.getData()+i]+" esto es "+ BSTree.comparar(words[i],content[(int)current.getData()+i]));
-                    if(BSTree.comparar(words[i],content[(int)current.getData()+i])!=0){
-                        equal = false;
-                        break;
-                    }
-                    equal = true;
-                    sentenceFirstWord = (int)position.getHead().getData();
-                    //break;
-                }
-            }
-        System.out.println(equal);
-        return equal;
-    }
-
-    
-    public Integer getSentenceIndx() {
-        return sentenceFirstWord;
-    }
-
      
 }
     

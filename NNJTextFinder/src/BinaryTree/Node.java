@@ -10,7 +10,8 @@ import Logic.Document;
 import Logic.DocumentIndex;
 
 /**
- *
+ * Clase Node ligada a la clase BSTree, el árbol binario de búsqueda, guarda la llave del nodo, la lista de
+ * documentos asociados a esa llave y referencias al nodo padre, hijo derecho e hijo izquierdo.
  * @author Jose
  */
  class Node{
@@ -27,10 +28,18 @@ import Logic.DocumentIndex;
             this.right = null;
             this.documents = new LinkedList();
         }
-
+        /**
+         * Añade un Documento indexado a la lista de documentos del nodo
+         * @param doc 
+         */
         public void add(DocumentIndex doc){
             documents.insertLast(doc);
         }
+        /**
+         * Busca si un documento ya existe en la lista de documentos
+         * @param name Nombre del documento que se está buscando
+         * @return true si el documento exite, false de lo contrario
+         */
         public Boolean docExists(String name){
             for(int i = 0; i < documents.getSize(); i++){
                 if (name == documents.serchByIndex(i).getData().getDoc().getName()){
@@ -39,6 +48,11 @@ import Logic.DocumentIndex;
             }
             return false;
         }
+        /**
+         * Busca el documento indexado en la lista de documentos según el nombre
+         * @param name nombre del documento que se quiere encontró
+         * @return el documento si lo encuentra, null si no lo encuentra
+         */
         public DocumentIndex searchDocByName(String name){
             for(int i = 0; i < documents.getSize(); i++){
                 if (name == documents.serchByIndex(i).getData().getDoc().getName()){

@@ -1,7 +1,7 @@
 package LinkedList;
 
 /**
- *
+ * Clase Nodo ligada a la clase LinkedList que guarda una referencia al nodo siguiente y el dato que guarda
  * @author Jose and Natalia
  */
 public class Node<T> {

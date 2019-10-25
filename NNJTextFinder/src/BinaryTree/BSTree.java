@@ -7,22 +7,19 @@ import java.text.Collator;
 import java.util.Locale;
 
 /**
- *
- * @author Nati Gonzalez
+ *  Clase del árbol binario de busqueda utilizado para guardar documentos según las palabras y poder buscar
+ *  en ellos de forma eficiente.
+ * @author Natalia Gonzalez
  */
 public class BSTree {
-
+    
     private Node root;
 
     public BSTree() {
         this.root = null;
     }
 
-    //         __________________
-    //________/Getters n' Setters
-    public Node getRoot() {
-        return root;
-    }
+    
 
     /**
      * Recorre en orden el arbol empezando de la raíz
@@ -173,6 +170,10 @@ public class BSTree {
         return (comparar(key, current.key) == -1) ? containsAux(current.left, key)
                 : containsAux(current.right, key);
     }
+    /**
+     * Elimina un documento de las listas de los nodos en que se encuentra.
+     * @param doc Documento que se quiere eliminar
+     */
     public void deleteDoc(Document doc){
         for (int i=0; i<doc.getContent().length;i++){
             LinkedList<DocumentIndex> docInList = find(doc.getContent()[i]).documents;
@@ -298,12 +299,18 @@ public class BSTree {
      *
      * @param word1
      * @param word2
-     * @return
+     * @return 0 si son iguales, 1 si word 1 es mayor a word2 y de lo contrario -1
      */
     public static int comparar(String word1, String word2) {
         Collator espCollator = Collator.getInstance(Locale.getDefault());
         espCollator.setStrength(Collator.PRIMARY);
         return espCollator.compare(word1, word2);
     }
-
+    //         __________________
+    //________/Getters n' Setters
+    public Node getRoot() {
+        return root;
+    }
+    
+    
 }

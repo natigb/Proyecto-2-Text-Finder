@@ -8,8 +8,8 @@ package Logic;
 import LinkedList.LinkedList;
 
 /**
- *
- * @author Nati Gonzalez
+ * Clase que guarda un documento y una lista de posiciones 
+ * @author Natalia Gonzalez
  */
 public class DocumentIndex {
     
@@ -20,14 +20,20 @@ public class DocumentIndex {
         this.doc = doc;
         this.position = new LinkedList();
     }
-
+    /**
+     * Agrega una posición a la lista
+     * @param pos 
+     */
+    public void addPosition(int pos){
+        position.insertLast(pos);
+    }
+    
+    //              _________________________
+    //_____________/ Getters y Setters
     public void setDoc(Document doc) {
         this.doc = doc;
     }
     
-    public void addPosition(int pos){
-        position.insertLast(pos);
-    }
     public Document getDoc() {
         return doc;
     }
