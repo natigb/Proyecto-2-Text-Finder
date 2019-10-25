@@ -28,47 +28,27 @@
       <menus>
         <Menu mnemonicParsing="false" text="Library">
           <items>
-            <MenuItem mnemonicParsing="false" text="Add File" />
-            <MenuItem mnemonicParsing="false" text="Delete All" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Text">
-          <items>
-                  <Menu mnemonicParsing="false" text="Size">
-                    <items>
-                      <MenuItem mnemonicParsing="false" text="8px" />
-                        <MenuItem mnemonicParsing="false" text="11px" />
-                        <MenuItem mnemonicParsing="false" text="12px" />
-                        <MenuItem mnemonicParsing="false" text="16px" />
-                        <MenuItem mnemonicParsing="false" text="Custom" />
-                    </items>
-                  </Menu>
-            <MenuItem mnemonicParsing="false" text="Clear" />
+            <MenuItem mnemonicParsing="false" onAction="#handleButtonAction" text="Add File" />
           </items>
         </Menu>
             <Menu mnemonicParsing="false" text="Results">
                <items>
                   <Menu mnemonicParsing="false" text="Sort by:">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Name" />
-                        <MenuItem mnemonicParsing="false" text="Size" />
-                        <MenuItem mnemonicParsing="false" text="Date Modified" />
+                        <MenuItem mnemonicParsing="false" onAction="#nameSort" text="Name" />
+                        <MenuItem mnemonicParsing="false" onAction="#sizeSort" text="Size" />
+                        <MenuItem mnemonicParsing="false" onAction="#dateSort" text="Date Modified" />
                      </items>
                   </Menu>
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <Menu mnemonicParsing="false" text="Search phrase">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Search each word" />
-                        <MenuItem mnemonicParsing="false" text="Search as whole" />
+                        <MenuItem mnemonicParsing="false" onAction="#byWord" text="Search each word" />
+                        <MenuItem mnemonicParsing="false" onAction="#bySentence" text="Search as whole" />
                      </items>
                   </Menu>
                </items>
             </Menu>
-        <Menu mnemonicParsing="false" text="Help">
-          <items>
-            <MenuItem mnemonicParsing="false" text="About" />
-          </items>
-        </Menu>
       </menus>
     </MenuBar>
       <SplitPane dividerPositions="0.06765067650676507" orientation="VERTICAL" prefHeight="815.0" prefWidth="1117.0" VBox.vgrow="NEVER">
