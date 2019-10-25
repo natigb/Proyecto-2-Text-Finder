@@ -510,10 +510,11 @@ public class TextFinderFXMLController implements Initializable {
                     Text words = new Text(doc.getTexto().split(" ")[i]);
                     //words.setFont(new Font("Arial",12));
                     if (!sentenceSearched){
-                        
-                        
-                        if(BSTree.comparar(word,doc.getContent()[i])==0){
-                            words.setFill(Color.web("blue", 0.8));
+                       for (int j=0;j<sentence.length;j++){
+                                if(BSTree.comparar(sentence[j],doc.getContent()[i])==0){
+                                    words.setFill(Color.web("blue", 0.8));
+                                    break;
+                                }
                         }
                     }else{
                         if(BSTree.comparar(sentence[0], doc.getContent()[i])==0){
