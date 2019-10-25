@@ -114,6 +114,7 @@ public class Library {
         }
         return false;
     }
+    
     /**
      * Elimina todo rastro del documento del ABB y de la lista de documentos que contiene la biblioteca
      * @param doc 
@@ -122,6 +123,8 @@ public class Library {
         library.deleteByData(doc);
         tree.deleteDoc(doc);
     }
+    
+    
     //         __________________
     //________/Getters n' Setters
     public LinkedList<Document> getLibrary() {
