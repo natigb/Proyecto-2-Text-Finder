@@ -30,7 +30,7 @@ public class main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("NJTextFinderFXML.fxml"));
-        
+        root.getStylesheets().add("GUI/Theme.css");
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
