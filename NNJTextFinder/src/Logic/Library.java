@@ -3,11 +3,6 @@ package Logic;
 import BinaryTree.BSTree;
 import LinkedList.LinkedList;
 import LinkedList.Node;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 
 /**
  * Clase que se encarga de la administracion de documentos y control del arbol binario de busqueda

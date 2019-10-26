@@ -1,18 +1,9 @@
 package Logic;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.text.PDFTextStripper;
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
-import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+
 
 
 /**
@@ -21,7 +12,6 @@ import org.apache.poi.xwpf.usermodel.XWPFParagraph;
  */
 public class UniversalReader implements UniversalFile {
     
-    private static PDDocument doc;
     
     /**
      * Ejecuta el la lectura de un documento .txt

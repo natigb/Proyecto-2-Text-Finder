@@ -5,13 +5,8 @@
  */
 package GUI;
 import BinaryTree.BSTree;
-import javax.swing.text.DefaultHighlighter;
-import javax.swing.text.Highlighter;
 import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
-import java.text.Normalizer;
-import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseButton;
 import LinkedList.LinkedList;
 import LinkedList.Node;
@@ -29,44 +24,24 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Locale;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Cursor;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextArea;
 import javafx.scene.text.TextFlow;
 import javafx.scene.text.Text;
-
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.RadioButton;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
-import javafx.scene.text.FontWeight;
 
 /**
  * Clase controladora de la interfaz. Permite al usuario a�adir, eliminar, visualizar y actualizar documentos adem�s de buscar
@@ -74,11 +49,9 @@ import javafx.scene.text.FontWeight;
  * @author Natalia and Jose
  */
 public class TextFinderFXMLController implements Initializable {
+    
     private Library library = new Library();
     private LinkedList<Document> results = new LinkedList();
-    
-    //private Image icon = new Image("res/icon");
-    
     private Logic.SortBy sortCriterion = Name;
     private LinkedList<Document> docsFound;
     private LinkedList<Integer> sentencePositions;
@@ -457,13 +430,11 @@ public class TextFinderFXMLController implements Initializable {
                         sentence = word.split(" ");
                     }
                     Text words = new Text(doc.getTexto().split(" ")[i]);
-                    //words.setFont(new Font("Arial",14));
                     words.setFill(Color.web("white", 0.8));
                     if (!sentenceSearched){
                        for (int j=0;j<sentence.length;j++){
                                 if(BSTree.comparar(sentence[j],doc.getContent()[i])==0){
                                     words.setFill(Color.web("#eb4034", 1));
-                                    //words.setFont(new Font("Arial",14)); 
                                     break;
                                 }
                         }
@@ -485,8 +456,7 @@ public class TextFinderFXMLController implements Initializable {
                                     words = new Text(doc.getContent()[i+k]);
                                     space = new Text(" ");
                                     words.setFill(Color.web("#eb4034", 1));
-                                    paint = true;
-                                    //words.setFont(new Font("Arial",14));    
+                                    paint = true;   
                                     viewText.getChildren().addAll(words,space);
                                 }
                                 i+=sentence.length-1;
@@ -494,8 +464,6 @@ public class TextFinderFXMLController implements Initializable {
                         }
                     }
                     if(!equal){
-                        
-                        //words.setFont(new Font("Arial",14));
                         viewText.getChildren().addAll(words,space);
                     }
                 }
@@ -563,12 +531,6 @@ public class TextFinderFXMLController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(TextFinderFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        try {
-            addToLibrary(thisLibrary);
-        } catch (IOException ex) {
-            Logger.getLogger(TextFinderFXMLController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+          
     } 
 }

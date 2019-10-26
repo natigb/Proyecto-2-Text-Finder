@@ -6,7 +6,6 @@
 package BinaryTree;
 
 import LinkedList.LinkedList;
-import Logic.Document;
 import Logic.DocumentIndex;
 
 /**
