@@ -161,7 +161,7 @@ public class TextFinderFXMLController implements Initializable {
             
             vboxLib.getChildren().add(newDoc);
         }    
-        library.printTree();
+        
     }
     /**
      * Evento para mostrar los resultados de la bï¿½ï¿½usqueda de palabras o frases
@@ -176,18 +176,15 @@ public class TextFinderFXMLController implements Initializable {
         sentencePositions = new LinkedList<Integer>();
         String searched = searchText.getText();
         
-        System.out.println(searched+ "--> Esto fue lo que se busco");
+        
         if (!sentenceSearched){
-            System.out.println("por palabras");
+            
             String[] sentence = searched.split(" ");
-            System.out.println(Arrays.toString(sentence));
+            
             for(String word : sentence){
-                //word =Document.deletePunctuationMarks(word, word.length());
                 LinkedList<Document> newDocsFound = library.listOfDocs(word);
-                System.out.println(word+ "--> Esto fue lo que se mando a buscar");
-                //showResults(newDocsFound);
+                
                 if(newDocsFound != null){
-                    //showResults(newDocsFound);
                     docsFound.mergeLinkedList(newDocsFound);
                     
                 }
@@ -196,7 +193,7 @@ public class TextFinderFXMLController implements Initializable {
                 docsFound = new LinkedList<>();
                 notFoundEx();
             }else{
-                System.out.println(Arrays.toString(FileSorter.toArray(docsFound)));
+                
                 docsFound.deleteReapeatedData();
                 showResults(docsFound);
             }
@@ -206,7 +203,6 @@ public class TextFinderFXMLController implements Initializable {
             showResults(docsFound);
         }
         
-        //showResults();
     }
     /**
      * Funciï¿½n que busca resultados si es una oraciï¿½n
@@ -214,33 +210,24 @@ public class TextFinderFXMLController implements Initializable {
      */
     private void searchBySentence(String word){
             String[] sentence = word.split(" ");
-            System.out.println("Es oracion");
+            
             LinkedList<DocumentIndex> tempDocs = library.listOfIndxDocs(sentence[0]);
             if (tempDocs!=null){
-                System.out.println("Esta la primera palabra");
                 Node<DocumentIndex> currentDocIndx = tempDocs.getHead();
                 while (currentDocIndx.getNext() != null){
                     Document currentDoc = currentDocIndx.getData().getDoc();
                     if (currentDoc.containsSentence(sentence,currentDocIndx.getData().getPosition())){
                         docsFound.insertFirst(currentDoc);
-                        System.out.println("doc insertado");
                         sentencePositions.insertFirst(currentDoc.getSentenceIndx());
-                        //System.out.println((currentDoc.getTexto().contains(word))+word+"si esta!");
+                        
                     }
                     currentDocIndx = currentDocIndx.getNext();
                 }
                 Document currentDoc = currentDocIndx.getData().getDoc();
                 if (currentDoc.containsSentence(sentence,currentDocIndx.getData().getPosition())){
-                    System.out.println("doc insertado");
                     docsFound.insertFirst(currentDoc);
-                    //sentencePositions.insertFirst(currentDoc.getSentenceIndx());
-                    //System.out.println((currentDoc.getTexto().contains(word))+word+"si esta!");
-                }//else{
-                    //System.out.println("No hay oraciones coindicentes");
-                    //notFoundEx();
-                //}
+                }
             }else{
-                System.out.println("No estï¿½ ni la primera palabra");
                 notFoundEx();
             }
         
@@ -249,7 +236,6 @@ public class TextFinderFXMLController implements Initializable {
      * En caso de que no se encuentren resultados en el ï¿½rbol
      */  
     private void notFoundEx(){
-        //docsFound = new LinkedList<Document>();
         resultText.getChildren().clear();
         Text notFound = new Text("No results found");
         resultText.getChildren().add(notFound);
@@ -264,14 +250,10 @@ public class TextFinderFXMLController implements Initializable {
         String searched = searchText.getText();
         String[] sentence = searched.split(" ");
         if (docsFound.getHead() != null){
-        //results = docsFound;
         results = FileSorter.sortDocumentsBy(docsFound, sortCriterion);
-        //resultText.getChildren().clear();
         for (int i=0; i < results.getSize(); i++){
             Document currentDoc = results.serchByIndex(i).getData();
-            //System.out.println(searchText.getText().serchByIndex(0).getData()+"esta es searched text");
             if (sentenceSearched){
-                //currentDoc.containsSentence(sentence,sentencePositions);
                 firstPos = currentDoc.getSentenceIndx();
                 createResultReference(currentDoc,firstPos,i,sentence.length);
             }
@@ -324,7 +306,6 @@ public class TextFinderFXMLController implements Initializable {
             if (sentenceSearched){
             for (int z=1 ; z < size;z++){
                 searchedFor += " "+currentDoc.getContent()[firstPos+z];
-                //searchedFor = searchText.getText();
             }
             }
             Text word= new Text(searchedFor);
@@ -406,13 +387,11 @@ public class TextFinderFXMLController implements Initializable {
                 if (t.getButton()== MouseButton.SECONDARY){
                     ContextMenu context = new ContextMenu();
                     MenuItem elim = new MenuItem("Delete file");
-                    MenuItem open = new MenuItem("Open file");
-                    MenuItem update = new MenuItem("Update file");
+                    MenuItem open = new MenuItem("Edit file");
                     elim.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent e) {
                         library.getLibrary().printList();
-                        System.out.println("Eliminï¿½ un documento");
                         doc.setText(null);
                         library.deleteDoc(doc);
                         System.out.println(" ");
@@ -437,40 +416,7 @@ public class TextFinderFXMLController implements Initializable {
                         }
                      });
                     
-                    update.setOnAction(new EventHandler<ActionEvent>() {
-                        @Override
-                        public void handle(ActionEvent e) {
-                        File toUpdate;    
-                        if (doc.getOrgFile().getAbsolutePath().equals(doc.getDesFile().getAbsolutePath())){
-                            toUpdate = Document.seekFile();
-                            String userDir = System.getProperty("user.dir");
-                            File file = new File(userDir + "\\src\\Library\\" + doc.getName());
-                            file.delete();
-                        }else{
-                        toUpdate = doc.getOrgFile();
-                        }
-                        
-                        library.getLibrary().printList();
-                        System.out.println("Eliminï¿½ un documento");
-                        doc.setText(null);
-                        library.deleteDoc(doc);
-                        System.out.println(" ");
-                        library.getLibrary().printList();
-                        //String userDir = System.getProperty("user.dir");
-                        //File file = new File(userDir + "\\src\\Library\\" + doc.getName());
-                        //file.delete();
-                        arrangeVBox();
-                        try {
-                                addDocument(toUpdate);
-                            } catch (IOException ex) {
-                                Logger.getLogger(TextFinderFXMLController.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        arrangeVBox();
-                        }
-                     });
-                    
-                    
-                    context.getItems().addAll(open,update,elim);
+                    context.getItems().addAll(open,elim);
                     doc.setContextMenu(context);
 
                 }
@@ -501,11 +447,7 @@ public class TextFinderFXMLController implements Initializable {
                 Document doc = (Document)results.serchByIndex(index).getData();
                 String word = searchText.getText();
                 LinkedList<Integer> allPositions= new LinkedList();
-                System.out.println("hola");
-                //if (!sentenceSearched){
-                    //sentence = searchText.getText().split(" ");
-                    //firstPos = (int)library.listOfPositions(doc, sentence[0]).serchByIndex(0).getData();
-                //}
+                
                 for (int i=0; i<doc.getContent().length; i++){
                     boolean equal = false;
                     Text space = new Text(" ");
@@ -555,7 +497,6 @@ public class TextFinderFXMLController implements Initializable {
                 }
                 String[] renglones=doc.getTexto().split("\n");
                 int pos= 0;
-                System.out.println(firstPos);
                 for(int j=0;j<renglones.length;j++){
                     
                     if (pos>=firstPos){
@@ -563,16 +504,11 @@ public class TextFinderFXMLController implements Initializable {
                         break;
                     }
                     pos+=renglones[j].split(" ").length-1;
-                    System.out.println(renglones[j]);
                 }
                
                 Double scrollPos = Double.valueOf(pos)/Double.valueOf(renglones.length);
-               
-                //viewText.heightProperty().addListener(observable -> scrollpane.setVvalue(scrollPos));
                 if(pos <10){
                     scrollpane.setVvalue(0);
-                    System.out.println("Esta en el renglon: ");
-                    System.out.println(pos);
                 }
                 else{
                     viewText.heightProperty().addListener(observable -> scrollpane.setVvalue(scrollPos));
@@ -592,6 +528,22 @@ public class TextFinderFXMLController implements Initializable {
         }
     
     }
+    /**
+     * Función para actualizar los documentos de la biblioteca en cambio que se haga un cambio externo
+     */
+    @FXML
+    public void update(){
+        
+        this.library=new Library();
+        vboxLib.getChildren().clear();
+        String userDir = System.getProperty("user.dir");
+        File thisLibrary = new File(userDir + "\\src\\Library");
+        try {
+            addToLibrary(thisLibrary);
+        } catch (IOException ex) {
+            Logger.getLogger(TextFinderFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -607,8 +559,12 @@ public class TextFinderFXMLController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(TextFinderFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //Image img = new Image("GUI/CSS and aesthetics/templateD.jpg");
-        //BackgroundImage bc = new BackgroundImage(img,BackgroundRepeat.REPEAT,BackgroundRepeat.REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT);
-        //viewText.setBackground(new Background(bc));
+        
+        try {
+            addToLibrary(thisLibrary);
+        } catch (IOException ex) {
+            Logger.getLogger(TextFinderFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     } 
 }

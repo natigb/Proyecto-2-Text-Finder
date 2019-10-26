@@ -47,7 +47,6 @@ public class Document extends Label{
         
         this.text = content;
         this.content = divByWord(content);
-        //this.content = content.split(" ");
         this.name = name;
         this.date = date;
         this.size = size;
@@ -85,7 +84,6 @@ public class Document extends Label{
      */
     private void copyFile(File source, File dest, String extension) throws IOException {
         Files.copy(source.toPath(), dest.toPath(),REPLACE_EXISTING);
-        //Object sourceMod = null;
         String docText = null;
         UniversalReader UR = new UniversalReader();
         if ("txt".equals(extension)){
@@ -133,7 +131,6 @@ public class Document extends Label{
             words[i] = word;
             i++;
         }
-        System.out.println(Arrays.toString(words));
         return words;
     }
     /**

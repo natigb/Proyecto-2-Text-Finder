@@ -64,6 +64,7 @@
                   <Button fx:id="searchButton" layoutX="762.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#searchAction" text="Search" />
                   <RadioButton fx:id="byWord" layoutX="851.0" layoutY="26.0" mnemonicParsing="false" onAction="#byWord" text="Search each word" />
                   <RadioButton fx:id="bySentence" layoutX="851.0" layoutY="5.0" mnemonicParsing="false" onAction="#bySentence" text="Search as sentece" />
+                  <Button layoutX="6.0" layoutY="7.0" mnemonicParsing="false" onAction="#update" prefHeight="37.0" prefWidth="55.0" text="Update" />
                </children>
             </AnchorPane>
             <AnchorPane>

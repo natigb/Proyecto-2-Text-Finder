@@ -105,7 +105,7 @@ public class BSTree {
                 find(key).searchDocByName(doc.getDoc().getName()).addPosition(position);
             }
 
-            System.out.println("La llave ya existe");
+            
         }
     }
 
@@ -293,7 +293,7 @@ public class BSTree {
     private String findMinAux(Node root) {
         return root.left == null ? root.key : findMinAux(root.left);
     }
-
+    
     /**
      * Función para comparar 2 strings
      *
