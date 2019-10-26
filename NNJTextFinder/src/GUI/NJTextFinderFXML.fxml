@@ -55,22 +55,22 @@
         <items>
           <AnchorPane maxHeight="80.0" SplitPane.resizableWithParent="false">
                <children>
-                  <ImageView fx:id="icon" fitHeight="37.0" fitWidth="30.0" layoutX="342.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="342.0" AnchorPane.rightAnchor="767.3333333333333" AnchorPane.topAnchor="10.0">
+                  <ImageView fx:id="icon" fitHeight="47.0" fitWidth="41.0" layoutX="328.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="328.0" AnchorPane.rightAnchor="757.0" AnchorPane.topAnchor="10.0">
                      <image>
                         <Image url="@../res/icon.png" />
                      </image>
                   </ImageView>
                   <TextField fx:id="searchText" layoutX="372.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="380.0" promptText="Search for words or phrases" />
-                  <Button fx:id="searchButton" layoutX="762.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#searchAction" text="Search" />
-                  <RadioButton fx:id="byWord" layoutX="851.0" layoutY="26.0" mnemonicParsing="false" onAction="#byWord" text="Search each word" />
-                  <RadioButton fx:id="bySentence" layoutX="851.0" layoutY="5.0" mnemonicParsing="false" onAction="#bySentence" text="Search as sentece" />
+                  <Button fx:id="searchButton" layoutX="762.0" layoutY="7.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#searchAction" text="Search" />
+                  <RadioButton fx:id="byWord" layoutX="851.0" layoutY="34.0" mnemonicParsing="false" onAction="#byWord" text="Search each word" />
+                  <RadioButton fx:id="bySentence" layoutX="851.0" layoutY="1.0" mnemonicParsing="false" onAction="#bySentence" text="Search as sentece" />
                </children>
             </AnchorPane>
             <AnchorPane>
                <children>
-                <SplitPane dividerPositions="0.15035169988276673, 0.7236225087924971" focusTraversable="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <SplitPane dividerPositions="0.1708185053380783, 0.7580071174377224" focusTraversable="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                   <items>
-                    <AnchorPane SplitPane.resizableWithParent="false">
+                    <AnchorPane prefHeight="497.0" prefWidth="171.0" SplitPane.resizableWithParent="false">
                       <children>
                         <Label alignment="CENTER" layoutY="14.0" minWidth="60.0" prefHeight="27.0" prefWidth="80.0" style="&#10;" text="Library" textAlignment="CENTER" wrapText="false">
                           <font>
@@ -80,19 +80,19 @@
                             <Color blue="0.624" green="0.624" red="0.624" fx:id="x2" />
                           </textFill>
                         </Label>
-                              <ScrollPane layoutY="44.0" prefHeight="541.0" prefWidth="170.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="44.0">
+                              <ScrollPane layoutY="60.0" prefHeight="437.0" prefWidth="188.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
                                  <content>
                                     <VBox fx:id="vboxLib" prefHeight="546.0" prefWidth="283.0" />
                                  </content>
                               </ScrollPane>
-                              <Button fx:id="addFile" layoutX="84.0" layoutY="15.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Add File" />
+                              <Button fx:id="addFile" layoutX="80.0" layoutY="4.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="47.0" prefWidth="98.0" text="Add File" />
                       </children>
                     </AnchorPane>
                   <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="694.0" prefWidth="735.0">
                            <children>
                               <ScrollPane fx:id="scrollpane" pannable="true" prefHeight="523.0" prefWidth="646.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <content>
-                                    <TextFlow fx:id="viewText" prefHeight="557.0" prefWidth="813.0" textAlignment="JUSTIFY" />
+                                    <TextFlow fx:id="viewText" prefHeight="557.0" prefWidth="630.0" textAlignment="JUSTIFY" />
                                  </content>
                               </ScrollPane>
                            </children>
@@ -100,12 +100,12 @@
                     <AnchorPane prefHeight="585.0" prefWidth="209.0" SplitPane.resizableWithParent="false">
                       <children>
                         <Label alignment="CENTER" font="$x1" layoutX="7.0" layoutY="14.0" style="&#10;" text="Results" textAlignment="CENTER" textFill="$x2" wrapText="false" />
-                              <ScrollPane layoutY="44.0" prefHeight="541.0" prefWidth="211.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="44.0">
+                              <ScrollPane layoutY="54.0" prefHeight="443.0" prefWidth="268.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="54.0">
                                  <content>
-                                    <VBox fx:id="resultText" prefHeight="553.0" prefWidth="289.0" />
+                                    <VBox fx:id="resultText" prefHeight="547.0" prefWidth="289.0" />
                                  </content>
                               </ScrollPane>
-                              <MenuButton fx:id="sortChoice" layoutX="95.0" layoutY="15.0" mnemonicParsing="false" text="Sort by:">
+                              <MenuButton fx:id="sortChoice" layoutX="134.0" layoutY="9.0" mnemonicParsing="false" text="Sort by:">
                                 <items>
                                     <MenuItem mnemonicParsing="false" onAction="#nameSort" text="Name" />
                                   <MenuItem mnemonicParsing="false" onAction="#sizeSort" text="Size" />

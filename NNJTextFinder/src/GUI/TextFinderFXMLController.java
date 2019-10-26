@@ -329,7 +329,7 @@ public class TextFinderFXMLController implements Initializable {
             }
             Text word= new Text(searchedFor);
             word.setFont(new Font("Arial",15));
-            word.setFill(Color.web("blue", 0.8));
+            word.setFill(Color.web("#eb4034", 0.8));
             Text beforeContxt = new Text("..."+bfContext);
             Text afterContxt = new Text(" "+atContext+"...");
             beforeContxt.setFill(Color.web("white", 0.8));
@@ -508,19 +508,20 @@ public class TextFinderFXMLController implements Initializable {
                 //}
                 for (int i=0; i<doc.getContent().length; i++){
                     boolean equal = false;
+                    boolean paint = false;
                     Text space = new Text(" ");
                     
                     if (word.contains("")){
                         sentence = word.split(" ");
                     }
                     Text words = new Text(doc.getTexto().split(" ")[i]);
-                    words.setFont(new Font("Arial",14));
+                    //words.setFont(new Font("Arial",14));
                     words.setFill(Color.web("white", 0.8));
                     if (!sentenceSearched){
                        for (int j=0;j<sentence.length;j++){
                                 if(BSTree.comparar(sentence[j],doc.getContent()[i])==0){
-                                    words.setFill(Color.web("blue", 1));
-                                    words.setFont(new Font("Arial",14)); 
+                                    words.setFill(Color.web("#eb4034", 1));
+                                    //words.setFont(new Font("Arial",14)); 
                                     break;
                                 }
                         }
@@ -541,8 +542,9 @@ public class TextFinderFXMLController implements Initializable {
                                 for(int k=0; k<sentence.length;k++){
                                     words = new Text(doc.getContent()[i+k]);
                                     space = new Text(" ");
-                                    words.setFill(Color.web("blue", 1));
-                                    words.setFont(new Font("Arial",14));    
+                                    words.setFill(Color.web("#eb4034", 1));
+                                    paint = true;
+                                    //words.setFont(new Font("Arial",14));    
                                     viewText.getChildren().addAll(words,space);
                                 }
                                 i+=sentence.length-1;
@@ -550,6 +552,8 @@ public class TextFinderFXMLController implements Initializable {
                         }
                     }
                     if(!equal){
+                        
+                        //words.setFont(new Font("Arial",14));
                         viewText.getChildren().addAll(words,space);
                     }
                 }
